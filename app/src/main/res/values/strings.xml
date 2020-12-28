@@ -7,4 +7,14 @@
     <string name="btnHighscore">Bestenliste</string>
     <string name="btnAbout">Über Uns</string>
     <string name="btnQuit">Beenden</string>
+    <string name="btnMenu">Hauptmenü</string>
+    <string name="btnA">Antwort A</string>
+    <string name="btnB">Antwort B</string>
+    <string name="btnC">Antwort C</string>
+    <string name="btnD">Antwort D</string>
+
+    //TextViews
+    <string name="tvQuestion">erste Frage</string>
+    <string name="tvScore">Score: 0</string>
+    <string name="tvTimer">Timer: 60</string>
 </resources>
