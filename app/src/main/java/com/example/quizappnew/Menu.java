@@ -11,6 +11,7 @@ public class Menu extends AppCompatActivity {
 
     Button buttonPlay;
     Button buttonHighscore;
+    Button buttonQuit;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,5 +35,15 @@ public class Menu extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        buttonQuit = (Button) findViewById(R.id.btnQuit);
+        buttonQuit.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                finish();
+                System.exit(0);
+            }
+        });
+
     }
 }
