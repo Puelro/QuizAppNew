@@ -22,4 +22,5 @@
     <string name="tvQuestion">erste Frage</string>
     <string name="tvScore">Score: 0</string>
     <string name="tvTimer">Timer: 60</string>
+    <string name="tvStreak">streak: 0</string>
 </resources>

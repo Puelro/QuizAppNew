@@ -15,14 +15,15 @@
             android:id="@+id/tvScore"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:text="@string/tvScore" />
 
-        <Button
-            android:id="@+id/btnMenu"
+        <TextView
+            android:id="@+id/tvStreak"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/btnMenu" />
+            android:text="@string/tvStreak" />
 
         <TextView
             android:id="@+id/tvTimer"
@@ -35,7 +36,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical">
 
         <TextView
@@ -91,5 +92,13 @@
 
         </RadioGroup>
 
+        <Button
+            android:id="@+id/btnMenu"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:text="@string/btnMenu" />
+
     </LinearLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

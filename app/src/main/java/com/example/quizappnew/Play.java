@@ -20,6 +20,8 @@ public class Play extends AppCompatActivity {
         buttonMenu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                finish();
+                System.exit(0);
                 Intent intent = new Intent(Play.this,Menu.class);
                 startActivity(intent);
             }
