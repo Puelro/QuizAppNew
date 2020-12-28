@@ -1,6 +1,11 @@
 <resources>
     <string name="app_name">QuizAppNew</string>
 
+    //Headlines
+    <string name="hdlHighscoe">Highscore</string>
+
+    //RecyclerViews
+
     //Buttons
     <string name="btnPlay">Spielen</string>
     <string name="btnOption">Optionen</string>
