@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">QuizAppNew</string>
+
+    //Buttons
+    <string name="btnPlay">Spielen</string>
+    <string name="btnOption">Optionen</string>
+    <string name="btnHighscore">Bestenliste</string>
+    <string name="btnAbout">Über Uns</string>
+    <string name="btnQuit">Beenden</string>
+</resources>
