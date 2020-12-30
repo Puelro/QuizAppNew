@@ -23,4 +23,5 @@
     <string name="tvScore">Score: 0</string>
     <string name="tvTimer">Timer: 60</string>
     <string name="tvStreak">streak: 0</string>
+    <string name="tvFinalScore">final Score: 0</string>
 </resources>

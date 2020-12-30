@@ -6,10 +6,13 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.os.CountDownTimer;
+import android.widget.TextView;
 
 public class Play extends AppCompatActivity {
 
     Button buttonMenu;
+    TextView timer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,12 +23,22 @@ public class Play extends AppCompatActivity {
         buttonMenu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                finish();
-                System.exit(0);
                 Intent intent = new Intent(Play.this,Menu.class);
                 startActivity(intent);
             }
         });
+
+        timer = findViewById(R.id.tvTimer);
+        new CountDownTimer(60000, 1000) {
+
+            public void onTick(long millisUntilFinished) {
+                timer.setText("Timer: " + millisUntilFinished / 1000);
+            }
+            public void onFinish() {
+                Intent intent = new Intent(Play.this,Score.class);
+                startActivity(intent);
+            }
+        }.start();
 
     }
 }

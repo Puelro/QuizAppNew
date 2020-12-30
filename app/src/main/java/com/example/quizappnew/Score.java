@@ -7,20 +7,20 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-public class Highscore extends AppCompatActivity {
+public class Score extends AppCompatActivity {
 
-    Button buttonMenu;
+    Button buttonHighscore;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_highscore);
+        setContentView(R.layout.activity_score);
 
-        buttonMenu = findViewById(R.id.btnMenu);
-        buttonMenu.setOnClickListener(new View.OnClickListener() {
+        buttonHighscore = findViewById(R.id.btnFinalScore);
+        buttonHighscore.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(Highscore.this,Menu.class);
+                Intent intent = new Intent(Score.this,Highscore.class);
                 startActivity(intent);
             }
         });
