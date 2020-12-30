@@ -12,6 +12,7 @@ import android.widget.TextView;
 public class Play extends AppCompatActivity {
 
     Button buttonMenu;
+    Button buttonJoker1;
     TextView timer;
 
     @Override
@@ -39,6 +40,14 @@ public class Play extends AppCompatActivity {
                 startActivity(intent);
             }
         }.start();
+
+        buttonJoker1 = findViewById(R.id.btnJoker);
+        buttonJoker1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
 
     }
 }

@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#34495E"
     tools:context=".Menu">
 
     <LinearLayout
@@ -15,25 +16,29 @@
             android:id="@+id/btnPlay"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/btnPlay" />
+            android:text="@string/btnPlay"
+            app:backgroundTint="#F29111" />
 
         <Button
             android:id="@+id/btnOption"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/btnOption" />
+            android:text="@string/btnOption"
+            app:backgroundTint="#F29111" />
 
         <Button
             android:id="@+id/btnHighscore"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/btnHighscore" />
+            android:text="@string/btnHighscore"
+            app:backgroundTint="#F29111" />
 
         <Button
             android:id="@+id/btnQuit"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/btnQuit" />
+            android:text="@string/btnQuit"
+            app:backgroundTint="#F29111" />
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#34495E"
     tools:context=".Score">
 
     <LinearLayout
@@ -15,12 +16,15 @@
             android:id="@+id/tvFinalScore"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/tvFinalScore" />
+            android:text="@string/tvFinalScore"
+            android:textColor="#FFFFFF"
+            android:textSize="20sp" />
 
         <Button
             android:id="@+id/btnFinalScore"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/btnHighscore" />
+            android:text="@string/btnHighscore"
+            app:backgroundTint="#F29111" />
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
