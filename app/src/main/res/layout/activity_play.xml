@@ -14,35 +14,53 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="80dp"
             android:orientation="horizontal">
 
-            <TextView
-                android:id="@+id/tvScore"
+            <Button
+                android:id="@+id/btnJoker"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="@string/tvScore"
-                android:textColor="#FFFFFF"
-                android:textSize="20sp" />
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="20dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginRight="10dp"
+                android:text="@string/btnJoker"
+                app:backgroundTint="#F29111" />
 
-            <TextView
-                android:id="@+id/tvStreak"
+            <Button
+                android:id="@+id/btnJoker2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="@string/tvStreak"
-                android:textColor="#FFFFFF"
-                android:textSize="20sp" />
+                android:layout_gravity="center_vertical"
+                android:text="@string/btnJoker2"
+                app:backgroundTint="#F29111" />
 
             <TextView
                 android:id="@+id/tvTimer"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="1"
+                android:gravity="center_horizontal"
+                android:text="@string/tvTimer"
+                android:textAlignment="center"
+                android:textColor="#FFFFFF"
+                android:textSize="30sp"
+                app:drawableTopCompat="@drawable/ic_baseline_timer_24" />
+
+            <Button
+                android:id="@+id/btnMenu"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="@string/tvTimer"
-                android:textColor="#FFFFFF"
-                android:textSize="20sp" />
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="60dp"
+                android:layout_marginLeft="60dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginRight="20dp"
+                android:text="@string/btnMenu"
+                app:backgroundTint="#F29111" />
 
         </LinearLayout>
 
@@ -51,30 +69,40 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
-            <Button
-                android:id="@+id/btnJoker"
+            <TextView
+                android:id="@+id/tvStreak"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/btnJoker"
-                app:backgroundTint="#F29111" />
+                android:layout_marginStart="30dp"
+                android:layout_marginLeft="30dp"
+                android:layout_marginTop="220dp"
+                android:text="@string/tvStreak"
+                android:textColor="#FFFFFF"
+                android:textSize="50sp" />
 
-            <Button
-                android:id="@+id/btnJoker2"
-                android:layout_width="wrap_content"
+            <TextView
+                android:id="@+id/tvScore"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="@string/btnJoker2"
-                app:backgroundTint="#F29111" />
+                android:layout_marginStart="30dp"
+                android:layout_marginLeft="30dp"
+                android:layout_marginBottom="10dp"
+                android:layout_weight="0.2"
+                android:text="@string/tvScore"
+                android:textColor="#FFFFFF"
+                android:textSize="40sp" />
 
-            <Button
-                android:id="@+id/btnMenu"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="640dp"
-                android:layout_marginLeft="640dp"
-                android:text="@string/btnMenu"
-                app:backgroundTint="#F29111" />
+            <ProgressBar
+                android:id="@+id/vertical_progressbar"
+                style="@style/Widget.ProgressBar.Vertical"
+                android:layout_width="12dip"
+                android:layout_height="200dip"
+                android:layout_marginTop="155dp"
+                android:layout_marginEnd="35dp"
+                android:layout_marginRight="35dp" />
 
         </LinearLayout>
+
     </LinearLayout>
 
     <LinearLayout
@@ -86,61 +114,116 @@
             android:id="@+id/tvQuestion"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="50dp"
+            android:layout_marginStart="90dp"
+            android:layout_marginLeft="90dp"
+            android:layout_marginTop="180dp"
+            android:layout_marginEnd="90dp"
+            android:layout_marginRight="90dp"
             android:gravity="center_horizontal"
             android:text="@string/tvQuestion"
             android:textColor="#FFFFFF"
-            android:textSize="30sp" />
+            android:textSize="30sp"
+            app:autoSizeTextType="uniform"/>
 
         <RadioGroup
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp">
 
-            <LinearLayout
+            <Button
+                android:id="@+id/btnA"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:layout_height="match_parent"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginLeft="90dp"
+                android:layout_marginRight="90dp"
+                android:layout_weight="1"
+                android:text="@string/btnA"
+                android:backgroundTint="@color/button_background_color_correct"
+                app:autoSizeTextType="uniform"
+                app:backgroundTint="#5D6D7E" />
 
-                <Button
-                    android:id="@+id/btnA"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="@string/btnA"
-                    app:backgroundTint="#5D6D7E" />
-
-                <Button
-                    android:id="@+id/btnB"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="@string/btnB"
-                    app:backgroundTint="#5D6D7E" />
-            </LinearLayout>
-
-            <LinearLayout
+            <Button
+                android:id="@+id/btnB"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:layout_height="match_parent"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginLeft="90dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginRight="90dp"
+                android:layout_weight="1"
+                android:text="@string/btnB"
+                android:backgroundTint="@color/button_background_color_wrong"
+                app:autoSizeTextType="uniform"
+                app:backgroundTint="#5D6D7E" />
 
-                <Button
-                    android:id="@+id/btnC"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="@string/btnC"
-                    app:backgroundTint="#5D6D7E" />
+            <Button
+                android:id="@+id/btnC"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginLeft="90dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginRight="90dp"
+                android:layout_weight="1"
+                android:text="@string/btnC"
+                android:backgroundTint="@color/button_background_color_wrong"
+                app:autoSizeTextType="uniform"
+                app:backgroundTint="#5D6D7E" />
 
-                <Button
-                    android:id="@+id/btnD"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="@string/btnD"
-                    app:backgroundTint="#5D6D7E" />
-            </LinearLayout>
+            <Button
+                android:id="@+id/btnD"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginLeft="90dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginRight="90dp"
+                android:layout_weight="1"
+                android:text="@string/btnD"
+                android:backgroundTint="@color/button_background_color_wrong"
+                app:autoSizeTextType="uniform"
+                app:backgroundTint="#5D6D7E" />
 
         </RadioGroup>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        tools:layout_editor_absoluteY="439dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/tvPoints"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:layout_marginStart="185dp"
+                android:layout_marginLeft="185dp"
+                android:layout_marginTop="50dp"
+                android:rotation="340"
+                android:text="@string/tvPoints"
+                android:textColor="#F29111"
+                android:textSize="50sp" />
+
+            <TextView
+                android:id="@+id/tvMissing"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="614dp"
+                android:layout_marginLeft="614dp"
+                android:layout_marginTop="190dp"
+                android:text="@string/tvMissing"
+                android:textColor="#FFFFFF"
+                android:textSize="30sp" />
+        </LinearLayout>
 
     </LinearLayout>
 

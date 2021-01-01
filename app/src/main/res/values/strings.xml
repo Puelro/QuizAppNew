@@ -21,9 +21,15 @@
     <string name="btnJoker2">Streak</string>
 
     //TextViews
+    <string name="tvGameName">Spiel_Name</string>
+    <string name="tvMenu">Hauptmenü</string>
     <string name="tvQuestion">erste Frage</string>
     <string name="tvScore">Score: 0</string>
-    <string name="tvTimer">Timer: 60</string>
-    <string name="tvStreak">Streak: 0</string>
-    <string name="tvFinalScore">final Score: 0</string>
+    <string name="tvTimer">60</string>
+    <string name="tvStreak">0</string>
+    <string name="tvFinalScore">Endpunktestand: 0</string>
+    <string name="tvPoints">+300</string>
+    <string name="tvMissing">0</string>
+    <string name="tvMaxStreak">höchste Streak: 0</string>
+    <string name="tvResetTimes">Timer zurückgesetzt: 0 mal</string>
 </resources>
