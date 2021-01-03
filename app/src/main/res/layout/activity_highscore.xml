@@ -21,14 +21,14 @@
         android:layout_width="181dp"
         android:layout_height="198dp"
         android:layout_marginBottom="28dp"
-        app:layout_constraintBottom_toTopOf="@+id/btnMenu"
+        app:layout_constraintBottom_toTopOf="@+id/btnMenuDatabase"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/hdlHighscore"
         app:layout_constraintVertical_bias="1.0" />
 
     <Button
-        android:id="@+id/btnMenu"
+        android:id="@+id/btnMenuDatabase"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="32dp"

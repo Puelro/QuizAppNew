@@ -17,9 +17,13 @@
     <string name="btnB">Antwort B</string>
     <string name="btnC">Antwort C</string>
     <string name="btnD">Antwort D</string>
+    <string name="btnAddQuestion">ADD</string>
 
     //TextViews
     <string name="tvQuestion">erste Frage</string>
     <string name="tvScore">Score: 0</string>
     <string name="tvTimer">Timer: 60</string>
+    <string name="tvStreak">streak: 0</string>
+    <string name="etxtAntworttext1">Antworttext1</string>
+    <string name="tvID">ID (automatisch)</string>
 </resources>
