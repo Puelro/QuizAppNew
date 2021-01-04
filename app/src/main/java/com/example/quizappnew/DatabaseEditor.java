@@ -27,7 +27,6 @@ public class DatabaseEditor extends AppCompatActivity {
 
     Button buttonAddQuestion;
     Button buttonDropQuestion;
-    Button buttonDropHighscore;
     Button buttonDelete;
     Button buttonMenu;
 
@@ -52,34 +51,51 @@ public class DatabaseEditor extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_database_editor);
 
-        // bind the EditText-Field to the EditText-Objects
-
-        category = findViewById(R.id.etxtDatabaseCategory);
-        difficulty = findViewById(R.id.etxtDatabaseDifficulty);
-        questionText = findViewById(R.id.etxtDatabaseQuestiontext);
-
-        answerText1 = findViewById(R.id.etxtDatabaseAnswerText1);
-        boolean1 = findViewById(R.id.etxtDatabaseBoolean1);
-        answerText2 = findViewById(R.id.etxtDatabaseAnswerText2);
-        boolean2 = findViewById(R.id.etxtDatabaseBoolean2);
-        answerText3 = findViewById(R.id.etxtDatabaseAnswerText3);
-        boolean3 = findViewById(R.id.etxtDatabaseBoolean3);
-        answerText4 = findViewById(R.id.etxtDatabaseAnswerText4);
-        boolean4 = findViewById(R.id.etxtDatabaseBoolean4);
+        //
 
         appDatabase = AppDatabase.getInstance(this);
         db = appDatabase.getReadableDatabase();
 
+        // bind the EditText-Fields to the EditText-Objects
+
+
+        bindEditTextFields();
+
+
+        //
+
         RecyclerView recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+        //
 
         adapter = new QuestionAdapter(this, appDatabase.getQuestionListContents());
         recyclerView.setAdapter(adapter);
 
+
+        /*
+         *
+         */
         buttonAddQuestion =  findViewById(R.id.btnAddQuestion);
         buttonAddQuestion.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                ContentValues cv = putAllEditTextValuesInAContentValuesAndReturnIt();
+
+                appDatabase.addQuestion(db, cv);
+
+                Log.d("cv Cursor auslesen: ", "onClick(AddQuestion): " + cv.toString());
+
+                clearAllEditTextFields();
+
+                adapter.swapCursor(appDatabase.getQuestionListContents());
+            }
+
+            /*
+            HELPERCLASS
+             */
+            private ContentValues putAllEditTextValuesInAContentValuesAndReturnIt() {
                 ContentValues cv = new ContentValues();
 
                 cv.put(QuestionEntry.COLUMN_CATEGORY, category.getText().toString());
@@ -94,11 +110,13 @@ public class DatabaseEditor extends AppCompatActivity {
                 cv.put(QuestionEntry.COLUMN_ANSWERTEXT4, answerText4.getText().toString());
                 cv.put(QuestionEntry.COLUMN_BOOLEAN4, Integer.parseInt(boolean4.getText().toString()));
 
+                return cv;
+            }
 
-                appDatabase.addItem(db, cv);
-
-                Log.d("cv Cursor auslesen: ", "onClick(AddQuestion): " + cv.toString());
-
+            /*
+            HELPERCLASS
+             */
+            private void clearAllEditTextFields() {
                 category.getText().clear();
                 difficulty.getText().clear();
                 questionText.getText().clear();
@@ -111,50 +129,58 @@ public class DatabaseEditor extends AppCompatActivity {
                 boolean3.getText().clear();
                 answerText4.getText().clear();
                 boolean4.getText().clear();
-
-                adapter.swapCursor(appDatabase.getQuestionListContents());
             }
+
         });
 
         buttonDropQuestion =  findViewById(R.id.btnDropQuestion);
-        buttonDropQuestion.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                createDropDialog();
-            }
-        });
+        buttonDropQuestion.setOnClickListener(v -> createDropDialog());
 
         buttonMenu =  findViewById(R.id.btnMenuDatabase);
-        buttonMenu.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-                Intent intent = new Intent(DatabaseEditor.this, Menu.class);
-                startActivity(intent);
-            }
+        buttonMenu.setOnClickListener(v -> {
+            finish();
+            Intent intent = new Intent(DatabaseEditor.this, Menu.class);
+            startActivity(intent);
         });
 
 
 
     } // end onCreate()
 
+    private void bindEditTextFields() {
+        category = findViewById(R.id.etxtDatabaseCategory);
+        difficulty = findViewById(R.id.etxtDatabaseDifficulty);
+        questionText = findViewById(R.id.etxtDatabaseQuestiontext);
+
+        answerText1 = findViewById(R.id.etxtDatabaseAnswerText1);
+        boolean1 = findViewById(R.id.etxtDatabaseBoolean1);
+        answerText2 = findViewById(R.id.etxtDatabaseAnswerText2);
+        boolean2 = findViewById(R.id.etxtDatabaseBoolean2);
+        answerText3 = findViewById(R.id.etxtDatabaseAnswerText3);
+        boolean3 = findViewById(R.id.etxtDatabaseBoolean3);
+        answerText4 = findViewById(R.id.etxtDatabaseAnswerText4);
+        boolean4 = findViewById(R.id.etxtDatabaseBoolean4);
+    }
+
+
+    //
     private void createDropDialog(){
         AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
         alertDialog.setMessage("Are you sure you want to Drop the Table ?");
         alertDialog.setCancelable(false);
 
+        alertDialog.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                appDatabase.dropAndRecreateTableQuestion(db);
+                adapter.swapCursor(appDatabase.getQuestionListContents());
+            }
+        });
+
         alertDialog.setNegativeButton("No", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 //Nothing
-            }
-        });
-
-        alertDialog.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                appDatabase.dropTableQuestion(db);
-                adapter.swapCursor(appDatabase.getQuestionListContents());
             }
         });
 

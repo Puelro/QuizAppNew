@@ -19,105 +19,21 @@ public class AppDatabase extends SQLiteOpenHelper {
     // Implement AppDatabase as a Singleton
     private static AppDatabase instance = null;
 
+    /**
+     *  AppDatabase-Constructor
+     * @param context The context
+     */
     private AppDatabase(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
         Log.d(TAG, "AppDatabase : constructor");
     }
 
-    /**
-     * Get an instance of the app's singleton database helper object
-     * @param context the content providers context.
-     * @return a SQLlite database helper object
-     */
-    public static AppDatabase getInstance(Context context){
-        if(instance == null){
-            Log.d(TAG, "getInstance: creating new instance");
-            instance = new AppDatabase(context);
-        }
-
-        return instance;
-    }
-
-    public void removeItem(SQLiteDatabase db, long _id){
-        db.delete(QuestionEntry.TABLE_NAME, QuestionEntry._ID + "=" + _id, null);
-    }
-
-    public void addItem(SQLiteDatabase db, ContentValues cv){
-
-        long result = db.insert(QuestionContract.QuestionEntry.TABLE_NAME, null, cv);
-
-        if(result == -1){
-            Log.d(TAG, "addQuestion: Error, Data-Set couldn't be added!");
-        }
-    }
-
-    public void dropTableHighscore(SQLiteDatabase db){
-        db.execSQL("DROP TABLE IF EXISTS HIGHSCORE;");
-
-        String sSQL =   "CREATE TABLE IF NOT EXISTS" + "HIGHSCORE" + " ("
-                + "ID INTEGER PRIMARY KEY, "
-                + "NAME TEXT NOT NULL, "
-                + "SCORE NUMBER NOT NULL)";
-        Log.d(TAG, "onCreate: " + sSQL);
-    }
-
-    public Cursor getQuestionListContents(){
-        SQLiteDatabase db = this.getWritableDatabase();
-        Cursor data =  db.rawQuery("SELECT * FROM " + QuestionContract.QuestionEntry.TABLE_NAME, null);
-
-        Log.d(TAG, "getQuestionListContents: Cursorcontent: " + DatabaseUtils.dumpCursorToString(data) );
-        return data;
-    }
-
-    public void dropTableQuestion(SQLiteDatabase db){
-        db.execSQL( "DROP TABLE IF EXISTS " + QuestionContract.QuestionEntry.TABLE_NAME + ";");
-
-        String sSQL =   "CREATE TABLE IF NOT EXISTS "
-                + QuestionContract.QuestionEntry.TABLE_NAME + " ("
-                + QuestionContract.QuestionEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
-                + QuestionContract.QuestionEntry.COLUMN_CATEGORY + " TEXT NOT NULL, "
-                + QuestionContract.QuestionEntry.COLUMN_DIFFICULTY + " INTEGER NOT NULL, "
-                + QuestionContract.QuestionEntry.COLUMN_QUESTIONTEXT+ " TEXT NOT NULL, "
-                + QuestionContract.QuestionEntry .COLUMN_ANSWERTEXT1 + " TEXT NOT NULL, "
-                + QuestionContract.QuestionEntry.COLUMN_BOOLEAN1 + " BIT NOT NULL, "
-                + QuestionContract.QuestionEntry .COLUMN_ANSWERTEXT2 + " TEXT NOT NULL, "
-                + QuestionContract.QuestionEntry.COLUMN_BOOLEAN2 + " BIT NOT NULL, "
-                + QuestionContract.QuestionEntry .COLUMN_ANSWERTEXT3 + " TEXT NOT NULL, "
-                + QuestionContract.QuestionEntry.COLUMN_BOOLEAN3 + " BIT NOT NULL, "
-                + QuestionContract.QuestionEntry .COLUMN_ANSWERTEXT4 + " TEXT NOT NULL, "
-                + QuestionContract.QuestionEntry.COLUMN_BOOLEAN4 + " BIT NOT NULL"
-                + ");";
-        db.execSQL(sSQL);
-    }
-
     @Override
     public void onCreate(SQLiteDatabase db) {
         Log.d(TAG, "onCreate: starts");
-        String sSQL = "";
-        sSQL =   "CREATE TABLE IF NOT EXISTS "
-                + QuestionContract.QuestionEntry.TABLE_NAME + " ("
-                + QuestionContract.QuestionEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
-                + QuestionContract.QuestionEntry.COLUMN_CATEGORY + " TEXT NOT NULL, "
-                + QuestionContract.QuestionEntry.COLUMN_DIFFICULTY + " INTEGER NOT NULL, "
-                + QuestionContract.QuestionEntry.COLUMN_QUESTIONTEXT+ " TEXT NOT NULL, "
-                + QuestionContract.QuestionEntry .COLUMN_ANSWERTEXT1 + " TEXT NOT NULL, "
-                + QuestionContract.QuestionEntry.COLUMN_BOOLEAN1 + " BIT NOT NULL, "
-                + QuestionContract.QuestionEntry .COLUMN_ANSWERTEXT2 + " TEXT NOT NULL, "
-                + QuestionContract.QuestionEntry.COLUMN_BOOLEAN2 + " BIT NOT NULL, "
-                + QuestionContract.QuestionEntry .COLUMN_ANSWERTEXT3 + " TEXT NOT NULL, "
-                + QuestionContract.QuestionEntry.COLUMN_BOOLEAN3 + " BIT NOT NULL, "
-                + QuestionContract.QuestionEntry .COLUMN_ANSWERTEXT4 + " TEXT NOT NULL, "
-                + QuestionContract.QuestionEntry.COLUMN_BOOLEAN4 + " BIT NOT NULL"
-                + ");";
-        Log.d(TAG, "onCreate: " + sSQL);
-        db.execSQL(sSQL);
 
-        sSQL =   "CREATE TABLE IF NOT EXISTS " + "HIGHSCORE" + " ("
-                + "ID INTEGER PRIMARY KEY, "
-                + "NAME TEXT NOT NULL, "
-                + "SCORE NUMBER NOT NULL)";
-        Log.d(TAG, "onCreate: " + sSQL);
-        db.execSQL(sSQL);
+        createQuestionTable(db);
+        createHighscoreTable(db);
 
         Log.d(TAG, "onCreate: ends");
     }
@@ -134,4 +50,130 @@ public class AppDatabase extends SQLiteOpenHelper {
         }
         Log.d(TAG, "onUpgrade: ends");
     }
+
+    /**
+     * Get an instance of the app's singleton database helper object
+     * @param context the content providers context.
+     * @return a SQLlite database helper object
+     */
+    public static AppDatabase getInstance(Context context){
+        if(instance == null){
+            Log.d(TAG, "getInstance: creating new instance");
+            instance = new AppDatabase(context);
+        }
+
+        return instance;
+    }
+
+    /**
+     * Removes the Question with the passed ID
+     * @param db The database
+     * @param _id ID of the question
+     */
+    public void removeQuestion(SQLiteDatabase db, long _id){
+        int result = db.delete(QuestionEntry.TABLE_NAME, QuestionEntry._ID + "=" + _id, null);
+
+        if (result == 0){
+            Log.d(TAG, "removeItem: ERROR: ERROR! NO row with the ID: " + _id + "was found");
+        }else{
+            Log.d(TAG, "removeQuestion: SUCCESS! The row with the ID: " + _id + ", was deleted");
+        }
+    }
+
+    /**
+     * Adds the content of cv into the "Question" table
+     * @param db The database you want to work on
+     * @param cv A ContentValues-Object which holds data-pairs, where the column-name of the table is the key and value is the value
+     */
+    public void addQuestion(SQLiteDatabase db, ContentValues cv){
+        long result = db.insert(QuestionContract.QuestionEntry.TABLE_NAME, null, cv);
+
+        if(result == -1){
+            Log.d(TAG, "addQuestion: ERROR! data-Set couldn't be added!");
+        }else{
+            Log.d(TAG, "addQuestion: SUCCESS! The data-Set was added: " + cv.toString());
+        }
+    }
+
+    /**
+     * Drops the Question-table and creates it again
+     * @param db The database on which is worked on
+     */
+    public void dropAndRecreateTableQuestion(SQLiteDatabase db){
+        try{
+            db.execSQL( "DROP TABLE IF EXISTS " + QuestionContract.QuestionEntry.TABLE_NAME + ";");
+        }catch (android.database.SQLException e){
+            Log.d(TAG, "dropAndRecreateTableQuestion: SQL: syntax error :\n" + e.toString());
+        }
+
+        createQuestionTable(db);
+    }
+
+    /*
+    public void dropTableHighscore(SQLiteDatabase db){
+        db.execSQL("DROP TABLE IF EXISTS HIGHSCORE;");
+
+        String sSQL =   "CREATE TABLE IF NOT EXISTS" + "HIGHSCORE" + " ("
+                + "ID INTEGER PRIMARY KEY, "
+                + "NAME TEXT NOT NULL, "
+                + "SCORE NUMBER NOT NULL)";
+        Log.d(TAG, "onCreate: " + sSQL);
+    }*/
+
+    /**
+     * Returns all Questions of the Questions-table
+     * @return A cursor which holds all Questions-Items
+     */
+    public Cursor getQuestionListContents(){
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor data =  db.rawQuery("SELECT * FROM " + QuestionContract.QuestionEntry.TABLE_NAME, null);
+
+        Log.d(TAG, "getQuestionListContents: Cursorcontent: " + DatabaseUtils.dumpCursorToString(data) );
+        return data;
+    }
+
+    //Helperclass
+    private void createQuestionTable(SQLiteDatabase db){
+        String sSQL =
+                "CREATE TABLE IF NOT EXISTS "
+                + QuestionContract.QuestionEntry.TABLE_NAME + " ("
+                + QuestionContract.QuestionEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
+                + QuestionContract.QuestionEntry.COLUMN_CATEGORY + " TEXT NOT NULL, "
+                + QuestionContract.QuestionEntry.COLUMN_DIFFICULTY + " INTEGER NOT NULL, "
+                + QuestionContract.QuestionEntry.COLUMN_QUESTIONTEXT+ " TEXT NOT NULL, "
+                + QuestionContract.QuestionEntry .COLUMN_ANSWERTEXT1 + " TEXT NOT NULL, "
+                + QuestionContract.QuestionEntry.COLUMN_BOOLEAN1 + " BIT NOT NULL, "
+                + QuestionContract.QuestionEntry .COLUMN_ANSWERTEXT2 + " TEXT NOT NULL, "
+                + QuestionContract.QuestionEntry.COLUMN_BOOLEAN2 + " BIT NOT NULL, "
+                + QuestionContract.QuestionEntry .COLUMN_ANSWERTEXT3 + " TEXT NOT NULL, "
+                + QuestionContract.QuestionEntry.COLUMN_BOOLEAN3 + " BIT NOT NULL, "
+                + QuestionContract.QuestionEntry .COLUMN_ANSWERTEXT4 + " TEXT NOT NULL, "
+                + QuestionContract.QuestionEntry.COLUMN_BOOLEAN4 + " BIT NOT NULL"
+                + ");";
+        Log.d(TAG, "createQuestionTable: " + sSQL);
+
+        try {
+            db.execSQL(sSQL);
+        }catch(android.database.SQLException e){
+            Log.d(TAG, "createQuestionTable: SQL: syntax error :\n" + e.toString());
+        }
+    }
+
+    //Helperclass
+    private void createHighscoreTable(SQLiteDatabase db){
+        String sSQL =   "CREATE TABLE IF NOT EXISTS " + "Highscore" + " ("
+                + "ID INTEGER PRIMARY KEY, "
+                + "Place INTEGER NOT NULL, "
+                + "NAME TEXT NOT NULL, "
+                + "SCORE NUMBER NOT NULL"
+                + ");";
+
+        Log.d(TAG, "createHighscoreTable: " + sSQL);
+        try {
+            db.execSQL(sSQL);
+        }catch(android.database.SQLException e){
+            Log.d(TAG, "createHighscoreTable: SQL: syntax error :\n" + e.toString());
+        }
+    }
+
 }
