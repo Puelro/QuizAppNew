@@ -185,6 +185,13 @@
                 app:autoSizeTextType="uniform"
                 app:backgroundTint="#5D6D7E" />
 
+            <Button
+                android:id="@+id/btnRefreshQuestion"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="refresh" />
+
         </RadioGroup>
 
     </LinearLayout>
@@ -223,6 +230,7 @@
                 android:text="@string/tvMissing"
                 android:textColor="#FFFFFF"
                 android:textSize="30sp" />
+
         </LinearLayout>
 
     </LinearLayout>

@@ -19,6 +19,10 @@
     <string name="btnJoker">50/50</string>
     <string name="btnJoker2">Streak</string>
 
+    //Buttons DatabaseEditor
+
+    <string name = "btnAddQuestion"> Add </string>
+
     //TextViews
     <string name="tvGameName">Spiel_Name</string>
     <string name="tvMenu">Hauptmenü</string>
