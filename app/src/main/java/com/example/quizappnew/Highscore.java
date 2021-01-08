@@ -16,10 +16,12 @@ public class Highscore extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_highscore);
 
-        buttonMenu = findViewById(R.id.btnMenu);
+        buttonMenu = findViewById(R.id.btnMenuDatabase);
         buttonMenu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                finish();
+                System.exit(0);
                 Intent intent = new Intent(Highscore.this,Menu.class);
                 startActivity(intent);
             }
