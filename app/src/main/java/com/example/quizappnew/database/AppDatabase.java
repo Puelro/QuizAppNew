@@ -74,7 +74,7 @@ public class AppDatabase extends SQLiteOpenHelper {
         int result = db.delete(QuestionEntry.TABLE_NAME, QuestionEntry._ID + "=" + _id, null);
 
         if (result == 0){
-            Log.d(TAG, "removeItem: ERROR: ERROR! NO row with the ID: " + _id + "was found");
+            Log.d(TAG, "removeItem: ERROR! NO row with the ID: " + _id + " was found");
         }else{
             Log.d(TAG, "removeQuestion: SUCCESS! The row with the ID: " + _id + ", was deleted");
         }
@@ -141,14 +141,11 @@ public class AppDatabase extends SQLiteOpenHelper {
                 + QuestionContract.QuestionEntry.COLUMN_CATEGORY + " TEXT NOT NULL, "
                 + QuestionContract.QuestionEntry.COLUMN_DIFFICULTY + " INTEGER NOT NULL, "
                 + QuestionContract.QuestionEntry.COLUMN_QUESTIONTEXT+ " TEXT NOT NULL, "
-                + QuestionContract.QuestionEntry .COLUMN_ANSWERTEXT1 + " TEXT NOT NULL, "
-                + QuestionContract.QuestionEntry.COLUMN_BOOLEAN1 + " BIT NOT NULL, "
-                + QuestionContract.QuestionEntry .COLUMN_ANSWERTEXT2 + " TEXT NOT NULL, "
-                + QuestionContract.QuestionEntry.COLUMN_BOOLEAN2 + " BIT NOT NULL, "
-                + QuestionContract.QuestionEntry .COLUMN_ANSWERTEXT3 + " TEXT NOT NULL, "
-                + QuestionContract.QuestionEntry.COLUMN_BOOLEAN3 + " BIT NOT NULL, "
-                + QuestionContract.QuestionEntry .COLUMN_ANSWERTEXT4 + " TEXT NOT NULL, "
-                + QuestionContract.QuestionEntry.COLUMN_BOOLEAN4 + " BIT NOT NULL"
+                + QuestionContract.QuestionEntry.COLUMN_ANSWERTEXT1 + " TEXT NOT NULL, "
+                + QuestionContract.QuestionEntry.COLUMN_ANSWERTEXT2 + " TEXT NOT NULL, "
+                + QuestionContract.QuestionEntry.COLUMN_ANSWERTEXT3 + " TEXT NOT NULL, "
+                + QuestionContract.QuestionEntry.COLUMN_ANSWERTEXT4 + " TEXT NOT NULL, "
+                + QuestionContract.QuestionEntry.COLUMN_CORRECT_ANSWER + " INTEGER NOT NULL "
                 + ");";
         Log.d(TAG, "createQuestionTable: " + sSQL);
 

@@ -4,17 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_margin="5dp"
     tools:context=".DatabaseEditor">
-
-    <Button
-        android:id="@+id/btnAddQuestion"
-        android:layout_width="101dp"
-        android:layout_height="42dp"
-        android:layout_marginTop="20dp"
-        android:text="@string/btnAddQuestion"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tableLayout" />
 
     <Button
         android:id="@+id/btnMenuDatabase"
@@ -29,20 +20,19 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
-        android:layout_width="927dp"
-        android:layout_height="250dp"
-        android:layout_marginTop="16dp"
+        android:layout_width="933dp"
+        android:layout_height="339dp"
         android:layout_marginBottom="16dp"
         app:layout_constraintBottom_toTopOf="@+id/btnMenuDatabase"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnAddQuestion" />
+        app:layout_constraintTop_toBottomOf="@+id/tableLayout" />
 
     <TableLayout
         android:id="@+id/tableLayout"
-        android:layout_width="920dp"
-        android:layout_height="135dp"
+        android:layout_width="929dp"
+        android:layout_height="126dp"
         android:layout_marginTop="16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -52,38 +42,23 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <TextView
-                android:id="@+id/tvId_Database"
+            <EditText
+                android:id="@+id/etxtValuesString"
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
                 android:layout_weight="1"
-                android:gravity="center_vertical"
-                android:text="ID"
-                android:textIsSelectable="false"
-                android:textSize="18sp" />
+                android:hint="Kategorie, Schwierigkeit: Zahl [0-9], Fragetext, Answertext1,A...2,A...3,A...4, CorrectAnswer [number 0-3]"
+                android:inputType="text"
+                android:textSize="14sp" />
 
-            <EditText
-                android:id="@+id/etxtDatabaseDifficulty"
+            <Button
+                android:id="@+id/AddQuestion"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:hint="Schwierigkeit"
-                android:inputType="number" />
+                android:layout_margin="5dp"
+                android:text="Einfügen" />
 
-            <EditText
-                android:id="@+id/etxtDatabaseCategory"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:hint="Kategorie"
-                android:inputType="text" />
-            <EditText
-                android:id="@+id/etxtDatabaseQuestiontext"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:hint="Fragetext"
-                android:inputType="text" />
         </TableRow>
 
         <TableRow
@@ -91,73 +66,21 @@
             android:layout_height="match_parent">
 
             <EditText
-                android:id="@+id/etxtDatabaseAnswerText1"
+                android:id="@+id/etxtQuestionIDDelete"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_margin="5dp"
                 android:layout_weight="1"
-                android:hint="Antworttext1"
-                android:inputType="text" />
+                android:hint="ID der Frage, welche gelöscht werden soll [Zahl 0-n]"
+                android:inputType="text"
+                android:textSize="14sp" />
 
-            <EditText
-                android:id="@+id/etxtDatabaseBoolean1"
+            <Button
+                android:id="@+id/btnDeleteQuestion"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:hint="Boolean1"
-                android:inputType="number" />
-
-            <EditText
-                android:id="@+id/etxtDatabaseAnswerText2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:hint="Antworttext2"
-                android:inputType="text" />
-
-            <EditText
-                android:id="@+id/etxtDatabaseBoolean2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:hint="Boolean2"
-                android:inputType="number" />
-        </TableRow>
-
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <EditText
-                android:id="@+id/etxtDatabaseAnswerText3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:hint="Antworttext3"
-                android:inputType="text" />
-
-            <EditText
-                android:id="@+id/etxtDatabaseBoolean3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:hint="Boolean3"
-                android:inputType="number" />
-
-            <EditText
-                android:id="@+id/etxtDatabaseAnswerText4"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:hint="Antworttext4"
-                android:inputType="text" />
-
-            <EditText
-                android:id="@+id/etxtDatabaseBoolean4"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:hint="Boolean4"
-                android:inputType="number" />
+                android:layout_margin="5dp"
+                android:text="Löschen" />
         </TableRow>
 
     </TableLayout>
@@ -169,7 +92,7 @@
         android:layout_marginStart="20dp"
         android:layout_marginLeft="20dp"
         android:layout_marginBottom="16dp"
-        android:text="Lösche Alle Fragen"
+        android:text="Lösche Tabelle"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 

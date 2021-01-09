@@ -49,16 +49,11 @@ public class QuestionAdapter extends RecyclerView.Adapter<QuestionAdapter.Questi
         String questionText = this.cursor.getString(this.cursor.getColumnIndex(QuestionEntry.COLUMN_QUESTIONTEXT));
 
         String answerText1 = this.cursor.getString(this.cursor.getColumnIndex(QuestionEntry.COLUMN_ANSWERTEXT1));
-        int boolean1 = this.cursor.getInt(this.cursor.getColumnIndex(QuestionEntry.COLUMN_BOOLEAN1));
-
         String answerText2 = this.cursor.getString(this.cursor.getColumnIndex(QuestionEntry.COLUMN_ANSWERTEXT2));
-        int boolean2 = this.cursor.getInt(this.cursor.getColumnIndex(QuestionEntry.COLUMN_BOOLEAN2));
-
         String answerText3 = this.cursor.getString(this.cursor.getColumnIndex(QuestionEntry.COLUMN_ANSWERTEXT3));
-        int boolean3 = this.cursor.getInt(this.cursor.getColumnIndex(QuestionEntry.COLUMN_BOOLEAN3));
-
         String answerText4 = this.cursor.getString(this.cursor.getColumnIndex(QuestionEntry.COLUMN_ANSWERTEXT4));
-        int boolean4 = this.cursor.getInt(this.cursor.getColumnIndex(QuestionEntry.COLUMN_BOOLEAN4));
+
+        int correctAnswer = this.cursor.getInt(this.cursor.getColumnIndex(QuestionEntry.COLUMN_CORRECT_ANSWER));
 
         holder.idText.setText(String.valueOf(id));
         holder.categoryText.setText(category);
@@ -66,16 +61,11 @@ public class QuestionAdapter extends RecyclerView.Adapter<QuestionAdapter.Questi
         holder.questiontextText.setText(questionText);
 
         holder.answertext1Text.setText(answerText1);
-        holder.boolean1Text.setText(String.valueOf(boolean1));
-
         holder.answertext2Text.setText(answerText2);
-        holder.boolean2Text.setText(String.valueOf(boolean2));
-
         holder.answertext3Text.setText(answerText3);
-        holder.boolean3Text.setText(String.valueOf(boolean3));
-
         holder.answertext4Text.setText(answerText4);
-        holder.boolean4Text.setText(String.valueOf(boolean4));
+
+        holder.correctAnswer.setText(String.valueOf(correctAnswer));
     }
 
     @Override
@@ -107,13 +97,10 @@ public class QuestionAdapter extends RecyclerView.Adapter<QuestionAdapter.Questi
         public TextView difficultyText;
         public TextView questiontextText;
         public TextView answertext1Text;
-        public TextView boolean1Text;
         public TextView answertext2Text;
-        public TextView boolean2Text;
         public TextView answertext3Text;
-        public TextView boolean3Text;
         public TextView answertext4Text;
-        public TextView boolean4Text;
+        public TextView correctAnswer;
 
 
         public QuestionViewHolder(@NonNull View itemView) {
@@ -125,16 +112,11 @@ public class QuestionAdapter extends RecyclerView.Adapter<QuestionAdapter.Questi
             questiontextText= itemView.findViewById(R.id.tvQuestion_item);
 
             answertext1Text= itemView.findViewById(R.id.tvAnswertext1_item);
-            boolean1Text= itemView.findViewById(R.id.tvBoolean1_item);
-
             answertext2Text= itemView.findViewById(R.id.tvAnswertext2_item);
-            boolean2Text= itemView.findViewById(R.id.tvBoolean2_item);
-
             answertext3Text= itemView.findViewById(R.id.tvAnswertext3_item);
-            boolean3Text= itemView.findViewById(R.id.tvBoolean3_item);
-
             answertext4Text= itemView.findViewById(R.id.tvAnswertext4_item);
-            boolean4Text= itemView.findViewById(R.id.tvBoolean4_item);
+
+            correctAnswer= itemView.findViewById(R.id.tvCorrectAnswer_item);
         }
 
     }
