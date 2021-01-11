@@ -26,6 +26,9 @@ import static com.example.quizappnew.database.QuestionContract.*;
 public class Play extends AppCompatActivity {
     private static final String TAG = "PlayActivity";
 
+    CountDownTimer questionPointsTimer;
+    CountDownTimer levelTimer;
+
     Cursor currentQuestions;
     ContentValues currentQuestion;
 
@@ -40,7 +43,10 @@ public class Play extends AppCompatActivity {
     double currentStreakMultiplier;
 
     long currentScore;
+    long[] timedPointsPerQuestion;
+
     // -----------------------------------------
+
     TextView tvTimer;
     TextView tvStreak;
     TextView tvScore;
@@ -87,11 +93,14 @@ public class Play extends AppCompatActivity {
         currentStreakMultiplier = 1;
 
         currentScore = 0;
+        timedPointsPerQuestion = new long[1];
+        timedPointsPerQuestion[0] = 1000;
 
         tvStreak = findViewById(R.id.tvStreak);
         tvScore = findViewById(R.id.tvScore);
         tvStreak = findViewById(R.id.tvStreak);
         tvThisQuestionPoints = findViewById(R.id.tvPoints);
+        tvTimer = findViewById(R.id.tvTimer);
 
         buttonAnswer1 = findViewById(R.id.btnAnswer1);
         buttonAnswer2 = findViewById(R.id.btnAnswer2);
@@ -100,6 +109,32 @@ public class Play extends AppCompatActivity {
 
         buttonJoker50_50 = findViewById(R.id.btnJoker50_50);
         buttonMenu = findViewById(R.id.btnMenu);
+
+        levelTimer = new CountDownTimer(60000, 1000) {
+            @Override
+            public void onTick(long millisUntilFinished) {
+                tvTimer.setText("Timer: " + millisUntilFinished / 1000);
+            }
+
+            @Override
+            public void onFinish() {
+                Intent intent = new Intent(Play.this,Score.class);
+                intent.putExtra("FINAL_SCORE", currentScore);
+                intent.putExtra("MAX_STREAK", maxStreak);
+                startActivity(intent);
+            }
+        }.start();
+
+        questionPointsTimer = new CountDownTimer(5000, 10) {
+
+            public void onTick(long millisUntilFinished) {
+                timedPointsPerQuestion[0]--;
+            }
+            public void onFinish() {
+                timedPointsPerQuestion[0] = 500;
+            }
+        };
+
     }
 
     private void checkProgressbar() {
@@ -113,7 +148,7 @@ public class Play extends AppCompatActivity {
         showPointsForThisQuestion(pointsForThisQuestion);
         tvScore.setText(String.valueOf(currentScore));
 
-        raiseStreakAndMultiplier();
+        increaseStreakAndMultiplier();
         tvStreak.setText(String.valueOf(currentStreak));
 
         Log.d(TAG, "givePointsAndRaiseStreak: points given and Streak raised");
@@ -132,7 +167,7 @@ public class Play extends AppCompatActivity {
         }, 500);
     }
 
-    private void raiseStreakAndMultiplier() {
+    private void increaseStreakAndMultiplier() {
         currentStreak++;
 
         if(maxStreak < currentStreak){
@@ -158,9 +193,11 @@ public class Play extends AppCompatActivity {
 
     private long pointsForThisQuestion() {
         int difficultyMultiplier = currentQuestion.getAsInteger(QuestionEntry.COLUMN_DIFFICULTY);
-        int defaultPointsPerQuestion = 1000;
+        long points = Math.round(difficultyMultiplier * timedPointsPerQuestion[0] * currentStreakMultiplier);
 
-       return Math.round(difficultyMultiplier * defaultPointsPerQuestion * currentStreakMultiplier);
+        timedPointsPerQuestion[0] = 1000;
+
+        return points;
     }
 
     private boolean isRightAnswer(int buttonNumber) {
@@ -224,10 +261,12 @@ public class Play extends AppCompatActivity {
         String answerText4 = currentQuestion.getAsString(QuestionEntry.COLUMN_ANSWERTEXT4);
         answerText4Button.setText(answerText4);
 
+        questionPointsTimer.start();
     }
 
     private void joker50_50() {
         buttonJoker50_50.setEnabled(false);
+
         int correctAnswer = currentQuestion.getAsInteger(QuestionEntry.COLUMN_CORRECT_ANSWER);
 
         Button[] answerButtons = {buttonAnswer1, buttonAnswer2, buttonAnswer3, buttonAnswer4};
@@ -264,6 +303,7 @@ public class Play extends AppCompatActivity {
             public void onClick(View v) {
                 int buttonNumber = 1;
                 enableAllAnswerButtons(false);
+                questionPointsTimer.cancel();
 
                 if(isRightAnswer(buttonNumber)){
                     givePointsAndRaiseStreak();
@@ -284,6 +324,7 @@ public class Play extends AppCompatActivity {
             public void onClick(View v) {
                 int buttonNumber = 2;
                 enableAllAnswerButtons(false);
+                questionPointsTimer.cancel();
 
                 if(isRightAnswer(buttonNumber)){
                     givePointsAndRaiseStreak();
@@ -305,6 +346,7 @@ public class Play extends AppCompatActivity {
             public void onClick(View v) {
                 int buttonNumber = 3;
                 enableAllAnswerButtons(false);
+                questionPointsTimer.cancel();
 
                 if(isRightAnswer(buttonNumber)){
                     givePointsAndRaiseStreak();
@@ -326,6 +368,7 @@ public class Play extends AppCompatActivity {
             public void onClick(View v) {
                 int buttonNumber = 4;
                 enableAllAnswerButtons(false);
+                questionPointsTimer.cancel();
 
                 if(isRightAnswer(buttonNumber)){
                     givePointsAndRaiseStreak();
@@ -355,14 +398,16 @@ public class Play extends AppCompatActivity {
         buttonMenu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                levelTimer.cancel();
+                questionPointsTimer.cancel();
                 finish();
                 Intent intent = new Intent(Play.this,Menu.class);
                 startActivity(intent);
             }
         });
 
-        tvTimer = findViewById(R.id.tvTimer);
-        new CountDownTimer(30000, 1000) {
+
+        /**new CountDownTimer(30000, 1000) {
 
             public void onTick(long millisUntilFinished) {
                 tvTimer.setText("Timer: " + millisUntilFinished / 1000);
@@ -373,6 +418,6 @@ public class Play extends AppCompatActivity {
                 intent.putExtra("MAX_STREAK", maxStreak);
                 startActivity(intent);
             }
-        }.start();
+        }.start();*/
     }
 }

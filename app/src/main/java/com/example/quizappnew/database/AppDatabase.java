@@ -148,7 +148,7 @@ public class AppDatabase extends SQLiteOpenHelper {
         String categoryWhereClause = "";
 
         if (category != null && !category.trim().equals("")) {
-            categoryWhereClause = "AND" + QuestionEntry.COLUMN_CATEGORY + "=" + category;
+            categoryWhereClause = " AND " + QuestionEntry.COLUMN_CATEGORY + "=" + category;
         }
 
         Cursor data = db.rawQuery("SELECT * FROM " +

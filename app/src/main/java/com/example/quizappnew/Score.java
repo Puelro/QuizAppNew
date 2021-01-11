@@ -30,6 +30,7 @@ public class Score extends AppCompatActivity {
         buttonHighscore.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                finish();
                 Intent intent = new Intent(Score.this,Highscore.class);
                 startActivity(intent);
             }
