@@ -12,11 +12,11 @@
     <string name="btnHighscore">Bestenliste</string>
     <string name="btnAbout">Über Uns</string>
     <string name="btnMenu">Hauptmenü</string>
-    <string name="btnA">Antwort A</string>
-    <string name="btnB">Antwort B</string>
-    <string name="btnC">Antwort C</string>
-    <string name="btnD">Antwort D</string>
-    <string name="btnJoker">50/50</string>
+    <string name="btnAnswer1">Antwort A</string>
+    <string name="btnAnswer2">Antwort B</string>
+    <string name="btnAnswer3">Antwort C</string>
+    <string name="btnAnswer4">Antwort D</string>
+    <string name="btnJoker50_50">50/50</string>
     <string name="btnJoker2">Streak</string>
 
     //TextViews

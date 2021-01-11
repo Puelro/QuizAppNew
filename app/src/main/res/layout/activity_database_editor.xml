@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_margin="5dp"
+    android:background="#34495E"
     tools:context=".DatabaseEditor">
 
     <Button
@@ -16,12 +16,25 @@
         android:layout_marginBottom="16dp"
         android:text="@string/btnMenu"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:backgroundTint="#F29111" />
+
+    <Button
+        android:id="@+id/btnDropQuestion"
+        android:layout_width="249dp"
+        android:layout_height="41dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginBottom="16dp"
+        android:text="Lösche Tabelle"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:backgroundTint="#F29111" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
-        android:layout_width="933dp"
-        android:layout_height="339dp"
+        android:layout_width="927dp"
+        android:layout_height="343dp"
         android:layout_marginBottom="16dp"
         app:layout_constraintBottom_toTopOf="@+id/btnMenuDatabase"
         app:layout_constraintEnd_toEndOf="parent"
@@ -48,8 +61,10 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
                 android:layout_weight="1"
-                android:hint="Kategorie, Schwierigkeit: Zahl [0-9], Fragetext, Answertext1,A...2,A...3,A...4, CorrectAnswer [number 0-3]"
+                android:hint="Kategorie, Schwierigkeit: Zahl [1-10], Fragetext, Answertext1,A...2,A...3,A...4, CorrectAnswer [number 0-3]"
                 android:inputType="text"
+                android:textColor="#FFFFFF"
+                android:textColorHint="#FFFFFF"
                 android:textSize="14sp" />
 
             <Button
@@ -57,7 +72,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
-                android:text="Einfügen" />
+                android:text="Einfügen"
+                app:backgroundTint="#F29111" />
 
         </TableRow>
 
@@ -73,6 +89,8 @@
                 android:layout_weight="1"
                 android:hint="ID der Frage, welche gelöscht werden soll [Zahl 0-n]"
                 android:inputType="text"
+                android:textColor="#FFFFFF"
+                android:textColorHint="#FFFFFF"
                 android:textSize="14sp" />
 
             <Button
@@ -80,20 +98,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
-                android:text="Löschen" />
+                android:text="Löschen"
+                app:backgroundTint="#F29111"/>
         </TableRow>
 
     </TableLayout>
-
-    <Button
-        android:id="@+id/btnDropQuestion"
-        android:layout_width="249dp"
-        android:layout_height="41dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginBottom="16dp"
-        android:text="Lösche Tabelle"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

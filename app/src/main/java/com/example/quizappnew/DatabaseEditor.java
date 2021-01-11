@@ -25,6 +25,7 @@ public class DatabaseEditor extends AppCompatActivity {
 
     private SQLiteDatabase db;
     private AppDatabase appDatabase;
+
     private QuestionAdapter adapter;
 
     Button buttonAddQuestion;

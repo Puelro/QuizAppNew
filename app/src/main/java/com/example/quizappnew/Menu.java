@@ -21,8 +21,7 @@ public class Menu extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu);
 
-        /*AppDatabase appDatabase = AppDatabase.getInstance(this);
-        final SQLiteDatabase db = appDatabase.getReadableDatabase();*/
+        AppDatabase appDatabase = AppDatabase.getInstance(this);
 
         buttonPlay = findViewById(R.id.btnPlay);
         buttonPlay.setOnClickListener(new View.OnClickListener() {
