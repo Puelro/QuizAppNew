@@ -87,14 +87,23 @@
                 android:layout_marginStart="30dp"
                 android:layout_marginLeft="30dp"
                 android:layout_marginBottom="10dp"
-                android:layout_weight="0.2"
+                android:layout_weight="1"
                 android:text="@string/tvScore"
                 android:textColor="#FFFFFF"
                 android:textSize="40sp" />
 
+            <TextView
+                android:id="@+id/tvPoints"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:text="@string/tvPoints"
+                android:textColor="#F29111"
+                android:textSize="50sp" />
+
             <ProgressBar
                 android:id="@+id/vertical_progressbar"
                 style="@style/Widget.ProgressBar.Vertical"
+                android:progress="0"
                 android:layout_width="12dip"
                 android:layout_height="200dip"
                 android:layout_marginTop="155dp"
@@ -113,7 +122,7 @@
         <TextView
             android:id="@+id/tvQuestion"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="40dp"
             android:layout_marginStart="90dp"
             android:layout_marginLeft="90dp"
             android:layout_marginTop="180dp"
@@ -122,8 +131,8 @@
             android:gravity="center_horizontal"
             android:text="@string/tvQuestion"
             android:textColor="#FFFFFF"
-            android:textSize="30sp"
-            app:autoSizeTextType="uniform"/>
+
+            app:autoSizeTextType="uniform" />
 
         <RadioGroup
             android:layout_width="match_parent"
@@ -131,6 +140,7 @@
             android:layout_marginTop="10dp">
 
             <!--android:backgroundTint="@color/button_background_color_correct"-->
+
             <Button
                 android:id="@+id/btnAnswer1"
                 android:layout_width="match_parent"
@@ -183,6 +193,14 @@
                 app:autoSizeTextType="uniform"
                 app:backgroundTint="#5D6D7E" />
 
+            <!--<ProgressBar
+                android:id="@+id/progressBar"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:rotation="90"
+                android:layout_weight="1" />-->
+
         </RadioGroup>
 
     </LinearLayout>
@@ -199,7 +217,7 @@
             android:orientation="horizontal">
 
             <TextView
-                android:id="@+id/tvPoints"
+                android:id="@+id/tvAddPoints"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_gravity="center"

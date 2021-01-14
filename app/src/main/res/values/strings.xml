@@ -31,4 +31,5 @@
     <string name="tvMissing">0</string>
     <string name="tvMaxStreak">höchste Streak: 0</string>
     <string name="tvResetTimes">Timer zurückgesetzt: 0 mal</string>
+
 </resources>

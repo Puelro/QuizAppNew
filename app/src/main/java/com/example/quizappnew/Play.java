@@ -12,6 +12,7 @@ import android.os.Looper;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import android.os.CountDownTimer;
@@ -25,6 +26,8 @@ import static com.example.quizappnew.database.QuestionContract.*;
 
 public class Play extends AppCompatActivity {
     private static final String TAG = "PlayActivity";
+
+    ProgressBar progressBar;
 
     CountDownTimer questionPointsTimer;
     CountDownTimer levelTimer;
@@ -51,6 +54,9 @@ public class Play extends AppCompatActivity {
     TextView tvStreak;
     TextView tvScore;
     TextView tvThisQuestionPoints;
+    TextView tvMissing;
+    /**TextView tvMultiplier;*/
+    TextView tvPoints;
 
     Button buttonAnswer1;
     Button buttonAnswer2;
@@ -76,10 +82,12 @@ public class Play extends AppCompatActivity {
         setAllAnswerButtons();
         setAllButtonsAndTextfieldsExceptAnswers();
 
+        setProgressBar();
+
     }
 
     private void initiateValues() {
-        tvThisQuestionPoints = findViewById(R.id.tvPoints);
+        tvThisQuestionPoints = findViewById(R.id.tvAddPoints);
         tvThisQuestionPoints.setVisibility(View.INVISIBLE);
 
         currentDifficulty = 1;
@@ -98,9 +106,11 @@ public class Play extends AppCompatActivity {
 
         tvStreak = findViewById(R.id.tvStreak);
         tvScore = findViewById(R.id.tvScore);
-        tvStreak = findViewById(R.id.tvStreak);
-        tvThisQuestionPoints = findViewById(R.id.tvPoints);
+        /**tvMultiplier = findViewById(R.id.tvMultiplier);*/
+        tvThisQuestionPoints = findViewById(R.id.tvAddPoints);
         tvTimer = findViewById(R.id.tvTimer);
+        tvMissing = findViewById(R.id.tvMissing);
+        //tvPoints = findViewById(R.id.tvPoints);
 
         buttonAnswer1 = findViewById(R.id.btnAnswer1);
         buttonAnswer2 = findViewById(R.id.btnAnswer2);
@@ -110,6 +120,9 @@ public class Play extends AppCompatActivity {
         buttonJoker50_50 = findViewById(R.id.btnJoker50_50);
         buttonMenu = findViewById(R.id.btnMenu);
 
+        progressBar = findViewById(R.id.vertical_progressbar);
+        progressBar.setMax(30000);
+
         levelTimer = new CountDownTimer(60000, 1000) {
             @Override
             public void onTick(long millisUntilFinished) {
@@ -118,7 +131,7 @@ public class Play extends AppCompatActivity {
 
             @Override
             public void onFinish() {
-                Intent intent = new Intent(Play.this,Score.class);
+                Intent intent = new Intent(Play.this, Score.class);
                 intent.putExtra("FINAL_SCORE", currentScore);
                 intent.putExtra("MAX_STREAK", maxStreak);
                 startActivity(intent);
@@ -135,6 +148,21 @@ public class Play extends AppCompatActivity {
             }
         };
 
+    }
+
+    private void setProgressBar(){
+        int currentScoreCast = (int)currentScore;
+        progressBar.setProgress(currentScoreCast);
+
+        tvMissing.setText(String.valueOf(progressBar.getMax() - currentScoreCast));
+
+        if(currentScoreCast >= progressBar.getMax()){
+            levelTimer.cancel();
+            levelTimer.start();
+            progressBar.setProgress(0);
+            //CurrentScore zwischenspeichern
+            //currentScore = 0;
+        }
     }
 
     private void checkProgressbar() {
@@ -314,6 +342,7 @@ public class Play extends AppCompatActivity {
 
                 setRandomQuestion();
                 fillQuestionTextFields();
+                setProgressBar();
 
                 enableAllAnswerButtons(true);
             }
@@ -336,6 +365,7 @@ public class Play extends AppCompatActivity {
 
                 setRandomQuestion();
                 fillQuestionTextFields();
+                setProgressBar();
 
                 enableAllAnswerButtons(true);
             }
@@ -358,6 +388,7 @@ public class Play extends AppCompatActivity {
 
                 setRandomQuestion();
                 fillQuestionTextFields();
+                setProgressBar();
 
                 enableAllAnswerButtons(true);
             }
@@ -380,6 +411,7 @@ public class Play extends AppCompatActivity {
 
                 setRandomQuestion();
                 fillQuestionTextFields();
+                setProgressBar();
 
                 enableAllAnswerButtons(true);
             }
