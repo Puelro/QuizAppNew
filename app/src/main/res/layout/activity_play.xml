@@ -231,14 +231,16 @@
 
             <TextView
                 android:id="@+id/tvMissing"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="614dp"
-                android:layout_marginLeft="614dp"
+                android:layout_width="50dp"
+                android:layout_height="45dp"
+                android:layout_marginStart="595dp"
+                android:layout_marginLeft="595dp"
                 android:layout_marginTop="190dp"
+                android:gravity="center_horizontal"
                 android:text="@string/tvMissing"
                 android:textColor="#FFFFFF"
-                android:textSize="30sp" />
+                android:textSize="30sp"
+                app:autoSizeTextType="uniform" />
 
         </LinearLayout>
 
