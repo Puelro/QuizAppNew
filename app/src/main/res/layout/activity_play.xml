@@ -42,6 +42,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
+                android:layout_marginTop="5dp"
                 android:layout_weight="1"
                 android:gravity="center_horizontal"
                 android:text="@string/tvTimer"
@@ -218,23 +219,24 @@
 
             <TextView
                 android:id="@+id/tvAddPoints"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
+                android:layout_width="130dp"
+                android:layout_height="65dp"
                 android:layout_gravity="center"
-                android:layout_marginStart="185dp"
-                android:layout_marginLeft="185dp"
-                android:layout_marginTop="50dp"
+                android:layout_marginStart="100dp"
+                android:layout_marginLeft="100dp"
+                android:layout_marginBottom="180dp"
                 android:rotation="340"
                 android:text="@string/tvPoints"
                 android:textColor="#F29111"
-                android:textSize="50sp" />
+                android:textSize="50sp"
+                app:autoSizeTextType="uniform" />
 
             <TextView
                 android:id="@+id/tvMissing"
                 android:layout_width="50dp"
                 android:layout_height="45dp"
-                android:layout_marginStart="595dp"
-                android:layout_marginLeft="595dp"
+                android:layout_marginStart="665dp"
+                android:layout_marginLeft="665dp"
                 android:layout_marginTop="190dp"
                 android:gravity="center_horizontal"
                 android:text="@string/tvMissing"
