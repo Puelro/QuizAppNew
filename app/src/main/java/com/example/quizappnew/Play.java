@@ -55,7 +55,7 @@ public class Play extends AppCompatActivity {
     TextView tvScore;
     TextView tvThisQuestionPoints;
     TextView tvMissing;
-    /**TextView tvMultiplier;*/
+    TextView tvMultiplier;
     TextView tvPoints;
 
     Button buttonAnswer1;
@@ -107,7 +107,7 @@ public class Play extends AppCompatActivity {
 
         tvStreak = findViewById(R.id.tvStreak);
         tvScore = findViewById(R.id.tvScore);
-        /**tvMultiplier = findViewById(R.id.tvMultiplier);*/
+        tvMultiplier = findViewById(R.id.tvMultiplier);
         tvThisQuestionPoints = findViewById(R.id.tvAddPoints);
         tvTimer = findViewById(R.id.tvTimer);
         tvMissing = findViewById(R.id.tvMissing);
@@ -185,6 +185,7 @@ public class Play extends AppCompatActivity {
 
         increaseStreakAndMultiplier();
         tvStreak.setText(String.valueOf(currentStreak));
+        tvMultiplier.setText("x" + String.valueOf(currentStreakMultiplier));
 
         Log.d(TAG, "givePointsAndRaiseStreak: points given and Streak raised");
     }
@@ -231,6 +232,7 @@ public class Play extends AppCompatActivity {
         currentStreak = 0;
         tvStreak.setText(String.valueOf(currentStreak));
         currentStreakMultiplier = 1;
+        tvMultiplier.setText("x" + String.valueOf(currentStreakMultiplier));
     }
 
     private boolean isRightAnswer(int buttonNumber) {
