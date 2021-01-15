@@ -82,8 +82,9 @@ public class Play extends AppCompatActivity {
         setAllAnswerButtons();
         setAllButtonsAndTextfieldsExceptAnswers();
 
-        setProgressBar();
+        questionPointsTimer.start();
 
+        setProgressBar();
     }
 
     private void initiateValues() {
@@ -110,7 +111,7 @@ public class Play extends AppCompatActivity {
         tvThisQuestionPoints = findViewById(R.id.tvAddPoints);
         tvTimer = findViewById(R.id.tvTimer);
         tvMissing = findViewById(R.id.tvMissing);
-        //tvPoints = findViewById(R.id.tvPoints);
+        tvPoints = findViewById(R.id.tvPoints);
 
         buttonAnswer1 = findViewById(R.id.btnAnswer1);
         buttonAnswer2 = findViewById(R.id.btnAnswer2);
@@ -138,13 +139,19 @@ public class Play extends AppCompatActivity {
             }
         }.start();
 
-        questionPointsTimer = new CountDownTimer(5000, 10) {
+        questionPointsTimer = new CountDownTimer(5000, 1) {
+
+            long basePointsPerQuestion = timedPointsPerQuestion[0];
 
             public void onTick(long millisUntilFinished) {
-                timedPointsPerQuestion[0]--;
+                timedPointsPerQuestion[0] = 500 + ( ( ( basePointsPerQuestion / 2 ) / 100 ) * ( millisUntilFinished / 50 ) );
+                tvPoints.setText(String.valueOf(pointsForThisQuestion()));
+                Log.d(TAG, "onTick: basePointsPerQuestion = " + basePointsPerQuestion);
+                Log.d(TAG, "onTick: millisUntilFinished = " + millisUntilFinished);
             }
             public void onFinish() {
                 timedPointsPerQuestion[0] = 500;
+                tvPoints.setText(String.valueOf(pointsForThisQuestion()));
             }
         };
 
@@ -174,7 +181,7 @@ public class Play extends AppCompatActivity {
         long pointsForThisQuestion = pointsForThisQuestion();
         currentScore += pointsForThisQuestion;
         showPointsForThisQuestion(pointsForThisQuestion);
-        tvScore.setText(String.valueOf(currentScore));
+        tvScore.setText("Score: " +  String.valueOf(currentScore));
 
         increaseStreakAndMultiplier();
         tvStreak.setText(String.valueOf(currentStreak));
@@ -193,6 +200,13 @@ public class Play extends AppCompatActivity {
                 tvThisQuestionPoints.setVisibility(View.INVISIBLE);
             }
         }, 500);
+    }
+
+    private long pointsForThisQuestion() {
+        int difficultyMultiplier = currentQuestion.getAsInteger(QuestionEntry.COLUMN_DIFFICULTY);
+        long points = Math.round(difficultyMultiplier * timedPointsPerQuestion[0] * currentStreakMultiplier);
+
+        return points;
     }
 
     private void increaseStreakAndMultiplier() {
@@ -217,15 +231,6 @@ public class Play extends AppCompatActivity {
         currentStreak = 0;
         tvStreak.setText(String.valueOf(currentStreak));
         currentStreakMultiplier = 1;
-    }
-
-    private long pointsForThisQuestion() {
-        int difficultyMultiplier = currentQuestion.getAsInteger(QuestionEntry.COLUMN_DIFFICULTY);
-        long points = Math.round(difficultyMultiplier * timedPointsPerQuestion[0] * currentStreakMultiplier);
-
-        timedPointsPerQuestion[0] = 1000;
-
-        return points;
     }
 
     private boolean isRightAnswer(int buttonNumber) {
@@ -288,8 +293,6 @@ public class Play extends AppCompatActivity {
 
         String answerText4 = currentQuestion.getAsString(QuestionEntry.COLUMN_ANSWERTEXT4);
         answerText4Button.setText(answerText4);
-
-        questionPointsTimer.start();
     }
 
     private void joker50_50() {
@@ -342,6 +345,8 @@ public class Play extends AppCompatActivity {
 
                 setRandomQuestion();
                 fillQuestionTextFields();
+                timedPointsPerQuestion[0] = 1000;
+                questionPointsTimer.start();
                 setProgressBar();
 
                 enableAllAnswerButtons(true);
@@ -365,6 +370,8 @@ public class Play extends AppCompatActivity {
 
                 setRandomQuestion();
                 fillQuestionTextFields();
+                timedPointsPerQuestion[0] = 1000;
+                questionPointsTimer.start();
                 setProgressBar();
 
                 enableAllAnswerButtons(true);
@@ -388,6 +395,8 @@ public class Play extends AppCompatActivity {
 
                 setRandomQuestion();
                 fillQuestionTextFields();
+                timedPointsPerQuestion[0] = 1000;
+                questionPointsTimer.start();
                 setProgressBar();
 
                 enableAllAnswerButtons(true);
@@ -411,6 +420,8 @@ public class Play extends AppCompatActivity {
 
                 setRandomQuestion();
                 fillQuestionTextFields();
+                timedPointsPerQuestion[0] = 1000;
+                questionPointsTimer.start();
                 setProgressBar();
 
                 enableAllAnswerButtons(true);
