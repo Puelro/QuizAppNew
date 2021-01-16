@@ -19,12 +19,15 @@ public class Score extends AppCompatActivity {
 
         TextView tvFinalScore = findViewById(R.id.tvFinalScore);
         TextView tvMaxStreak = findViewById(R.id.tvMaxStreak);
+        TextView tvResetTimes = findViewById(R.id.tvResetTimes);
 
         long finalScore = getIntent().getLongExtra("FINAL_SCORE",-1);
-        int maxStreak = getIntent().getIntExtra("MAX_STREAK",-1);
+        int maxStreak   = getIntent().getIntExtra("MAX_STREAK",-1);
+        int maxLevel    = getIntent().getIntExtra("MAX_LEVEL", -1);
 
         tvFinalScore.setText(String.valueOf("Finaler Score: " + finalScore));
-        tvMaxStreak.setText( "Max Streak: " + String.valueOf(maxStreak));
+        tvMaxStreak.setText( "Maximaler Streak: " + String.valueOf(maxStreak));
+        tvResetTimes.setText("Maximaler Level: " + String.valueOf(maxLevel));
 
         buttonHighscore = findViewById(R.id.btnFinalScore);
         buttonHighscore.setOnClickListener(new View.OnClickListener() {
