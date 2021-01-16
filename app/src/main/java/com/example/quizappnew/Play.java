@@ -23,11 +23,14 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 import static com.example.quizappnew.database.QuestionContract.*;
-
+// ---------------------------------------------------------------------------------------------- //
 public class Play extends AppCompatActivity {
     private static final String TAG = "PlayActivity";
 
     ProgressBar progressBar;
+    final long[] basePointsPerLevel = new long[]{30000, 60000, 90000, 120000, 150000};
+    long startPoints;
+    long currentPointsGoal;
 
     CountDownTimer questionPointsTimer;
     CountDownTimer levelTimer;
@@ -79,10 +82,8 @@ public class Play extends AppCompatActivity {
         setRandomQuestion();
         fillQuestionTextFields();
 
-        setAllAnswerButtons();
-        setAllButtonsAndTextfieldsExceptAnswers();
-
-        questionPointsTimer.start();
+        setAllListenersAnswerButtons();
+        setAllListenersFromButtonsAndTextfieldsExceptAnswers();
 
         setProgressBar();
     }
@@ -90,6 +91,9 @@ public class Play extends AppCompatActivity {
     private void initiateValues() {
         tvThisQuestionPoints = findViewById(R.id.tvAddPoints);
         tvThisQuestionPoints.setVisibility(View.INVISIBLE);
+
+        progressBar = findViewById(R.id.vertical_progressbar);
+        progressBar.setMax(100);
 
         currentDifficulty = 1;
         currentCategory= null;
@@ -102,8 +106,10 @@ public class Play extends AppCompatActivity {
         currentStreakMultiplier = 1;
 
         currentScore = 0;
-        timedPointsPerQuestion = new long[1];
-        timedPointsPerQuestion[0] = 1000;
+        timedPointsPerQuestion = new long[] {1000};
+
+        startPoints = currentScore;
+        currentPointsGoal = basePointsPerLevel[0];
 
         tvStreak = findViewById(R.id.tvStreak);
         tvScore = findViewById(R.id.tvScore);
@@ -121,9 +127,6 @@ public class Play extends AppCompatActivity {
         buttonJoker50_50 = findViewById(R.id.btnJoker50_50);
         buttonMenu = findViewById(R.id.btnMenu);
 
-        progressBar = findViewById(R.id.vertical_progressbar);
-        progressBar.setMax(30000);
-
         levelTimer = new CountDownTimer(60000, 1000) {
             @Override
             public void onTick(long millisUntilFinished) {
@@ -135,45 +138,55 @@ public class Play extends AppCompatActivity {
                 Intent intent = new Intent(Play.this, Score.class);
                 intent.putExtra("FINAL_SCORE", currentScore);
                 intent.putExtra("MAX_STREAK", maxStreak);
+                intent.putExtra("MAX_LEVEL", currentDifficulty);
                 startActivity(intent);
             }
         }.start();
 
         questionPointsTimer = new CountDownTimer(5000, 1) {
 
+            int millisInFuture = 5000;
             long basePointsPerQuestion = timedPointsPerQuestion[0];
 
             public void onTick(long millisUntilFinished) {
-                timedPointsPerQuestion[0] = 500 + ( ( ( basePointsPerQuestion / 2 ) / 100 ) * ( millisUntilFinished / 50 ) );
+                timedPointsPerQuestion[0] = (basePointsPerQuestion / 2) + ( ( ( basePointsPerQuestion / 2 ) / 100 ) * ( millisUntilFinished /  (millisInFuture / 100) ) );
                 tvPoints.setText(String.valueOf(pointsForThisQuestion()));
-                Log.d(TAG, "onTick: basePointsPerQuestion = " + basePointsPerQuestion);
-                Log.d(TAG, "onTick: millisUntilFinished = " + millisUntilFinished);
+                //Log.d(TAG, "onTick: basePointsPerQuestion = " + basePointsPerQuestion);
+                //Log.d(TAG, "onTick: millisUntilFinished = " + millisUntilFinished);
             }
             public void onFinish() {
                 timedPointsPerQuestion[0] = 500;
                 tvPoints.setText(String.valueOf(pointsForThisQuestion()));
             }
-        };
+        }.start();
 
     }
 
     private void setProgressBar(){
-        int currentScoreCast = (int)currentScore;
-        progressBar.setProgress(currentScoreCast);
+        if(currentScore < currentPointsGoal){
+            long pointsSoFar = currentScore - startPoints;
+            float neededPointsForLevel = ( currentPointsGoal - startPoints );
+            int progressInPercent = (int) Math.round( pointsSoFar / ( neededPointsForLevel / 100 ) );
+            progressBar.setProgress( progressInPercent );
+            tvMissing.setText(String.valueOf( (long) (neededPointsForLevel - pointsSoFar) ) );
+        }else{
+            if(currentDifficulty < 5){
+                levelTimer.cancel();
+                levelTimer.start();
+                currentDifficulty++;
+                loadFilteredQuestions();
 
-        tvMissing.setText(String.valueOf(progressBar.getMax() - currentScoreCast));
-
-        if(currentScoreCast >= progressBar.getMax()){
-            levelTimer.cancel();
-            levelTimer.start();
+                startPoints = currentScore;
+                currentPointsGoal = currentScore + basePointsPerLevel[currentDifficulty - 1];
+            }else{
+                startPoints = currentScore;
+                currentPointsGoal = currentScore + 300000;
+                levelTimer.cancel();
+                levelTimer.start();
+            }
+            tvMissing.setText( String.valueOf( (long) ( currentPointsGoal - startPoints ) ) );
             progressBar.setProgress(0);
-            //CurrentScore zwischenspeichern
-            //currentScore = 0;
         }
-    }
-
-    private void checkProgressbar() {
-        Log.d(TAG, "checkProgressbar: Progressbar checked");
     }
 
     private void givePointsAndRaiseStreak() {
@@ -327,7 +340,7 @@ public class Play extends AppCompatActivity {
         }, 10000);
     }
 
-    private void setAllAnswerButtons(){
+    private void setAllListenersAnswerButtons(){
 
         buttonAnswer1.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -338,7 +351,7 @@ public class Play extends AppCompatActivity {
 
                 if(isRightAnswer(buttonNumber)){
                     givePointsAndRaiseStreak();
-                    checkProgressbar();
+                    setProgressBar();
                 }else{
                     decreaseStreakAndMultiplier();
                 }
@@ -347,7 +360,6 @@ public class Play extends AppCompatActivity {
                 fillQuestionTextFields();
                 timedPointsPerQuestion[0] = 1000;
                 questionPointsTimer.start();
-                setProgressBar();
 
                 enableAllAnswerButtons(true);
             }
@@ -363,7 +375,7 @@ public class Play extends AppCompatActivity {
                 if(isRightAnswer(buttonNumber)){
                     givePointsAndRaiseStreak();
                     pastStreak = currentStreak;
-                    checkProgressbar();
+                    setProgressBar();
                 }else{
                     decreaseStreakAndMultiplier();
                 }
@@ -372,7 +384,6 @@ public class Play extends AppCompatActivity {
                 fillQuestionTextFields();
                 timedPointsPerQuestion[0] = 1000;
                 questionPointsTimer.start();
-                setProgressBar();
 
                 enableAllAnswerButtons(true);
             }
@@ -388,7 +399,7 @@ public class Play extends AppCompatActivity {
                 if(isRightAnswer(buttonNumber)){
                     givePointsAndRaiseStreak();
                     pastStreak = currentStreak;
-                    checkProgressbar();
+                    setProgressBar();
                 }else{
                     decreaseStreakAndMultiplier();
                 }
@@ -397,7 +408,6 @@ public class Play extends AppCompatActivity {
                 fillQuestionTextFields();
                 timedPointsPerQuestion[0] = 1000;
                 questionPointsTimer.start();
-                setProgressBar();
 
                 enableAllAnswerButtons(true);
             }
@@ -413,7 +423,7 @@ public class Play extends AppCompatActivity {
                 if(isRightAnswer(buttonNumber)){
                     givePointsAndRaiseStreak();
                     pastStreak = currentStreak;
-                    checkProgressbar();
+                    setProgressBar();
                 }else{
                     decreaseStreakAndMultiplier();
                 }
@@ -422,14 +432,13 @@ public class Play extends AppCompatActivity {
                 fillQuestionTextFields();
                 timedPointsPerQuestion[0] = 1000;
                 questionPointsTimer.start();
-                setProgressBar();
 
                 enableAllAnswerButtons(true);
             }
         });
     }
 
-    private void setAllButtonsAndTextfieldsExceptAnswers(){
+    private void setAllListenersFromButtonsAndTextfieldsExceptAnswers(){
 
         buttonJoker50_50.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -448,19 +457,5 @@ public class Play extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
-
-        /**new CountDownTimer(30000, 1000) {
-
-            public void onTick(long millisUntilFinished) {
-                tvTimer.setText("Timer: " + millisUntilFinished / 1000);
-            }
-            public void onFinish() {
-                Intent intent = new Intent(Play.this,Score.class);
-                intent.putExtra("FINAL_SCORE", currentScore);
-                intent.putExtra("MAX_STREAK", maxStreak);
-                startActivity(intent);
-            }
-        }.start();*/
     }
 }
