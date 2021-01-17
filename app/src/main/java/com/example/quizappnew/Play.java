@@ -114,6 +114,7 @@ public class Play extends AppCompatActivity {
         tvStreak = findViewById(R.id.tvStreak);
         tvScore = findViewById(R.id.tvScore);
         tvMultiplier = findViewById(R.id.tvMultiplier);
+        tvMultiplier.setVisibility(View.INVISIBLE);
         tvThisQuestionPoints = findViewById(R.id.tvAddPoints);
         tvTimer = findViewById(R.id.tvTimer);
         tvMissing = findViewById(R.id.tvMissing);
@@ -162,7 +163,7 @@ public class Play extends AppCompatActivity {
 
     }
 
-    private void setProgressBar(){
+    private void setProgressBar() {
         if(currentScore < currentPointsGoal){
             long pointsSoFar = currentScore - startPoints;
             float neededPointsForLevel = ( currentPointsGoal - startPoints );
@@ -236,6 +237,10 @@ public class Play extends AppCompatActivity {
             currentStreakMultiplier += 0.5;
             pastStreakMultiplier = currentStreakMultiplier;
         }
+
+        if(currentStreakMultiplier > 1.0){
+            tvMultiplier.setVisibility(View.VISIBLE);
+        }
     }
 
     private void decreaseStreakAndMultiplier(){
@@ -246,6 +251,10 @@ public class Play extends AppCompatActivity {
         tvStreak.setText(String.valueOf(currentStreak));
         currentStreakMultiplier = 1;
         tvMultiplier.setText("x" + String.valueOf(currentStreakMultiplier));
+
+        if(currentStreakMultiplier == 1.0){
+            tvMultiplier.setVisibility(View.INVISIBLE);
+        }
     }
 
     private boolean isRightAnswer(int buttonNumber) {
