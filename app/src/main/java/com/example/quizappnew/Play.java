@@ -29,7 +29,7 @@ public class Play extends AppCompatActivity {
     private static final String TAG = "PlayActivity";
 
     ProgressBar progressBar;
-    final long[] basePointsPerLevel = new long[]{3000, 9000, 15000, 30000, 45000, 180000, 210000};
+    final long[] basePointsPerLevel = new long[]{30000, 60000, 90000, 120000, 150000, 180000, 210000};
     long startPoints;
     long currentPointsGoal;
 
