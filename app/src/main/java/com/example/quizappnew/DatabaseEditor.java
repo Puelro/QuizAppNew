@@ -71,6 +71,7 @@ public class DatabaseEditor extends AppCompatActivity {
                 String insertValues = sqlCommand.getText().toString();
 
                 try{
+                    //throws exception
                     ContentValues cv = putAllColumnValuesInAContentValuesAndReturnIt(insertValues);
                     appDatabase.addQuestion(db, cv);
 
@@ -85,18 +86,18 @@ public class DatabaseEditor extends AppCompatActivity {
                 }
             }
 
-            private ContentValues putAllColumnValuesInAContentValuesAndReturnIt(String _insertValues) throws NumberFormatException{
+            private ContentValues putAllColumnValuesInAContentValuesAndReturnIt(String _insertedValues) throws NumberFormatException{
                 ContentValues cv = new ContentValues();
-                String[] insertValuesArr = _insertValues.split(",");
+                String[] insertedValuesArr = _insertedValues.split(",");
 
-                cv.put(QuestionContract.QuestionEntry.COLUMN_CATEGORY, insertValuesArr[0]);
-                cv.put(QuestionContract.QuestionEntry.COLUMN_DIFFICULTY, Integer.parseInt(insertValuesArr[1]));
-                cv.put(QuestionContract.QuestionEntry.COLUMN_QUESTIONTEXT, insertValuesArr[2]);
-                cv.put(QuestionContract.QuestionEntry.COLUMN_ANSWERTEXT1, insertValuesArr[3]);
-                cv.put(QuestionContract.QuestionEntry.COLUMN_ANSWERTEXT2, insertValuesArr[4]);
-                cv.put(QuestionContract.QuestionEntry.COLUMN_ANSWERTEXT3, insertValuesArr[5]);
-                cv.put(QuestionContract.QuestionEntry.COLUMN_ANSWERTEXT4, insertValuesArr[6]);
-                cv.put(QuestionContract.QuestionEntry.COLUMN_CORRECT_ANSWER, Integer.parseInt(insertValuesArr[7]));
+                cv.put(QuestionContract.QuestionEntry.COLUMN_CATEGORY, insertedValuesArr[0]);
+                cv.put(QuestionContract.QuestionEntry.COLUMN_DIFFICULTY, Integer.parseInt(insertedValuesArr[1]));
+                cv.put(QuestionContract.QuestionEntry.COLUMN_QUESTIONTEXT, insertedValuesArr[2]);
+                cv.put(QuestionContract.QuestionEntry.COLUMN_ANSWERTEXT1, insertedValuesArr[3]);
+                cv.put(QuestionContract.QuestionEntry.COLUMN_ANSWERTEXT2, insertedValuesArr[4]);
+                cv.put(QuestionContract.QuestionEntry.COLUMN_ANSWERTEXT3, insertedValuesArr[5]);
+                cv.put(QuestionContract.QuestionEntry.COLUMN_ANSWERTEXT4, insertedValuesArr[6]);
+                cv.put(QuestionContract.QuestionEntry.COLUMN_CORRECT_ANSWER, Integer.parseInt(insertedValuesArr[7]));
 
                 return cv;
             }
