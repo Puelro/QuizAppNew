@@ -57,9 +57,9 @@ Geschichte,4,In welchem Jahr wurde die NATO gegründet?,1924,1950,1975,1949,4
 Geschichte,4,Wer gilt als Erfinder des modernen Buchdrucks mit beweglichen Metalllettern und der Druckerpresse?,Johannes Gutenberg,Ludwig Erhard,Papst Franziskus,Gregor Mendel,1
 Geographie,4,Wie lautet die hauptstadt des US-Bundesstaats Delaware?,Atlanta,Denver,Dover,Frankfort,3
 Geographie,4,Welches Land gehört nicht zu Afrika?,Algerien,Peru,Kamerun,Niger,2
-Film,4,Welcher Schauspieler verkörperte im Jahr 1975 James Bond?,Timothy Dalton,Pierce Brosnan,Roder Moore,Sean Connery,3
-Film,4,In welchem dieser Filme spielen NICHT sowohl Al Pacino als auch Robert de Niro mit?,The Irishman,The Godfather II, Heat,Joker,4
-Musik,4,Wer war nie ein Teil der Band "The Jackson 5",Michael Jackson,Marlo jackson,Samuel Jackson,Tito Jackson,3
+Film,4,Welcher Schauspieler verkörperte im Jahr 1975 James Bond?,Timothy Dalton,Pierce Brosnan,Rodger Moore,Sean Connery,3
+Film,4,In welchem dieser Filme spielen NICHT sowohl Al Pacino als auch Robert de Niro mit?,The Irishman,The Godfather II,Heat,Joker,4
+Musik,4,Wer war nie ein Teil der Band "The Jackson 5",Michael Jackson,Marlon jackson,Samuel Jackson,Tito Jackson,3
 Musik,4,Von Wem stammt der Soundtrack zur "Fluch der Karibik"-Reihe?,John Williams,Howard Shore,Hans Zimmer,Ennio Morricone,3
 Gaming,4,Welches Spiel wurde 2018 mit dem Lied "Take Me Home Country Roads" beworben?,Fallout 76,God of War,Red Dead Redemption 2,Spiderman PS4,1
 Allgemein,5,In welchem Jahr bekam Nelson Mandela den Friedensnobelpreis,1984,1993,1989,1996,2
