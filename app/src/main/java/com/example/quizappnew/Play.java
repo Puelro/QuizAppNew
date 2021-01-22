@@ -11,6 +11,7 @@ import android.os.Handler;
 import android.os.Looper;
 import android.util.Log;
 import android.view.View;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -86,6 +87,7 @@ public class Play extends AppCompatActivity {
         setAllListenersFromButtonsAndTextfieldsExceptAnswers();
 
         setProgressBar();
+
     }
 
     private void initiateValues() {
@@ -208,6 +210,8 @@ public class Play extends AppCompatActivity {
         tvThisQuestionPoints.setText(String.valueOf(pointsForThisQuestion));
         tvThisQuestionPoints.setVisibility(View.VISIBLE);
 
+        tvThisQuestionPoints.startAnimation(AnimationUtils.loadAnimation(this, R.anim.shake));
+
         final Handler handler = new Handler(Looper.getMainLooper());
         handler.postDelayed(new Runnable() {
             @Override
@@ -240,6 +244,7 @@ public class Play extends AppCompatActivity {
 
         if(currentStreakMultiplier > 1.0){
             tvMultiplier.setVisibility(View.VISIBLE);
+            tvMultiplier.startAnimation(AnimationUtils.loadAnimation(this, R.anim.shake2));
         }
     }
 

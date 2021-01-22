@@ -18,6 +18,7 @@
     <string name="btnAnswer4">Antwort D</string>
     <string name="btnJoker50_50">50/50</string>
     <string name="btnJoker2">Streak</string>
+    <string name="btnRegister">Eintragen</string>
 
     //TextViews
     <string name="tvGameName">Spiel_Name</string>
