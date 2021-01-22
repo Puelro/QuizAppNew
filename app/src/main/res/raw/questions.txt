@@ -1,0 +1,76 @@
+Allgemein,1,Was ist Elfenbein?,Ein beinahe weißes Holz,die Stoßzähne von Elefanten,eine Waffe aus dem Mittelalter,besonders schöne Beine,2
+Allgemein,1,Wer atmet schneller?,Maus,Mensch,Huhn,alle atmen gleich schnell,1
+Allgemein,1,Von wem stammt das Gemälde Mona Lisa?,Picasso,van Gogh,Leonardo da Vinci,Monet,3
+Allgemein,1,Wo befindet sich das Colosseum?,Frankreich,Spanien,Vereinigtes Königreich,Italien,4
+Gaming,1,Welchen Beruf hat Super Mario?,Bauarbeiter,Klempner,Schornsteinfeger,Lehrer,2
+Gaming,1,Von Welcher Spielereihe ist Skyrim der fünfte Ableger?,Fallout,The Witcher,The Elder Scrolls,Uncharted,3
+Film,1,Wie lautet Gollums echter Name?,Bilbo,Frodo,Smeagol,Boromir,3
+Film,1,Welche Farbe hat Lukes Lichtschwert in Star Wars Episode 6?,grün,blau,rot,gelb,1
+Musik,1,Welches dieser Lieder stammt NICHT von Michael Jackson?,Thriller,The Show Must Go On,Billie Jean,Smooth Criminal,2
+Musik,1,von welcher Band stammt das Lied "Highway to Hell"?,Queen,Die Ärzte,AC/DC,Creedence Clearwater Revival,3
+Geschichte,1,In welchem Jahr begann der erste Weltkrieg?,1914,1916,1918,1933,1
+Geschichte,1,Welche ansteckende Krankheit entvölkerte im Mittelalter halb Europa?,Covid 19,Ebola,Pest,Grippe,3
+Geschichte,1,Wie wurde König Ludwig XIV. auch genannt?,Der Nachtkönig,Der Sonnenkönig,Der Bettelkönig,Der dumme König,2
+Geopraphie,1,Wie heißt der längste Fluss Deutschlands?,Rhein,Oder,Niel,Mosel,1
+Geographie,1,Welches dieser Länder ist kein Nachbarland von Deutschland?,Polen,Belgien,Schweiz,Ungarn,4
+Geographie,1,Wie heißt die Hauptstadt von Portugal?,Lissabon,Rom,Prag,Athen,1
+Serie,1,Wie heißt Son Gokus Bruder aus Dragonball?,Vegeta,Son Gohan,Krilin,Raditz,4
+Serie,1,Von wem wird Eddard Stark von Game of Thrones verkörpert?,Kid Harrington,Liam Neeson,Keanu Reeves,Sean bean,4
+Sport,1,Gegen wen gewann deutschland im Finale der Fußball-Weltmeisterschaft 2014?,Brasilien,Niederlande,Spanien,Argentinien,4
+Sport,1,Wie viele Spieler hat eine Fußballmannschaft?,11 Spieler,12 Spieler,13 Spieler,14 Spieler,1
+Geschichte,2,Was bedeuten Julius Caesers berühmte Worte "Alea iacta est"?,Die Würfel sind gefallen,Die Entscheidung ist getroffen,Das ist mein Urteil,So soll es sein,1
+Geschichte,2,Wie wird der Friedensvertrag genannt der zum Ende des ersten Weltkriegs unterzeichnet wurde?,Genfer Konvention,Friedensvertrag von Versailles,Zwei-plus-Vier-Vertrag,Es gab keinen Friedensvertrag,2
+Geschichte,2,In welchem Jahr wurde das World Trade Center Zerstört?,2010,1996,2001,1990,3
+Geschichte,2,In welchem Jahr wurde der Mauerfall?,1983,1986,1989,1992,3
+Allgemein,2,Wie nennt man ein männliches Schwein?,Sau,Rüde,Eber,Bulle,3
+Allgemein,2,Was ist das größte Tier der Welt?,Giraffe,Elefant,Buckelwal,Blauwal,4
+Allgemein,2,Wie heißt der höchste Berg der Welt?,Nanga Parbat,Zugspitze,Alpen,Mount Everest,4
+Sport,2,Wie viele Spieler hat eine Basketballmannschaft?,4 Spieler,5 Spieler,6 Spieler,7 Spieler,2
+Sport,2,Welche Aktivität gehört nicht zum Triathlon?,Laufen,Schwimmen,Radfahren,Springen,4
+Film,2,Welche Pille hat Neo in The Matrix genommen?,Die grüne Pille,Die blaue Pille, Die rote Pille,Die gelbe Pille,3
+Film,2,Welcher Schauspieler gewann den Oscar für den besten Schauspieler für den Film Forrest Gump?,Tom Hanks,Robert De Niro,Al Pacino,Brad Pitt,1
+Film,2,Auf Wessen Buchvorlage basieren die "The Godfather"-Filme?,Steven King,Mario Puto,J.R.R. Tolkien,Charles Dickens,2
+Musik,2,Welcher Sänger war unter anderem als "The King of Pop" bekannt?,Elvis Presley,Michael Jackson,John Lennon,Freddy Mercury,2
+Musik,2,Von wem stammt das Lied "Never Gonna Give You Up"?,A-Ha,Rick Astley,John Denver,Toto,2
+Gaming,2,Aus welchem Spiel stammt der Creeper?,Minecraft,Slenderman,The Forest,Oblivion,1
+Gaming,2,In welchem Setting spielt Battlefield V?,Zukunft,Moderne,Kalter Krieg,Zweiter Weltkrieg,4
+Geographie,2,Wie heißt die Hauptstadt von Polen?,Moskau,Warschau,Wien,Bern,2
+Geographie,2,Welches dieser Länder gehört nicht zur EU?,Deutschland,Frankreich,Schweiz,Italien,3
+Serie,2,Wie heißt Spongebobs Haustier?,Gary,Fluffy,Maxi,Struppi,1
+Serie,2,Wer spricht den Joker in der Batman Animationsserie?,Heath Ledger,Mark Hamill,Kevin Conroy,Joaquin Phoenix,2
+Allgemien,3,Welches ist das härteste dieser vier Materialien?,Diamant,Korunt,Quarz,Stahl,1
+Allgemein,3,Wofür steht die Abkürzung "GmbH?",Geschäft mit beschränkter Haftung,Gesellschaft mit bekannter Haftung,Gesellschafter mit beschränkter Haftung,Gesellschaft mit beschränkter Haftung,4
+Allgemein,3,Wie viele Herzen hat ein Oktopus?,1 Herz,2 Herzen,3 Herzen,4 Herzen,3
+Geschichte,3,Wie lautet der frühere Name von Istanbul?,Metropolis,Delphi,Herat,Konstantinopel,4
+Geschichtte,3,im Zuge welcher Revolution wurde ludwig XVI. Zum Tode verurteilt und hingerichtet?,Französiche Revolution,Deutsche Revolution,Japanische Revolution,Amerikanische Revolution,1
+Geschichte,3,Eines der sieben Weltwunder ist der Koloss von ____ ?,Gizeh,Olympia,Rhodus,Ephesos,3
+Film,3,mit welchem Film hat Leonardo Di Caprio seinen ersten Oscar gewonnen?,Titanic,The Revenant,Inception,The Wolf of Wallstreet,2
+Film,3,Wer hat bei "Der Herr Der Ringe" Regie geführt?,Peter Jackson,George Lucas,Francis Ford Coppola,Sergio Leone,1
+Gaming,3,Welche dieser Spielereihen stammt nicht von Rockstargames?,Grand Theft Auto,Red Dead Redemption,Bully,Saints Row,4
+Gaming,3,In welchem Jahr erschien "The Witcher 3: Wild Hunt"?,2014,2015,2016,2017,2
+Musik,3,Welcher dieser Lieder stammt nicht von der Band Imagine Dragons?,Demons,Kids with Guns,Warriors,Radioactive,2
+Geographie,3,Zu Welchem Kontinent gehört Madagaskar?,Australien,Südamerika,Afrika,Asien,3
+Allgemein,4,Wer war Franz Kafka?,Sänger,Schriftsteller,Politiker,Musiker,2
+Allgemein,4,Wer Schirieb "Die Physiker"?,Franz Kafka,Umberto Eoc,Johann Wolfgang von Goethe,Friedrich Dürrenmatt,4
+Geschichte,4,In welchem Jahr ist die Titanik gesunken?,1912,1913,1914,1915,1
+Geschichte,4,In welchem Jahr wurde die NATO gegründet?,1924,1950,1975,1949,4
+Geschichte,4,Wer gilt als Erfinder des modernen Buchdrucks mit beweglichen Metalllettern und der Druckerpresse?,Johannes Gutenberg,Ludwig Erhard,Papst Franziskus,Gregor Mendel,1
+Geographie,4,Wie lautet die hauptstadt des US-Bundesstaats Delaware?,Atlanta,Denver,Dover,Frankfort,3
+Geographie,4,Welches Land gehört nicht zu Afrika?,Algerien,Peru,Kamerun,Niger,2
+Film,4,Welcher Schauspieler verkörperte im Jahr 1975 James Bond?,Timothy Dalton,Pierce Brosnan,Roder Moore,Sean Connery,3
+Film,4,In welchem dieser Filme spielen NICHT sowohl Al Pacino als auch Robert de Niro mit?,The Irishman,The Godfather II, Heat,Joker,4
+Musik,4,Wer war nie ein Teil der Band "The Jackson 5",Michael Jackson,Marlo jackson,Samuel Jackson,Tito Jackson,3
+Musik,4,Von Wem stammt der Soundtrack zur "Fluch der Karibik"-Reihe?,John Williams,Howard Shore,Hans Zimmer,Ennio Morricone,3
+Gaming,4,Welches Spiel wurde 2018 mit dem Lied "Take Me Home Country Roads" beworben?,Fallout 76,God of War,Red Dead Redemption 2,Spiderman PS4,1
+Allgemein,5,In welchem Jahr bekam Nelson Mandela den Friedensnobelpreis,1984,1993,1989,1996,2
+Allgemein,5,Wie viele Jahre dauert es in etwa bis der Saturn die Sonne umrundet hat?,c.a 11 Jahre,c.a 22 Jahre,c.a 38 Jahre,c.a 29 Jahre,4
+Sport,5,Wie viele Spieler hat eine Radballballmannschaft?,2 Spieler,4 Spieler,6 Spieler,8 Spieler,1
+Film,5,Wie heißt der Berater von Jabba dem Hutten aus Star Wars?,Sio Bibble,Bib Fortuna,Boba Fett,Ziro der Hutte,2
+Film,5,In welchem dieser Quentin Tarantino-Filme spielt Samuel L Jackson nicht mit?,The Hateful eight,Pulp Fiction,Inglourious Basterds,Resevoir Dogs,4
+Geschichte,5,Wer war der dritte Bundeskanzler Deutschlands?,Helmut Schmidt,Konrad Ardenauer,Kurt Georg Kiesinger,Gerhard Schröder,3
+Geschichte,5,Was kauften die USA im Jahre 1867 vom Russischen Kaiserreich?,Alaska,Haiti,Grönland,Maledieven,1
+Physik,5,Welche Ordnungzahl hat Arsen im Peryodensystem der Elemente?,28,33,30,31,2
+Geographie,5,Quito ist die Hauptstadt des Landes?,Ecuador,Bolivien,Venezuela,Guyana,1
+Gaming,5,Guybrush Threepwood ist der Protagonist aus welcher Spielereihe?,Deponia,Kings Quest,Monkey Island,Day of the Tentacle,3
+Gaming,5,Wie heißt das Kartenspiel welches erst als Minnispiel in The Witcher 3 auftauchte und dann ein Standalone Game wurde?,Uno,Wesemir,Gwent,Plötze,3
+Serie,5,Was für Tiere sind die Namensgebenden Hauptcharactere aus "Der Pinky und der Brain"?,Hamster,Ratten,Eichhörnchen,Igel,2

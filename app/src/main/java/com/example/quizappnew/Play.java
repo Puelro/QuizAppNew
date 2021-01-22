@@ -29,14 +29,14 @@ public class Play extends AppCompatActivity {
     private static final String TAG = "PlayActivity";
 
     ProgressBar progressBar;
-    final long[] basePointsPerLevel = new long[]{30000, 60000, 90000, 120000, 150000};
+    final long[] basePointsPerLevel = new long[]{3000, 9000, 15000, 30000, 45000, 180000, 210000};
     long startPoints;
     long currentPointsGoal;
 
     CountDownTimer questionPointsTimer;
     CountDownTimer levelTimer;
 
-    Cursor currentQuestions;
+    ArrayList<ContentValues> currentQuestions;
     ContentValues currentQuestion;
 
     int currentDifficulty;
@@ -93,6 +93,8 @@ public class Play extends AppCompatActivity {
     private void initiateValues() {
         tvThisQuestionPoints = findViewById(R.id.tvAddPoints);
         tvThisQuestionPoints.setVisibility(View.INVISIBLE);
+
+        currentQuestions = new ArrayList<ContentValues>();
 
         progressBar = findViewById(R.id.vertical_progressbar);
         progressBar.setMax(100);
@@ -277,21 +279,41 @@ public class Play extends AppCompatActivity {
 
     private void loadFilteredQuestions(){
         AppDatabase appDatabase = AppDatabase.getInstance(this);
-        currentQuestions = appDatabase.getFilteredQuestions(currentDifficulty, currentCategory);
+        Cursor cursor = appDatabase.getFilteredQuestions(currentDifficulty, currentCategory);
+
+        currentQuestions = new ArrayList<ContentValues>();
+
+        //Log.d(TAG, "loadFilteredQuestions: " + DatabaseUtils.dumpCursorToString(cursor));
+
+        for(int i = 0; i < cursor.getCount(); i++){
+            ContentValues cv = new ContentValues();
+            cursor.moveToPosition(i);
+            Log.d(TAG, "loadFilteredQuestions: currentPosition: " + cursor.getPosition());
+            DatabaseUtils.cursorRowToContentValues(cursor, cv);
+            currentQuestions.add(i, cv);
+            Log.e(TAG, "loadFilteredQuestions: ArrayList: " + currentQuestions);
+        }
+    }
+
+    private void removeQuestionFromList(int index) {
+
+        if(currentQuestions.size() > 1){
+            if(index != -1) {
+                Log.d(TAG, "removeQuestionFromCursor: removed this Question: " + currentQuestions.get(index));
+                currentQuestions.remove(index);
+                Log.d(TAG, "removeQuestionFromCursor: ArrayList: " + currentQuestions);
+            }
+        }
+
     }
 
     private void setRandomQuestion(){
-        int randomPosition = (int) ( Math.random() * currentQuestions.getCount());
+        int randomIndex = (int) ( Math.random() * currentQuestions.size());
 
-        currentQuestions.moveToPosition(randomPosition);
+        currentQuestion = currentQuestions.get(randomIndex);
 
-        Log.d("Play", "loadRandomQuestionAndSetTextViews: randomPosition: " + randomPosition + " \n" + currentQuestions.getPosition());
-
-        ContentValues question = new ContentValues();
-
-        DatabaseUtils.cursorRowToContentValues(currentQuestions, question);
-
-        currentQuestion = question;
+        Log.d(TAG, "setRandomQuestion: ArayListContents: " + currentQuestions.toString());
+        Log.d("Play", "setRandomQuestion: randomIndex: " + randomIndex + " \n" + "Question: " + currentQuestions.get(randomIndex));
 
         // enable all Answer-Buttons, if 2 Buttons are disabled because of the 50/50 Joker
         enableAllAnswerButtons(true);
@@ -372,6 +394,7 @@ public class Play extends AppCompatActivity {
                     decreaseStreakAndMultiplier();
                 }
 
+                removeQuestionFromList(currentQuestions.indexOf(currentQuestion));
                 setRandomQuestion();
                 fillQuestionTextFields();
                 timedPointsPerQuestion[0] = 1000;
@@ -396,6 +419,7 @@ public class Play extends AppCompatActivity {
                     decreaseStreakAndMultiplier();
                 }
 
+                removeQuestionFromList(currentQuestions.indexOf(currentQuestion));
                 setRandomQuestion();
                 fillQuestionTextFields();
                 timedPointsPerQuestion[0] = 1000;
@@ -420,6 +444,7 @@ public class Play extends AppCompatActivity {
                     decreaseStreakAndMultiplier();
                 }
 
+                removeQuestionFromList(currentQuestions.indexOf(currentQuestion));
                 setRandomQuestion();
                 fillQuestionTextFields();
                 timedPointsPerQuestion[0] = 1000;
@@ -444,6 +469,7 @@ public class Play extends AppCompatActivity {
                     decreaseStreakAndMultiplier();
                 }
 
+                removeQuestionFromList(currentQuestions.indexOf(currentQuestion));
                 setRandomQuestion();
                 fillQuestionTextFields();
                 timedPointsPerQuestion[0] = 1000;

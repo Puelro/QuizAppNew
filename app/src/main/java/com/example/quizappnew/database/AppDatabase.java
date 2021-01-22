@@ -100,6 +100,30 @@ public class AppDatabase extends SQLiteOpenHelper {
     }
 
     /**
+     * Adds the content of a String into the "Question" table
+     *
+     * @param db The database you want to work on
+     * @param _insertedValues A String-Object which holds data separated by a comma.
+     */
+    public void addQuestion(SQLiteDatabase db, String _insertedValues) {
+
+        ContentValues cv = new ContentValues();
+        String[] insertedValuesArr = _insertedValues.split(",");
+
+        cv.put(QuestionEntry.COLUMN_CATEGORY, insertedValuesArr[0]);
+        cv.put(QuestionEntry.COLUMN_DIFFICULTY, Integer.parseInt(insertedValuesArr[1]));
+        cv.put(QuestionEntry.COLUMN_QUESTIONTEXT, insertedValuesArr[2]);
+        cv.put(QuestionEntry.COLUMN_ANSWERTEXT1, insertedValuesArr[3]);
+        cv.put(QuestionEntry.COLUMN_ANSWERTEXT2, insertedValuesArr[4]);
+        cv.put(QuestionEntry.COLUMN_ANSWERTEXT3, insertedValuesArr[5]);
+        cv.put(QuestionEntry.COLUMN_ANSWERTEXT4, insertedValuesArr[6]);
+        cv.put(QuestionEntry.COLUMN_CORRECT_ANSWER, Integer.parseInt(insertedValuesArr[7]));
+
+        addQuestion(db, cv);
+    }
+
+
+    /**
      * Drops the Question-table and creates it again
      *
      * @param db The database on which is worked on
@@ -134,7 +158,7 @@ public class AppDatabase extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor data = db.rawQuery("SELECT * FROM " + QuestionContract.QuestionEntry.TABLE_NAME, null);
 
-        Log.d(TAG, "getQuestionListContents: Cursorcontent: " + DatabaseUtils.dumpCursorToString(data));
+        //Log.d(TAG, "getQuestionListContents: Cursorcontent: " + DatabaseUtils.dumpCursorToString(data));
         return data;
     }
 
