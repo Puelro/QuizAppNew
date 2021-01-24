@@ -1,4 +1,4 @@
-package com.example.quizappnew;
+package com.example.quizappnew.activities;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -16,6 +16,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.example.quizappnew.R;
 import com.example.quizappnew.database.AppDatabase;
 import com.example.quizappnew.database.QuestionAdapter;
 import com.example.quizappnew.database.QuestionContract;

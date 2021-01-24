@@ -1,17 +1,13 @@
-package com.example.quizappnew;
+package com.example.quizappnew.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Adapter;
 import android.widget.Button;
 
-import com.example.quizappnew.database.QuestionAdapter;
+import com.example.quizappnew.R;
 
 public class Highscore extends AppCompatActivity {
 
