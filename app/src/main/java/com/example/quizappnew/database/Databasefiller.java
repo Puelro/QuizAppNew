@@ -1,9 +1,10 @@
-package com.example.quizappnew;
+package com.example.quizappnew.database;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
+import com.example.quizappnew.R;
 import com.example.quizappnew.database.AppDatabase;
 
 import java.io.BufferedReader;
