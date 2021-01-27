@@ -75,7 +75,7 @@ public class Play extends AppCompatActivity {
         buttonJoker50_50 = findViewById(R.id.btnJoker50_50);
         buttonMenu = findViewById(R.id.btnMenu);
 
-        levelTimer = new CountDownTimer(600000, 1000) {
+        levelTimer = new CountDownTimer(60000, 1000) {
             @Override
             public void onTick(long millisUntilFinished) {
                 textViewManager.setTvTimer("Timer: " + millisUntilFinished / 1000);
