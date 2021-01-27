@@ -31,7 +31,7 @@ public class DatabaseEditor extends AppCompatActivity {
 
     Button buttonAddQuestion;
     Button buttonDeleteQuestion;
-    Button buttonDropQuestion;
+    Button buttonDropQuestionTable;
     Button buttonMenu;
 
     private TextView id;
@@ -61,84 +61,12 @@ public class DatabaseEditor extends AppCompatActivity {
         adapter = new QuestionAdapter(this, appDatabase.getQuestionListContents());
         recyclerView.setAdapter(adapter);
 
-
-        /*
-         *
-         */
-        buttonAddQuestion =  findViewById(R.id.AddQuestion);
-        buttonAddQuestion.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String insertValues = sqlCommand.getText().toString();
-
-                try{
-                    //throws exception
-                    ContentValues cv = putAllColumnValuesInAContentValuesAndReturnIt(insertValues);
-                    appDatabase.addQuestion(db, cv);
-
-                    Log.d("cv Cursor auslesen: ", "onClick(AddQuestion): " + cv.toString());
-
-                    sqlCommand.getText().clear();
-
-                    adapter.swapCursor(appDatabase.getQuestionListContents());
-                }catch(NumberFormatException e)
-                {
-                    Log.d(TAG, "btnInsertValues: Text found in the inserted values, where a Number was expected");
-                }
-            }
-
-            private ContentValues putAllColumnValuesInAContentValuesAndReturnIt(String _insertedValues) throws NumberFormatException{
-                ContentValues cv = new ContentValues();
-                String[] insertedValuesArr = _insertedValues.split(",");
-
-                cv.put(QuestionContract.QuestionEntry.COLUMN_CATEGORY, insertedValuesArr[0]);
-                cv.put(QuestionContract.QuestionEntry.COLUMN_DIFFICULTY, Integer.parseInt(insertedValuesArr[1]));
-                cv.put(QuestionContract.QuestionEntry.COLUMN_QUESTIONTEXT, insertedValuesArr[2]);
-                cv.put(QuestionContract.QuestionEntry.COLUMN_ANSWERTEXT1, insertedValuesArr[3]);
-                cv.put(QuestionContract.QuestionEntry.COLUMN_ANSWERTEXT2, insertedValuesArr[4]);
-                cv.put(QuestionContract.QuestionEntry.COLUMN_ANSWERTEXT3, insertedValuesArr[5]);
-                cv.put(QuestionContract.QuestionEntry.COLUMN_ANSWERTEXT4, insertedValuesArr[6]);
-                cv.put(QuestionContract.QuestionEntry.COLUMN_CORRECT_ANSWER, Integer.parseInt(insertedValuesArr[7]));
-
-                return cv;
-            }
-
-        });
-
-        /*
-         *
-         */
-        buttonDeleteQuestion =  findViewById(R.id.btnDeleteQuestion);
-        buttonDeleteQuestion.setOnClickListener(v -> {
-            String _questionID = questionID.getText().toString();
-
-            if( android.text.TextUtils.isDigitsOnly(_questionID) ){
-                createDropDialogDropRow( Integer.parseInt(_questionID) );
-                questionID.getText().clear();
-            }else{
-                Log.d(TAG, "DeleteTableRow: ID was not a number");
-            }
-
-        });
-
-
-        buttonDropQuestion =  findViewById(R.id.btnDropQuestion);
-        buttonDropQuestion.setOnClickListener(v -> createDropDialogDropTable());
-
-        buttonMenu =  findViewById(R.id.btnMenuDatabase);
-        buttonMenu.setOnClickListener(v -> {
-            finish();
-            Intent intent = new Intent(DatabaseEditor.this, Menu.class);
-            startActivity(intent);
-        });
-
-
-
+        setButtons();
     } // end onCreate()
 
 
     //
-    private void createDropDialogDropTable(){
+    private void createDropDialogDropQuestionTable(){
         AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
         alertDialog.setMessage("Are you sure you want to Drop the Table ?");
         alertDialog.setCancelable(false);
@@ -183,5 +111,77 @@ public class DatabaseEditor extends AppCompatActivity {
         });
 
         alertDialog.create().show();
+    }
+
+    private void setButtons(){
+        /*
+         *
+         */
+        buttonAddQuestion =  findViewById(R.id.AddQuestion);
+        buttonAddQuestion.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String insertValues = sqlCommand.getText().toString();
+
+                try{
+                    //throws exception
+                    ContentValues cv = putAllColumnValuesInAContentValuesAndReturnIt(insertValues);
+                    appDatabase.addQuestion(db, cv);
+
+                    Log.d("cv Cursor auslesen: ", "onClick(AddQuestion): " + cv.toString());
+
+                    sqlCommand.getText().clear();
+
+                    adapter.swapCursor(appDatabase.getQuestionListContents());
+                }catch(NumberFormatException e)
+                {
+                    Log.d(TAG, "btnInsertValues: Text found in the inserted values, where a Number was expected");
+                }
+            }
+
+            private ContentValues putAllColumnValuesInAContentValuesAndReturnIt(String _insertedValues) throws NumberFormatException{
+                ContentValues cv = new ContentValues();
+                String[] insertedValuesArr = _insertedValues.split(",");
+
+                cv.put(QuestionContract.QuestionEntry.COLUMN_CATEGORY, insertedValuesArr[0]);
+                cv.put(QuestionContract.QuestionEntry.COLUMN_DIFFICULTY, Integer.parseInt(insertedValuesArr[1]));
+                cv.put(QuestionContract.QuestionEntry.COLUMN_QUESTIONTEXT, insertedValuesArr[2]);
+                cv.put(QuestionContract.QuestionEntry.COLUMN_ANSWERTEXT1, insertedValuesArr[3]);
+                cv.put(QuestionContract.QuestionEntry.COLUMN_ANSWERTEXT2, insertedValuesArr[4]);
+                cv.put(QuestionContract.QuestionEntry.COLUMN_ANSWERTEXT3, insertedValuesArr[5]);
+                cv.put(QuestionContract.QuestionEntry.COLUMN_ANSWERTEXT4, insertedValuesArr[6]);
+                cv.put(QuestionContract.QuestionEntry.COLUMN_CORRECT_ANSWER, Integer.parseInt(insertedValuesArr[7]));
+
+                return cv;
+            }
+
+        });
+
+        /**
+         *
+         */
+        buttonDeleteQuestion =  findViewById(R.id.btnDeleteQuestion);
+        buttonDeleteQuestion.setOnClickListener(v -> {
+            String _questionID = questionID.getText().toString();
+
+            if( android.text.TextUtils.isDigitsOnly(_questionID) ){
+                createDropDialogDropRow( Integer.parseInt(_questionID) );
+                questionID.getText().clear();
+            }else{
+                Log.d(TAG, "DeleteTableRow: ID was not a number");
+            }
+
+        });
+
+
+        buttonDropQuestionTable =  findViewById(R.id.btnDropQuestionTable);
+        buttonDropQuestionTable.setOnClickListener(v -> createDropDialogDropQuestionTable());
+
+        buttonMenu =  findViewById(R.id.btnMenuHighscore);
+        buttonMenu.setOnClickListener(v -> {
+            finish();
+            Intent intent = new Intent(DatabaseEditor.this, Menu.class);
+            startActivity(intent);
+        });
     }
 }

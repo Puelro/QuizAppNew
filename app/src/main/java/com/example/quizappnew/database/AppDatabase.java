@@ -26,16 +26,15 @@ public class AppDatabase extends SQLiteOpenHelper {
      */
     private AppDatabase(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
+        onCreate(this.getWritableDatabase());
         Log.d(TAG, "AppDatabase : constructor");
     }
 
     @Override
     public void onCreate(SQLiteDatabase db) {
         Log.d(TAG, "onCreate: starts");
-
         createQuestionTable(db);
         createHighscoreTable(db);
-
         Log.d(TAG, "onCreate: ends");
     }
 
@@ -84,7 +83,7 @@ public class AppDatabase extends SQLiteOpenHelper {
     }
 
     /**
-     * Adds the content of cv into the "Question" table
+     * Adds the content of a ContentValues-Object into the "Question" table
      *
      * @param db The database you want to work on
      * @param cv A ContentValues-Object which holds data-pairs, where the column-name of the table is the key and value is the value
@@ -103,7 +102,7 @@ public class AppDatabase extends SQLiteOpenHelper {
      * Adds the content of a String into the "Question" table
      *
      * @param db The database you want to work on
-     * @param _insertedValues A String-Object which holds data separated by a comma.
+     * @param _insertedValues A String-Object which holds data separated by commas.
      */
     public void addQuestion(SQLiteDatabase db, String _insertedValues) {
 
@@ -138,16 +137,10 @@ public class AppDatabase extends SQLiteOpenHelper {
         createQuestionTable(db);
     }
 
-    /*
-    public void dropTableHighscore(SQLiteDatabase db){
-        db.execSQL("DROP TABLE IF EXISTS HIGHSCORE;");
-
-        String sSQL =   "CREATE TABLE IF NOT EXISTS" + "HIGHSCORE" + " ("
-                + "ID INTEGER PRIMARY KEY, "
-                + "NAME TEXT NOT NULL, "
-                + "SCORE NUMBER NOT NULL)";
-        Log.d(TAG, "onCreate: " + sSQL);
-    }*/
+    public void dropAndRecreateTableHighscore(SQLiteDatabase db){
+        db.execSQL("DROP TABLE IF EXISTS " + HighscoreContract.HighscoreEntry.TABLE_NAME + ";");
+        createHighscoreTable(db);
+    }
 
     /**
      * Returns all Questions of the Questions-table
@@ -162,9 +155,37 @@ public class AppDatabase extends SQLiteOpenHelper {
         return data;
     }
 
+    public Cursor getHighscoresInDescendingOrder(){
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        Cursor data = db.rawQuery("SELECT * FROM " + HighscoreContract.HighscoreEntry.TABLE_NAME
+                + " ORDER BY " + HighscoreContract.HighscoreEntry.COLUMN_POINTS + " DESC", null);
+
+        Log.d(TAG, "getHighscores: FilteredCursorcontent: " + DatabaseUtils.dumpCursorToString(data));
+        return data;
+    }
+
+    /**
+     * Adds the content of a ContentValues-Object into the "Question" table
+     *
+     * @param db The database you want to work on
+     * @param cv A ContentValues-Object which holds data-pairs, where the column-name of the table is the key and value is the value
+     */
+    public void addHighscore(SQLiteDatabase db, ContentValues cv) {
+        long result = db.insert(HighscoreContract.HighscoreEntry.TABLE_NAME, null, cv);
+
+        if (result == -1) {
+            Log.d(TAG, "addHighscore: ERROR! data-Set couldn't be added!");
+        } else {
+            Log.d(TAG, "addHighscore: SUCCESS! The data-Set was added: " + cv.toString());
+        }
+    }
+
     /**
      * Returns all Questions of the Questions-table
      *
+     * @param difficulty
+     * @param category
      * @return A cursor which holds all Questions-Items
      */
     public Cursor getFilteredQuestions(int difficulty, String category) {
@@ -210,11 +231,12 @@ public class AppDatabase extends SQLiteOpenHelper {
 
     //Helperclass
     private void createHighscoreTable(SQLiteDatabase db) {
-        String sSQL = "CREATE TABLE IF NOT EXISTS " + "Highscore" + " ("
-                + "ID INTEGER PRIMARY KEY, "
-                + "Place INTEGER NOT NULL, "
-                + "NAME TEXT NOT NULL, "
-                + "SCORE NUMBER NOT NULL"
+        String sSQL = "CREATE TABLE IF NOT EXISTS " + HighscoreContract.HighscoreEntry.TABLE_NAME + " ("
+                + HighscoreContract.HighscoreEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
+                + HighscoreContract.HighscoreEntry.COLUMN_NAME + " TEXT NOT NULL, "
+                + HighscoreContract.HighscoreEntry.COLUMN_MAX_DIFFICULTY + " INTEGER NOT NULL, "
+                + HighscoreContract.HighscoreEntry.COLUMN_MAX_STREAK + " INTEGER NOT NULL, "
+                + HighscoreContract.HighscoreEntry.COLUMN_POINTS + " INTEGER NOT NULL"
                 + ");";
 
         Log.d(TAG, "createHighscoreTable: " + sSQL);
@@ -222,6 +244,16 @@ public class AppDatabase extends SQLiteOpenHelper {
             db.execSQL(sSQL);
         } catch (android.database.SQLException e) {
             Log.d(TAG, "createHighscoreTable: SQL: syntax error :\n" + e.toString());
+        }
+    }
+
+    public void removeHighscore(SQLiteDatabase db, long _id) {
+        int result = db.delete(HighscoreContract.HighscoreEntry.TABLE_NAME, HighscoreContract.HighscoreEntry._ID + "=" + _id, null);
+
+        if (result == 0) {
+            Log.d(TAG, "removeItem: ERROR! NO row with the ID: " + _id + " was found");
+        } else {
+            Log.d(TAG, "removeQuestion: SUCCESS! The row with the ID: " + _id + ", was deleted");
         }
     }
 }

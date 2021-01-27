@@ -1,7 +1,6 @@
 package com.example.quizappnew.play_helper;
 
 import android.content.ContentValues;
-import android.content.Context;
 import android.database.Cursor;
 import android.database.DatabaseUtils;
 import android.util.Log;
@@ -22,17 +21,17 @@ public class QuestionManager {
     String currentCategory;
 
     Play playActivity;
-    StreakManager streakManager;
+    StreakAndPointsManager streakAndPointsManager;
 
 
-    public QuestionManager(int _difficulty, String _category, Play _playActivity, StreakManager _sMng){
+    public QuestionManager(int _difficulty, String _category, Play _playActivity, StreakAndPointsManager _sMng){
         currentQuestions = new ArrayList<ContentValues>();
         currentDifficulty = _difficulty;
         currentCategory = _category;
 
 
         playActivity = _playActivity;
-        streakManager =  _sMng;
+        streakAndPointsManager =  _sMng;
     }
 
     public void loadFilteredQuestions() {
@@ -82,6 +81,27 @@ public class QuestionManager {
         _answerbuttonManager.enableAllAnswerButtons(true);
     }
 
+    public void jocker50_50(AnswerbuttonManager _abtnMng){
+
+        int correctAnswer = getCurrentQuestion().getAsInteger(QuestionEntry.COLUMN_CORRECT_ANSWER);
+
+        ArrayList<Answerbutton> answerButtons = new ArrayList<>();
+
+        for(Answerbutton answer : _abtnMng.getAnswerButtons()){
+            answerButtons.add(answer);
+        }
+
+        answerButtons.remove(correctAnswer - 1);
+
+        // Removes another wrong answer at an random index between 0 and 2 (max index of the ArrayList)
+        // leaves 2 wrong answers in the ArrayList
+        answerButtons.remove( (int) Math.floor( Math.random() * 2 ) ) ;
+
+        for(Answerbutton answer: answerButtons){
+            answer.getUIButton().setEnabled(false);
+        }
+    }
+
     public int getCurrentDifficulty() {
         return currentDifficulty;
     }
@@ -95,6 +115,7 @@ public class QuestionManager {
     }
 
     public ArrayList<ContentValues> getCurrentQuestions() {
+
         return currentQuestions;
     }
 }

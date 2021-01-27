@@ -1,65 +1,62 @@
 package com.example.quizappnew.play_helper;
 
 import android.util.Log;
-import android.view.animation.AnimationUtils;
 
-import com.example.quizappnew.R;
-
-public class StreakManager {
+public class StreakAndPointsManager {
 
     private static final String TAG = "StreakManager";
 
-    int pastStreak;
+    int previousStreak;
     int currentStreak;
     int maxStreak;
 
-    double pastStreakMultiplier;
+    double previousStreakMultiplier;
     double currentStreakMultiplier;
 
     long timedPointsPerQuestion;
 
-    public StreakManager (){
-        pastStreak = 0;
+    public StreakAndPointsManager(){
+        previousStreak = 0;
         currentStreak = 0;
         maxStreak = 0;
-        pastStreakMultiplier = 1;
+        previousStreakMultiplier = 1;
         currentStreakMultiplier = 1;
         timedPointsPerQuestion = 1000;
     }
 
-    public long givePointsAndRaiseStreak(long _currentScore, QuestionManager _qMng, TextViewManager _tvMng){
+    public long getPointsAndShowThem(long _currentScore, QuestionManager _qMng, TextViewManager _tvMng){
         long pointsForThisQuestion = getPointsForCurrentQuestion(_qMng);
+
         _currentScore += pointsForThisQuestion;
         _tvMng.showPointsForCurrentQuestion(pointsForThisQuestion);
         _tvMng.setTvScore("Score: " +  String.valueOf(_currentScore));
 
-        increaseStreakAndMultiplier(_tvMng);
-        _tvMng.setTvStreak(String.valueOf(currentStreak));
-        _tvMng.setTvMultiplier("x" + String.valueOf(currentStreakMultiplier));
-
-        Log.d(TAG, "givePointsAndRaiseStreak: points given and Streak raised");
-
         return _currentScore;
     }
 
-    private void increaseStreakAndMultiplier(TextViewManager _tvMng) {
+    public void increaseStreakAndMultiplier(long _currentScore, TextViewManager _tvMng) {
         currentStreak++;
 
         if(maxStreak < currentStreak){
             maxStreak = currentStreak;
         }
 
-        pastStreak = currentStreak;
+        previousStreak = currentStreak;
 
         if(currentStreakMultiplier < 5) {
             currentStreakMultiplier += 0.5;
-            pastStreakMultiplier = currentStreakMultiplier;
+            previousStreakMultiplier = currentStreakMultiplier;
         }
 
         if(currentStreakMultiplier > 1.0){
             _tvMng.setTvMultiplierIsVisible(true);
             _tvMng.startMultiplierAnimation();
         }
+
+        _tvMng.setTvStreak(String.valueOf(currentStreak));
+        _tvMng.setTvMultiplier(String.valueOf(currentStreakMultiplier + "x"));
+
+        Log.d(TAG, "givePointsAndRaiseStreak: points given and Streak raised");
     }
 
     public void decreaseStreakAndMultiplier(TextViewManager _tvMng){
@@ -69,11 +66,8 @@ public class StreakManager {
         currentStreak = 0;
         _tvMng.setTvStreak(String.valueOf(currentStreak));
         currentStreakMultiplier = 1;
-        _tvMng.setTvMultiplier("x" + String.valueOf(currentStreakMultiplier));
-
-        if(currentStreakMultiplier == 1.0){
-            _tvMng.setTvMultiplierIsVisible(false);
-        }
+        _tvMng.setTvMultiplier(String.valueOf(currentStreakMultiplier));
+        _tvMng.setTvMultiplierIsVisible(false);
     }
 
     public long getPointsForCurrentQuestion(QuestionManager _qMng){
@@ -97,5 +91,18 @@ public class StreakManager {
 
     public void setTimedPointsPerQuestion(long _timedPointsPerQuestion) {
         timedPointsPerQuestion = _timedPointsPerQuestion;
+    }
+
+    public void previousStreakToCurrentStreak(TextViewManager _tvMng) {
+        currentStreak = previousStreak;
+        _tvMng.setTvStreak(String.valueOf(currentStreak));
+    }
+
+    public void previousMultiplierToCurrentMultiplier(TextViewManager _tvMng) {
+        currentStreakMultiplier = previousStreakMultiplier;
+        _tvMng.setTvMultiplier(String.valueOf(currentStreakMultiplier + "x"));
+        if(currentStreakMultiplier > 1){
+            _tvMng.setTvMultiplierIsVisible(true);
+        }
     }
 }

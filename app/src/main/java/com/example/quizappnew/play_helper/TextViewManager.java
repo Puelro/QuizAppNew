@@ -3,6 +3,7 @@ package com.example.quizappnew.play_helper;
 import android.app.Activity;
 import android.os.Handler;
 import android.os.Looper;
+import android.util.Log;
 import android.view.View;
 import android.view.animation.AnimationUtils;
 import android.widget.TextView;
@@ -13,6 +14,8 @@ import com.example.quizappnew.R;
 import java.util.ArrayList;
 
 public class TextViewManager {
+    private static final String TAG = "TextViewManager";
+
     TextView tvTimer;
     TextView tvMissing;
     TextView tvPoints;
@@ -65,28 +68,37 @@ public class TextViewManager {
         }, 500);
     }
 
-    public void fillQuestionTextFields() {
-
+    public void fillQuestionTextFieldsRandom() {
         TextView questionTextView = playActivity.findViewById(R.id.tvQuestion);
-        ArrayList<Answerbutton> answerButtons = answerbuttonManager.getAnswerButtons();
+        ArrayList<Answerbutton> answerButtons = new ArrayList<>();
+        for(Answerbutton answerbutton : answerbuttonManager.getAnswerButtons()){
+            answerButtons.add(answerbutton);
+        }
 
         //Question.get + set
-
         String questionsText = questionManager.getCurrentQuestion().getAsString(QuestionEntry.COLUMN_QUESTIONTEXT);
         questionTextView.setText(questionsText);
 
+        ArrayList<String> answertexts = new ArrayList<>();
+        answertexts.add(0, questionManager.getCurrentQuestion().getAsString(QuestionEntry.COLUMN_ANSWERTEXT1));
+        answertexts.add(1, questionManager.getCurrentQuestion().getAsString(QuestionEntry.COLUMN_ANSWERTEXT2));
+        answertexts.add(2, questionManager.getCurrentQuestion().getAsString(QuestionEntry.COLUMN_ANSWERTEXT3));
+        answertexts.add(3, questionManager.getCurrentQuestion().getAsString(QuestionEntry.COLUMN_ANSWERTEXT4));
+
+        int randomAnswerButtonIndex;
+        int correctAnswerIndex = questionManager.getCurrentQuestion().getAsInteger(QuestionEntry.COLUMN_CORRECT_ANSWER) - 1;
         //allAnswers.get + set
-        String answerText1 = questionManager.getCurrentQuestion().getAsString(QuestionEntry.COLUMN_ANSWERTEXT1);
-        answerButtons.get(0).getUIButton().setText(answerText1);
+        for(int i = 3; i >= 0; i--){
+            randomAnswerButtonIndex = (int) ( Math.random() * answerButtons.size());
+            Answerbutton randomAnswerButton = answerButtons.get(randomAnswerButtonIndex);
+            randomAnswerButton.getUIButton().setText(answertexts.get(i));
 
-        String answerText2 = questionManager.getCurrentQuestion().getAsString(QuestionEntry.COLUMN_ANSWERTEXT2);
-        answerButtons.get(1).getUIButton().setText(answerText2);
+            if(i == correctAnswerIndex){
+                questionManager.getCurrentQuestion().put(QuestionEntry.COLUMN_CORRECT_ANSWER, randomAnswerButton.getButtonNumber());
+            }
 
-        String answerText3 = questionManager.getCurrentQuestion().getAsString(QuestionEntry.COLUMN_ANSWERTEXT3);
-        answerButtons.get(2).getUIButton().setText(answerText3);
-
-        String answerText4 = questionManager.getCurrentQuestion().getAsString(QuestionEntry.COLUMN_ANSWERTEXT4);
-        answerButtons.get(3).getUIButton().setText(answerText4);
+            answerButtons.remove(randomAnswerButtonIndex);
+        }
     }
 
 

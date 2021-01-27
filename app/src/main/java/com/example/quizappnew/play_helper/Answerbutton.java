@@ -22,12 +22,16 @@ public class Answerbutton{
         uiButton.setOnClickListener(new View.OnClickListener()  {
             @Override
             public void onClick(View v) {
-                playActivity.buttonWasClicked(buttonNumber);
+                playActivity.answerButtonWasClicked(buttonNumber);
             }
         });
     }
 
     public Button getUIButton(){
         return uiButton;
+    }
+
+    public int getButtonNumber(){
+        return buttonNumber;
     }
 }

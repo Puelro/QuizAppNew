@@ -6,33 +6,28 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.TextView;
 
 import android.os.CountDownTimer;
 
 import com.example.quizappnew.R;
-import com.example.quizappnew.play_helper.Answerbutton;
 import com.example.quizappnew.play_helper.AnswerbuttonManager;
 import com.example.quizappnew.play_helper.ProgressbarManager;
 import com.example.quizappnew.play_helper.QuestionManager;
-import com.example.quizappnew.play_helper.StreakManager;
+import com.example.quizappnew.play_helper.StreakAndPointsManager;
 import com.example.quizappnew.play_helper.TextViewManager;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-
-import static com.example.quizappnew.database.QuestionContract.*;
 // ---------------------------------------------------------------------------------------------- //
 public class Play extends AppCompatActivity {
     private static final String TAG = "PlayActivity";
 
+    int levelTimeSeconds = 1000;
+
     TextViewManager textViewManager;
     ProgressbarManager progressbarManager;
     QuestionManager questionManager;
-    StreakManager streakManager;
+    StreakAndPointsManager streakAndPointsManager;
     AnswerbuttonManager answerbuttonManager;
 
     CountDownTimer questionPointsTimer;
@@ -42,40 +37,42 @@ public class Play extends AppCompatActivity {
 
     Button buttonMenu;
     Button buttonJoker50_50;
+    Button buttonJokerStreak;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_play);
 
-
-        streakManager = new StreakManager();
+        streakAndPointsManager = new StreakAndPointsManager();
         // TODO Difficulty and category will be passed from previous Activity
-        questionManager = new QuestionManager(1, null, this, streakManager);
+        questionManager = new QuestionManager(1, null, this, streakAndPointsManager);
         answerbuttonManager = new AnswerbuttonManager(this, questionManager);
         textViewManager = new TextViewManager(this, questionManager, answerbuttonManager);
         progressbarManager = new ProgressbarManager(this, currentScore, questionManager, textViewManager);
 
         //sets the default values of the variables
         initiateValues();
+        initiateTimer();
 
         questionManager.loadFilteredQuestions();
-
         questionManager.setRandomQuestion(answerbuttonManager);
-        textViewManager.fillQuestionTextFields();
+        textViewManager.fillQuestionTextFieldsRandom();
 
-        setAllListenersFromButtonsAndTextfieldsExceptAnswers();
-
-        progressbarManager.setProgressbar(currentScore, levelTimer);
+        setButtonListeners();
+        progressbarManager.setProgressbar(currentScore, levelTimer, buttonJokerStreak);
     }
 
     private void initiateValues() {
         currentScore = 0;
 
         buttonJoker50_50 = findViewById(R.id.btnJoker50_50);
+        buttonJokerStreak = findViewById(R.id.btnJokerStreak);
         buttonMenu = findViewById(R.id.btnMenu);
+    }
 
-        levelTimer = new CountDownTimer(60000, 1000) {
+    private void initiateTimer(){
+        levelTimer = new CountDownTimer(levelTimeSeconds*1000, 1000) {
             @Override
             public void onTick(long millisUntilFinished) {
                 textViewManager.setTvTimer("Timer: " + millisUntilFinished / 1000);
@@ -85,7 +82,7 @@ public class Play extends AppCompatActivity {
             public void onFinish() {
                 Intent intent = new Intent(Play.this, Score.class);
                 intent.putExtra("FINAL_SCORE", currentScore);
-                intent.putExtra("MAX_STREAK", streakManager.getMaxStreak());
+                intent.putExtra("MAX_STREAK", streakAndPointsManager.getMaxStreak());
                 intent.putExtra("MAX_LEVEL", questionManager.getCurrentDifficulty());
                 startActivity(intent);
             }
@@ -94,37 +91,24 @@ public class Play extends AppCompatActivity {
         questionPointsTimer = new CountDownTimer(5000, 1) {
 
             int millisInFuture = 5000;
-            long basePointsPerQuestion = streakManager.getTimedPointsPerQuestion();
+            long basePointsPerQuestion = streakAndPointsManager.getTimedPointsPerQuestion();
 
             public void onTick(long millisUntilFinished) {
                 long currentPoints = (basePointsPerQuestion / 2) + ( ( ( basePointsPerQuestion / 2 ) / 100 ) * ( millisUntilFinished /  (millisInFuture / 100) ) );
-                streakManager.setTimedPointsPerQuestion( currentPoints );
-                textViewManager.setTvPoints( String.valueOf(streakManager.getPointsForCurrentQuestion(questionManager) ) );
+                streakAndPointsManager.setTimedPointsPerQuestion( currentPoints );
+                textViewManager.setTvPoints( String.valueOf(streakAndPointsManager.getPointsForCurrentQuestion(questionManager) ) );
             }
             public void onFinish() {
-                streakManager.setTimedPointsPerQuestion(500);
-                textViewManager.setTvPoints(String.valueOf(streakManager.getPointsForCurrentQuestion(questionManager)));
+                streakAndPointsManager.setTimedPointsPerQuestion(500);
+                textViewManager.setTvPoints(String.valueOf(streakAndPointsManager.getPointsForCurrentQuestion(questionManager)));
             }
         }.start();
     }
 
-
     private void joker50_50() {
         buttonJoker50_50.setEnabled(false);
 
-        int correctAnswer = questionManager.getCurrentQuestion().getAsInteger(QuestionEntry.COLUMN_CORRECT_ANSWER);
-
-        ArrayList<Answerbutton> answerButtons = answerbuttonManager.getAnswerButtons();
-
-        answerButtons.remove(correctAnswer - 1);
-
-        // Removes another wrong answer at an random index between 0 and 2 (max index of the ArrayList)
-        // leaves 2 wrong answers in the ArrayList
-        answerButtons.remove( (int) Math.floor( Math.random() * 2 ) ) ;
-
-        for(Answerbutton answer: answerButtons){
-            answer.getUIButton().setEnabled(false);
-        }
+        questionManager.jocker50_50(answerbuttonManager);
 
         final Handler handler = new Handler(Looper.getMainLooper());
         handler.postDelayed(new Runnable() {
@@ -135,28 +119,41 @@ public class Play extends AppCompatActivity {
         }, 10000);
     }
 
-    public void buttonWasClicked(int buttonNumber){
+    private void jokerStreak(){
+        buttonJokerStreak.setEnabled(false);
+        streakAndPointsManager.previousStreakToCurrentStreak(textViewManager);
+        streakAndPointsManager.previousMultiplierToCurrentMultiplier(textViewManager);
+    }
+
+    public void answerButtonWasClicked(int buttonNumber){
         answerbuttonManager.enableAllAnswerButtons(false);
         questionPointsTimer.cancel();
 
         if(questionManager.isRightAnswer(buttonNumber)){
-            currentScore = streakManager.givePointsAndRaiseStreak(currentScore, questionManager, textViewManager);
-            progressbarManager.setProgressbar(currentScore, levelTimer);
+            currentScore = streakAndPointsManager.getPointsAndShowThem(currentScore, questionManager, textViewManager);
+            streakAndPointsManager.increaseStreakAndMultiplier(currentScore, textViewManager);
+            progressbarManager.setProgressbar(currentScore, levelTimer, buttonJokerStreak);
         }else{
-            streakManager.decreaseStreakAndMultiplier(textViewManager);
+            streakAndPointsManager.decreaseStreakAndMultiplier(textViewManager);
         }
 
         questionManager.removeQuestionFromList(questionManager.getCurrentQuestions().indexOf(questionManager.getCurrentQuestion()));
         questionManager.setRandomQuestion(answerbuttonManager);
-        textViewManager.fillQuestionTextFields();
-        streakManager.setTimedPointsPerQuestion(1000);
+        textViewManager.fillQuestionTextFieldsRandom();
+        streakAndPointsManager.setTimedPointsPerQuestion(1000);
         questionPointsTimer.start();
-
         answerbuttonManager.enableAllAnswerButtons(true);
     }
 
 
-    private void setAllListenersFromButtonsAndTextfieldsExceptAnswers(){
+    private void setButtonListeners(){
+
+        buttonJokerStreak.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                jokerStreak();
+            }
+        });
 
         buttonJoker50_50.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -7,11 +7,42 @@
     android:background="@drawable/img2"
     tools:context=".activities.Highscore">
 
+    <Button
+        android:id="@+id/btnDropHighscores"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="168dp"
+        android:layout_marginLeft="168dp"
+        android:text="Tabelle löschen"
+        app:backgroundTint="#F29111"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout"
+        app:layout_constraintVertical_bias="0.567" />
+
+    <Button
+        android:id="@+id/btnMenuHighscore"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/btnMenu"
+        app:backgroundTint="#F29111"
+        app:layout_constraintBottom_toBottomOf="@+id/btnDropHighscores"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.503"
+        app:layout_constraintStart_toEndOf="@+id/btnDropHighscores"
+        app:layout_constraintTop_toTopOf="@+id/btnDropHighscores" />
+
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:id="@+id/linearLayout"
+        android:layout_width="965dp"
+        android:layout_height="438dp"
         android:gravity="center_horizontal"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0">
 
         <TextView
             android:id="@+id/hdlHighscore"
@@ -29,10 +60,8 @@
 
             <EditText
                 android:id="@+id/etxtName"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="90dp"
-                android:layout_marginLeft="90dp"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:ems="10"
                 android:hint="Name"
@@ -42,25 +71,17 @@
                 android:id="@+id/btnRegister"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="90dp"
-                android:layout_marginRight="90dp"
                 android:text="@string/btnRegister"
                 app:backgroundTint="#F29111" />
         </LinearLayout>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvScoreList"
-            android:layout_width="181dp"
-            android:layout_height="198dp"
-            android:layout_marginTop="5dp"
-            android:layout_marginBottom="28dp"></androidx.recyclerview.widget.RecyclerView>
+            android:layout_width="697dp"
+            android:layout_height="296dp"
+            android:layout_marginBottom="28dp">
 
-        <Button
-            android:id="@+id/btnMenuDatabase"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/btnMenu"
-            app:backgroundTint="#F29111" />
+        </androidx.recyclerview.widget.RecyclerView>
 
     </LinearLayout>
 

@@ -30,7 +30,6 @@ public class Menu extends AppCompatActivity {
             Databasefiller.dropAndFillDatabase(this, appDatabase, db);
         }
 
-
         buttonPlay = findViewById(R.id.btnPlay);
         buttonPlay.setOnClickListener(new View.OnClickListener() {
             @Override

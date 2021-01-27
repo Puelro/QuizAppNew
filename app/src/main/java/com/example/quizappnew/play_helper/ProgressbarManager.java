@@ -3,6 +3,7 @@ package com.example.quizappnew.play_helper;
 import android.app.Activity;
 import android.content.Context;
 import android.os.CountDownTimer;
+import android.widget.Button;
 import android.widget.ProgressBar;
 
 import com.example.quizappnew.R;
@@ -30,7 +31,7 @@ public class ProgressbarManager {
     }
 
 
-    public void setProgressbar(long _currentScore, CountDownTimer _levelTimer) {
+    public void setProgressbar(long _currentScore, CountDownTimer _levelTimer, Button _jokerStreakButton) {
 
         if (_currentScore < currentPointsGoal) {
             long pointsSoFar = _currentScore - startPoints;
@@ -49,10 +50,13 @@ public class ProgressbarManager {
                 currentPointsGoal = _currentScore + basePointsPerLevel[questionManager.getCurrentDifficulty() - 1];
             } else {
                 startPoints = _currentScore;
+                //TODO No reference to basePointsPerLevel
                 currentPointsGoal = _currentScore + 300000;
                 _levelTimer.cancel();
                 _levelTimer.start();
+
             }
+            _jokerStreakButton.setEnabled(true);
             textViewManager.setTvMissing(String.valueOf((long) (currentPointsGoal - startPoints)));
             progressBar.setProgress(0);
         }
