@@ -22,7 +22,7 @@ import com.example.quizappnew.play_helper.TextViewManager;
 public class Play extends AppCompatActivity {
     private static final String TAG = "PlayActivity";
 
-    int levelTimeSeconds = 10;
+    int levelTimeSeconds = 1000;
 
     TextViewManager textViewManager;
     ProgressbarManager progressbarManager;
@@ -57,7 +57,7 @@ public class Play extends AppCompatActivity {
 
         questionManager.loadFilteredQuestions();
         questionManager.setRandomQuestion(answerbuttonManager);
-        textViewManager.fillQuestionTextFields();
+        textViewManager.fillQuestionTextFieldsRandom();
 
         setButtonListeners();
         progressbarManager.setProgressbar(currentScore, levelTimer, buttonJokerStreak);
@@ -139,7 +139,7 @@ public class Play extends AppCompatActivity {
 
         questionManager.removeQuestionFromList(questionManager.getCurrentQuestions().indexOf(questionManager.getCurrentQuestion()));
         questionManager.setRandomQuestion(answerbuttonManager);
-        textViewManager.fillQuestionTextFields();
+        textViewManager.fillQuestionTextFieldsRandom();
         streakAndPointsManager.setTimedPointsPerQuestion(1000);
         questionPointsTimer.start();
         answerbuttonManager.enableAllAnswerButtons(true);

@@ -30,4 +30,8 @@ public class Answerbutton{
     public Button getUIButton(){
         return uiButton;
     }
+
+    public int getButtonNumber(){
+        return buttonNumber;
+    }
 }
