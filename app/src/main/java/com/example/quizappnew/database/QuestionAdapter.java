@@ -86,10 +86,6 @@ public class QuestionAdapter extends RecyclerView.Adapter<QuestionAdapter.Questi
         }
     }
 
-    public interface onItemClickListener{
-        void onItemDelete(int position);
-    }
-
     class QuestionViewHolder extends RecyclerView.ViewHolder{
 
         public TextView idText;

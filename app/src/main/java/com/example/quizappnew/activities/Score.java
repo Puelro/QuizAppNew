@@ -37,6 +37,10 @@ public class Score extends AppCompatActivity {
             public void onClick(View v) {
                 finish();
                 Intent intent = new Intent(Score.this,Highscore.class);
+                intent.putExtra("FINAL_SCORE", getIntent().getLongExtra("FINAL_SCORE",-1));
+                intent.putExtra("MAX_STREAK", getIntent().getIntExtra("MAX_STREAK",-1));
+                intent.putExtra("MAX_LEVEL", getIntent().getIntExtra("MAX_LEVEL", -1));
+                intent.putExtra("AFTER_GAME", true);
                 startActivity(intent);
             }
         });

@@ -8,7 +8,7 @@
     tools:context=".activities.DatabaseEditor">
 
     <Button
-        android:id="@+id/btnMenuDatabase"
+        android:id="@+id/btnMenuHighscore"
         android:layout_width="169dp"
         android:layout_height="42dp"
         android:layout_marginEnd="396dp"
@@ -20,7 +20,7 @@
         app:backgroundTint="#F29111" />
 
     <Button
-        android:id="@+id/btnDropQuestion"
+        android:id="@+id/btnDropQuestionTable"
         android:layout_width="249dp"
         android:layout_height="41dp"
         android:layout_marginStart="20dp"
@@ -36,7 +36,7 @@
         android:layout_width="927dp"
         android:layout_height="343dp"
         android:layout_marginBottom="16dp"
-        app:layout_constraintBottom_toTopOf="@+id/btnMenuDatabase"
+        app:layout_constraintBottom_toTopOf="@+id/btnMenuHighscore"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
