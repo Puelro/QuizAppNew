@@ -78,7 +78,7 @@ public class Highscore extends AppCompatActivity {
         buttonAddHighscore.setVisibility(View.INVISIBLE);
         buttonAddHighscore.setEnabled(false);
 
-        if(isAfterGame() && ( hasLessThan10Entries() ||  ( getLowestHighscore() < getIntent().getLongExtra("FINAL_SCORE", -1) ) ) ){
+        if( isAfterGame() && ( hasLessThan10Entries() || pointsAreHigherThanLowestHighscore() ) ){
             etxtName.setVisibility(View.VISIBLE);
             etxtName.setEnabled(true);
 
@@ -89,7 +89,12 @@ public class Highscore extends AppCompatActivity {
         buttonAddHighscore.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String name = etxtName.getText().toString();
+                String name;
+                if( etxtName.getText().toString().length() > 0 ){
+                    name = etxtName.getText().toString();
+                }else{
+                    name = "John Doe";
+                }
 
                 if(!hasLessThan10Entries()){
                     removeLowestHighscore();

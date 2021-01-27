@@ -22,7 +22,7 @@ import com.example.quizappnew.play_helper.TextViewManager;
 public class Play extends AppCompatActivity {
     private static final String TAG = "PlayActivity";
 
-    int levelTimeSeconds = 1000;
+    int levelTimeSeconds = 20;
 
     TextViewManager textViewManager;
     ProgressbarManager progressbarManager;
