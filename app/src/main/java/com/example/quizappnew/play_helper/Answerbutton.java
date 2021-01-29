@@ -15,10 +15,10 @@ public class Answerbutton{
         playActivity = _playActivity;
         uiButton = _answerButton;
         buttonNumber  = _buttonNumber;
-        setListiner();
+        setListener();
     }
 
-    private void setListiner(){
+    private void setListener(){
         uiButton.setOnClickListener(new View.OnClickListener()  {
             @Override
             public void onClick(View v) {

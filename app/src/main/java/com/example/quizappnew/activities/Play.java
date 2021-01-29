@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
@@ -22,7 +23,7 @@ import com.example.quizappnew.play_helper.TextViewManager;
 public class Play extends AppCompatActivity {
     private static final String TAG = "PlayActivity";
 
-    int levelTimeSeconds = 1000;
+    int levelTimeSeconds = 60;
 
     TextViewManager textViewManager;
     ProgressbarManager progressbarManager;
@@ -128,6 +129,7 @@ public class Play extends AppCompatActivity {
     public void answerButtonWasClicked(int buttonNumber){
         answerbuttonManager.enableAllAnswerButtons(false);
         questionPointsTimer.cancel();
+        colorAnswerButton(buttonNumber);
 
         if(questionManager.isRightAnswer(buttonNumber)){
             currentScore = streakAndPointsManager.getPointsAndShowThem(currentScore, questionManager, textViewManager);
@@ -174,4 +176,19 @@ public class Play extends AppCompatActivity {
         });
     }
 
+    public void colorAnswerButton(int buttonNumber){
+        if(questionManager.isRightAnswer(buttonNumber)){
+            answerbuttonManager.getAnswerButtons().get(buttonNumber -1).getUIButton().setBackgroundColor(getResources().getColor(R.color.button_background_color_correct));
+        }
+        else{
+            answerbuttonManager.getAnswerButtons().get(buttonNumber -1).getUIButton().setBackgroundColor(getResources().getColor(R.color.button_background_color_wrong));
+        }
+        final Handler handler = new Handler(getMainLooper());
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                answerbuttonManager.getAnswerButtons().get(buttonNumber -1).getUIButton().setBackgroundColor(getResources().getColor(R.color.button_background_color_default));
+            }
+        },100);
+    }
 }
