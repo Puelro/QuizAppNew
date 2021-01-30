@@ -8,7 +8,7 @@
 
     //Buttons
     <string name="btnPlay">Spielen</string>
-    <string name="btnOption">Optionen</string>
+    <string name="btnQuestionEditor">Fragenkatalog</string>
     <string name="btnHighscore">Bestenliste</string>
     <string name="btnAbout">Über Uns</string>
     <string name="btnMenu">Hauptmenü</string>

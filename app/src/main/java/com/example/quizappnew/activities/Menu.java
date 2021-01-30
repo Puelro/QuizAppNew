@@ -39,7 +39,7 @@ public class Menu extends AppCompatActivity {
             }
         });
 
-        buttonOption = findViewById(R.id.btnOption);
+        buttonOption = findViewById(R.id.btnQuestionEditor);
         buttonOption.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

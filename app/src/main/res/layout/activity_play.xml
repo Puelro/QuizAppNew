@@ -39,29 +39,16 @@
 
             <TextView
                 android:id="@+id/tvTimer"
-                android:layout_width="0dp"
+                android:layout_width="520dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:layout_marginTop="5dp"
-                android:layout_weight="1"
                 android:gravity="center_horizontal"
                 android:text="@string/tvTimer"
                 android:textAlignment="center"
                 android:textColor="#FFFFFF"
                 android:textSize="30sp"
                 app:drawableTopCompat="@drawable/ic_baseline_timer_24" />
-
-            <Button
-                android:id="@+id/btnMenu"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:layout_marginStart="60dp"
-                android:layout_marginLeft="60dp"
-                android:layout_marginEnd="20dp"
-                android:layout_marginRight="20dp"
-                android:text="@string/btnMenu"
-                app:backgroundTint="#F29111" />
 
         </LinearLayout>
 
@@ -263,6 +250,23 @@
 
         </LinearLayout>
 
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/btnMenu"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:layout_marginStart="815dp"
+            android:layout_marginLeft="815dp"
+            android:layout_marginBottom="8dp"
+            android:text="Verlassen"
+            app:backgroundTint="#5D6D7E" />
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
