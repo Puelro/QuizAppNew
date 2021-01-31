@@ -14,6 +14,11 @@ public class Score extends AppCompatActivity {
 
     Button buttonHighscore;
 
+    /**
+     * initiate values
+     *
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

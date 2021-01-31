@@ -39,6 +39,11 @@ public class Play extends AppCompatActivity {
     Button buttonJoker50_50;
     Button buttonJokerStreak;
 
+    /**
+     * initiate values
+     *
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -63,6 +68,9 @@ public class Play extends AppCompatActivity {
         progressbarManager.setProgressbar(currentScore, levelTimer, buttonJokerStreak);
     }
 
+    /**
+     * initiates Values for buttons and current score
+     */
     private void initiateValues() {
         currentScore = 0;
 
@@ -71,6 +79,9 @@ public class Play extends AppCompatActivity {
         buttonMenu = findViewById(R.id.btnMenu);
     }
 
+    /**
+     * initiates Timer for level and Timer for each question
+     */
     private void initiateTimer(){
         levelTimer = new CountDownTimer(levelTimeSeconds*1000, 1000) {
             @Override
@@ -105,6 +116,9 @@ public class Play extends AppCompatActivity {
         }.start();
     }
 
+    /**
+     * inittiates 50/50 Joker
+     */
     private void joker50_50() {
         buttonJoker50_50.setEnabled(false);
 
@@ -119,12 +133,23 @@ public class Play extends AppCompatActivity {
         }, 10000);
     }
 
+    /**
+     * initiates Joker to return to previous Streak
+     */
     private void jokerStreak(){
         buttonJokerStreak.setEnabled(false);
         streakAndPointsManager.previousStreakToCurrentStreak(textViewManager);
         streakAndPointsManager.previousMultiplierToCurrentMultiplier(textViewManager);
     }
 
+    /**
+     * when AnswerButton was clicked:
+     * resets pointsTimer
+     * increases or decreases points, streak and progressbar
+     * loads new Question
+     *
+     * @param buttonNumber ButtonNumber of clicked AnswerButton
+     */
     public void answerButtonWasClicked(int buttonNumber){
         answerbuttonManager.enableAllAnswerButtons(false);
         questionPointsTimer.cancel();
@@ -147,6 +172,9 @@ public class Play extends AppCompatActivity {
     }
 
 
+    /**
+     * sets onClickListener for JokerButtons ans MenuButton
+     */
     private void setButtonListeners(){
 
         buttonJokerStreak.setOnClickListener(new View.OnClickListener() {
@@ -175,6 +203,12 @@ public class Play extends AppCompatActivity {
         });
     }
 
+    /**
+     * colors background of clicked AnswerButton green if answer was true and red if answer was wrong
+     * !!!!!!!!! doesn't work yet !!!!!!!!!
+     *
+     * @param buttonNumber pressed answer button
+     */
     public void colorAnswerButton(int buttonNumber){
         if(questionManager.isRightAnswer(buttonNumber)){
             answerbuttonManager.getAnswerButtons().get(buttonNumber -1).getUIButton().setBackgroundColor(getResources().getColor(R.color.button_background_color_correct));

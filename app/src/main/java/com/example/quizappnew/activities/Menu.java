@@ -18,6 +18,11 @@ public class Menu extends AppCompatActivity {
     Button buttonHighscore;
     Button buttonOption;
 
+    /**
+     * initiate values
+     *
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -26,6 +31,7 @@ public class Menu extends AppCompatActivity {
         AppDatabase appDatabase = AppDatabase.getInstance(this);
         SQLiteDatabase db = appDatabase.getWritableDatabase();
 
+        //if Database is empty fill Database with questions from question.txt
         if(appDatabase.getQuestionListContents().getCount() == 0){
             Databasefiller.dropAndFillDatabase(this, appDatabase, db);
         }

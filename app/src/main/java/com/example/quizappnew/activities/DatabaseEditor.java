@@ -40,12 +40,16 @@ public class DatabaseEditor extends AppCompatActivity {
     private EditText questionID;
 
 
+    /**
+     * initiate values
+     *
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_database_editor);
 
-        //
         appDatabase = AppDatabase.getInstance(this);
         db = appDatabase.getReadableDatabase();
 
@@ -53,11 +57,11 @@ public class DatabaseEditor extends AppCompatActivity {
         sqlCommand = findViewById(R.id.etxtValuesString);
         questionID = findViewById(R.id.etxtQuestionIDDelete);
 
-        //
+        // initiate RecyclerView for questions
         RecyclerView recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        //
+        // initiate QuestionAdapter
         adapter = new QuestionAdapter(this, appDatabase.getQuestionListContents());
         recyclerView.setAdapter(adapter);
 
@@ -65,12 +69,15 @@ public class DatabaseEditor extends AppCompatActivity {
     } // end onCreate()
 
 
-    //
+    /**
+     * Remove all Questions from Database
+     */
     private void createDropDialogDropQuestionTable(){
         AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
         alertDialog.setMessage("Are you sure you want to Drop the Table ?");
         alertDialog.setCancelable(false);
 
+        //confirm choice to remove questions
         alertDialog.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
@@ -79,6 +86,7 @@ public class DatabaseEditor extends AppCompatActivity {
             }
         });
 
+        //don't remove questions
         alertDialog.setNegativeButton("No", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
@@ -89,12 +97,17 @@ public class DatabaseEditor extends AppCompatActivity {
         alertDialog.create().show();
     }
 
-    //
+    /**
+     * Remove a Question from Database by id
+     *
+     * @param _id id of the question that should be removed
+     */
     private void createDropDialogDropRow(int _id){
         AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
         alertDialog.setMessage("Are you sure you want to drop the Question with the ID: " + _id  + " ?");
         alertDialog.setCancelable(false);
 
+        //confirm choice to remove question
         alertDialog.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
@@ -103,6 +116,7 @@ public class DatabaseEditor extends AppCompatActivity {
             }
         });
 
+        //don't remove question
         alertDialog.setNegativeButton("No", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
@@ -113,10 +127,11 @@ public class DatabaseEditor extends AppCompatActivity {
         alertDialog.create().show();
     }
 
+    /**
+     * initiate buttons
+     */
     private void setButtons(){
-        /*
-         *
-         */
+
         buttonAddQuestion =  findViewById(R.id.AddQuestion);
         buttonAddQuestion.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -157,9 +172,6 @@ public class DatabaseEditor extends AppCompatActivity {
 
         });
 
-        /**
-         *
-         */
         buttonDeleteQuestion =  findViewById(R.id.btnDeleteQuestion);
         buttonDeleteQuestion.setOnClickListener(v -> {
             String _questionID = questionID.getText().toString();
@@ -172,7 +184,6 @@ public class DatabaseEditor extends AppCompatActivity {
             }
 
         });
-
 
         buttonDropQuestionTable =  findViewById(R.id.btnDropQuestionTable);
         buttonDropQuestionTable.setOnClickListener(v -> createDropDialogDropQuestionTable());

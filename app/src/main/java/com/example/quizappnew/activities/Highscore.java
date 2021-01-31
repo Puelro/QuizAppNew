@@ -33,6 +33,11 @@ public class Highscore extends AppCompatActivity {
     Button buttonDropTableHighscores;
     Button buttonMenu;
 
+    /**
+     * initiate values
+     *
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,6 +55,9 @@ public class Highscore extends AppCompatActivity {
         recyclerView.setAdapter(adapter);
     }
 
+    /**
+     * initiates buttons
+     */
     private void setButtons(){
 
         buttonDropTableHighscores = findViewById(R.id.btnDropHighscores);
@@ -78,6 +86,8 @@ public class Highscore extends AppCompatActivity {
         buttonAddHighscore.setVisibility(View.INVISIBLE);
         buttonAddHighscore.setEnabled(false);
 
+        // option to enter new Highscore only after a game and
+        // if less than ten Highscores exist or new Highscore is higher than lowest Highscore
         if( isAfterGame() && ( hasLessThan10Entries() || pointsAreHigherThanLowestHighscore() ) ){
             etxtName.setVisibility(View.VISIBLE);
             etxtName.setEnabled(true);
@@ -86,6 +96,8 @@ public class Highscore extends AppCompatActivity {
             buttonAddHighscore.setEnabled(true);
         }
 
+        // option to enter a name for new Highscore
+        // if no name is entered, name is "John Doe"
         buttonAddHighscore.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -123,19 +135,42 @@ public class Highscore extends AppCompatActivity {
         });
     }
 
+    /**
+     * checks if activity_highscore was entered from after a game
+     *
+     * @return true if activity was entered from after a game
+     * @return false if activity was entered from Menu
+     */
     private boolean isAfterGame(){
         return getIntent().getBooleanExtra("AFTER_GAME", false);
     }
 
+    /**
+     * checks if Highscore list has less than 10 Entries
+     *
+     * @return true if it's less than 10
+     * @return false if it's 10
+     */
     private boolean hasLessThan10Entries() {
         Cursor data = db.rawQuery("SELECT * FROM " + HighscoreContract.HighscoreEntry.TABLE_NAME, null);
         return data.getCount() < 10;
     }
 
+    /**
+     * checks if new Score is higher than lowest Highscore
+     *
+     * @return true if new Score is higher
+     * @return false if new Score is lower
+     */
     private boolean pointsAreHigherThanLowestHighscore() {
         return getLowestHighscore() < getIntent().getLongExtra("FINAL_SCORE", -1);
     }
 
+    /**
+     * gets the lowest Highscore in the list
+     *
+     * @return lowest Highscore
+     */
     private long getLowestHighscore() {
         long lowestHighscore;
 
@@ -157,6 +192,9 @@ public class Highscore extends AppCompatActivity {
         }
     }
 
+    /**
+     * removes the lowest Highscore in the list
+     */
     private void removeLowestHighscore(){
         Cursor data = db.rawQuery("SELECT * FROM " + HighscoreContract.HighscoreEntry.TABLE_NAME
                 + " ORDER BY " + HighscoreContract.HighscoreEntry.COLUMN_POINTS + " ASC LIMIT 1", null);
