@@ -151,7 +151,7 @@ public class Highscore extends AppCompatActivity {
      * @return true if it's less than 10
      * @return false if it's 10
      */
-    private boolean hasLessThan10Entries() {
+    public boolean hasLessThan10Entries() {
         Cursor data = db.rawQuery("SELECT * FROM " + HighscoreContract.HighscoreEntry.TABLE_NAME, null);
         return data.getCount() < 10;
     }
@@ -162,7 +162,7 @@ public class Highscore extends AppCompatActivity {
      * @return true if new Score is higher
      * @return false if new Score is lower
      */
-    private boolean pointsAreHigherThanLowestHighscore() {
+    public boolean pointsAreHigherThanLowestHighscore() {
         return getLowestHighscore() < getIntent().getLongExtra("FINAL_SCORE", -1);
     }
 

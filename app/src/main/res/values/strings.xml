@@ -27,11 +27,12 @@
     <string name="tvScore">Score: 0</string>
     <string name="tvTimer">60</string>
     <string name="tvStreak">0</string>
-    <string name="tvFinalScore">Endpunktestand: 0</string>
+    <string name="tvFinalScore">Finaler Score: </string>
     <string name="tvPoints">+300</string>
     <string name="tvMissing">0</string>
-    <string name="tvMaxStreak">höchste Streak: 0</string>
-    <string name="tvResetTimes">Timer zurückgesetzt: 0 mal</string>
+    <string name="tvMaxStreak">Maximaler Streak: 0</string>
+    <string name="tvResetTimes">Erreichte Stufe: 0</string>
     <string name="tvMultiplier">x1.0</string>
+    <string name="tvWin">Glückwunsch! Du hast es in die Top 10 geschaft <Br/>Du kannst dich damit in die Bestenliste eintragen</string>
 
 </resources>

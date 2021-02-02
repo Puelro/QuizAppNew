@@ -10,10 +10,33 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="0dp">
 
         <TextView
-            android:id="@+id/tvFinalScore"
+            android:id="@+id/tvWin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="70dp"
+            android:gravity="center_horizontal"
+            android:text="@string/tvWin"
+            android:textColor="#F29111"
+            android:textSize="30sp" />
+
+        <View
+            android:id="@+id/divider2"
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:layout_marginStart="90dp"
+            android:layout_marginLeft="90dp"
+            android:layout_marginEnd="90dp"
+            android:layout_marginRight="90dp"
+            android:layout_marginBottom="35dp"
+            android:background="#5D6D7E" />
+
+        <TextView
+            android:id="@+id/tvScoreFinal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
@@ -22,9 +45,20 @@
             android:textSize="30sp" />
 
         <TextView
+            android:id="@+id/tvFinalScore"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:gravity="center_horizontal"
+            android:text="0"
+            android:textColor="#F29111"
+            android:textSize="50sp" />
+
+        <TextView
             android:id="@+id/tvMaxStreak"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
             android:gravity="center_horizontal"
             android:text="@string/tvMaxStreak"
             android:textColor="#FFFFFF"
@@ -34,6 +68,7 @@
             android:id="@+id/tvResetTimes"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
             android:gravity="center_horizontal"
             android:text="@string/tvResetTimes"
             android:textColor="#FFFFFF"
@@ -51,4 +86,5 @@
             app:autoSizeTextType="uniform"
             app:backgroundTint="#F29111" />
     </LinearLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

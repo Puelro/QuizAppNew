@@ -20,7 +20,7 @@
             <Button
                 android:id="@+id/btnJoker50_50"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="55dp"
                 android:layout_gravity="center_vertical"
                 android:layout_marginStart="20dp"
                 android:layout_marginLeft="20dp"
@@ -32,7 +32,7 @@
             <Button
                 android:id="@+id/btnJokerStreak"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="55dp"
                 android:layout_gravity="center_vertical"
                 android:text="@string/btnJoker2"
                 app:backgroundTint="#F29111" />
@@ -183,14 +183,6 @@
                 android:text="@string/btnAnswer4"
                 app:autoSizeTextType="uniform"
                 app:backgroundTint="#5D6D7E" />
-
-            <!--<ProgressBar
-                android:id="@+id/progressBar"
-                style="?android:attr/progressBarStyleHorizontal"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:rotation="90"
-                android:layout_weight="1" />-->
 
         </RadioGroup>
 
