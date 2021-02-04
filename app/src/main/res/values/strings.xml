@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">QuizAppNew</string>
+    <string name="app_name">BlitzQuiz</string>
 
     //Headlines
     <string name="hdlHighscoe">Highscore</string>

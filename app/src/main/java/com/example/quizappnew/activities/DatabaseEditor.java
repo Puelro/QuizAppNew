@@ -58,28 +58,30 @@ public class DatabaseEditor extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         //
-        adapter = new QuestionAdapter(this, appDatabase.getQuestionListContents());
+        adapter = new QuestionAdapter(this, appDatabase.getQuestions());
         recyclerView.setAdapter(adapter);
 
         setButtons();
     } // end onCreate()
 
 
-    //
+    /**
+     *
+     */
     private void createDropDialogDropQuestionTable(){
         AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
-        alertDialog.setMessage("Are you sure you want to Drop the Table ?");
+        alertDialog.setMessage("Willst du wirklich die Datentabelle ''Question'' löschen?");
         alertDialog.setCancelable(false);
 
-        alertDialog.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+        alertDialog.setPositiveButton("Ja", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 appDatabase.dropAndRecreateTableQuestion(db);
-                adapter.swapCursor(appDatabase.getQuestionListContents());
+                adapter.swapCursor(appDatabase.getQuestions());
             }
         });
 
-        alertDialog.setNegativeButton("No", new DialogInterface.OnClickListener() {
+        alertDialog.setNegativeButton("Nein", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 //Nothing
@@ -89,21 +91,23 @@ public class DatabaseEditor extends AppCompatActivity {
         alertDialog.create().show();
     }
 
-    //
+    /**
+     *
+     */
     private void createDropDialogDropRow(int _id){
         AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
-        alertDialog.setMessage("Are you sure you want to drop the Question with the ID: " + _id  + " ?");
+        alertDialog.setMessage("Willst du wirklich die Frage mit der ID : " + _id  + "löschen?");
         alertDialog.setCancelable(false);
 
-        alertDialog.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+        alertDialog.setPositiveButton("Ja", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                appDatabase.removeQuestion(db, (long) _id);
-                adapter.swapCursor(appDatabase.getQuestionListContents());
+                appDatabase.removeQuestionByID(db, (long) _id);
+                adapter.swapCursor(appDatabase.getQuestions());
             }
         });
 
-        alertDialog.setNegativeButton("No", new DialogInterface.OnClickListener() {
+        alertDialog.setNegativeButton("Nein", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 //Nothing
@@ -114,7 +118,7 @@ public class DatabaseEditor extends AppCompatActivity {
     }
 
     private void setButtons(){
-        /*
+        /**
          *
          */
         buttonAddQuestion =  findViewById(R.id.AddQuestion);
@@ -132,10 +136,10 @@ public class DatabaseEditor extends AppCompatActivity {
 
                     sqlCommand.getText().clear();
 
-                    adapter.swapCursor(appDatabase.getQuestionListContents());
+                    adapter.swapCursor(appDatabase.getQuestions());
                 }catch(NumberFormatException e)
                 {
-                    Log.d(TAG, "btnInsertValues: Text found in the inserted values, where a Number was expected");
+                    Log.d(TAG, "btnInsertValues: Text found in the inserted values, where a number was expected");
                 }
             }
 
@@ -173,15 +177,27 @@ public class DatabaseEditor extends AppCompatActivity {
 
         });
 
-
+        /**
+         *
+         */
         buttonDropQuestionTable =  findViewById(R.id.btnDropQuestionTable);
         buttonDropQuestionTable.setOnClickListener(v -> createDropDialogDropQuestionTable());
 
+        /**
+         *
+         */
         buttonMenu =  findViewById(R.id.btnMenuHighscore);
         buttonMenu.setOnClickListener(v -> {
-            finish();
             Intent intent = new Intent(DatabaseEditor.this, Menu.class);
             startActivity(intent);
+            finish();
         });
+    }
+
+    @Override
+    public void onBackPressed(){
+        Intent intent = new Intent(DatabaseEditor.this, Menu.class);
+        startActivity(intent);
+        finish();
     }
 }

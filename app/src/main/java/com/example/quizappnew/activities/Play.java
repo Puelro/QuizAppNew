@@ -1,7 +1,9 @@
 package com.example.quizappnew.activities;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -22,7 +24,7 @@ import com.example.quizappnew.play_helper.TextViewManager;
 public class Play extends AppCompatActivity {
     private static final String TAG = "PlayActivity";
 
-    int levelTimeSeconds = 60;
+    int levelTimeSeconds = 45;
 
     TextViewManager textViewManager;
     ProgressbarManager progressbarManager;
@@ -44,13 +46,6 @@ public class Play extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_play);
 
-        streakAndPointsManager = new StreakAndPointsManager();
-        // TODO Difficulty and category will be passed from previous Activity
-        questionManager = new QuestionManager(1, null, this, streakAndPointsManager);
-        answerbuttonManager = new AnswerbuttonManager(this, questionManager);
-        textViewManager = new TextViewManager(this, questionManager, answerbuttonManager);
-        progressbarManager = new ProgressbarManager(this, currentScore, questionManager, textViewManager);
-
         //sets the default values of the variables
         initiateValues();
         initiateTimer();
@@ -64,6 +59,13 @@ public class Play extends AppCompatActivity {
     }
 
     private void initiateValues() {
+        streakAndPointsManager = new StreakAndPointsManager();
+        // TODO Difficulty and category will be passed from previous Activity
+        questionManager = new QuestionManager(1, null, this, streakAndPointsManager);
+        answerbuttonManager = new AnswerbuttonManager(this, questionManager);
+        textViewManager = new TextViewManager(this, questionManager, answerbuttonManager);
+        progressbarManager = new ProgressbarManager(this, currentScore, questionManager, textViewManager);
+
         currentScore = 0;
 
         buttonJoker50_50 = findViewById(R.id.btnJoker50_50);
@@ -85,6 +87,7 @@ public class Play extends AppCompatActivity {
                 intent.putExtra("MAX_STREAK", streakAndPointsManager.getMaxStreak());
                 intent.putExtra("MAX_LEVEL", questionManager.getCurrentDifficulty());
                 startActivity(intent);
+                finish();
             }
         }.start();
 
@@ -123,6 +126,8 @@ public class Play extends AppCompatActivity {
         buttonJokerStreak.setEnabled(false);
         streakAndPointsManager.previousStreakToCurrentStreak(textViewManager);
         streakAndPointsManager.previousMultiplierToCurrentMultiplier(textViewManager);
+        // will be enabled again, in the progressbar class, every time the bar is filled
+        // / the level changes
     }
 
     public void answerButtonWasClicked(int buttonNumber){
@@ -146,7 +151,9 @@ public class Play extends AppCompatActivity {
         answerbuttonManager.enableAllAnswerButtons(true);
     }
 
-
+    /**
+     *
+     */
     private void setButtonListeners(){
 
         buttonJokerStreak.setOnClickListener(new View.OnClickListener() {
@@ -166,15 +173,15 @@ public class Play extends AppCompatActivity {
         buttonMenu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                levelTimer.cancel();
-                questionPointsTimer.cancel();
-                finish();
-                Intent intent = new Intent(Play.this,Menu.class);
-                startActivity(intent);
+                createDropDialoGoBackToMainMenu();
             }
         });
     }
 
+    /**
+     *
+     * @param buttonNumber
+     */
     public void colorAnswerButton(int buttonNumber){
         if(questionManager.isRightAnswer(buttonNumber)){
             answerbuttonManager.getAnswerButtons().get(buttonNumber -1).getUIButton().setBackgroundColor(getResources().getColor(R.color.button_background_color_correct));
@@ -189,5 +196,36 @@ public class Play extends AppCompatActivity {
                 answerbuttonManager.getAnswerButtons().get(buttonNumber -1).getUIButton().setBackgroundColor(getResources().getColor(R.color.button_background_color_default));
             }
         },100);
+    }
+
+    @Override
+    public void onBackPressed(){
+        createDropDialoGoBackToMainMenu();
+    }
+
+    private void createDropDialoGoBackToMainMenu(){
+        AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
+        alertDialog.setMessage("Willst du wirklich zurück zum Hauptmenü?");
+        alertDialog.setCancelable(false);
+
+        alertDialog.setPositiveButton("Ja", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                levelTimer.cancel();
+                questionPointsTimer.cancel();
+                Intent intent = new Intent(Play.this, Menu.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+
+        alertDialog.setNegativeButton("Nein", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                //Nothing
+            }
+        });
+
+        alertDialog.create().show();
     }
 }

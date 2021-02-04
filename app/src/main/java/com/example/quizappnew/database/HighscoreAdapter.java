@@ -2,8 +2,6 @@ package com.example.quizappnew.database;
 
 import android.content.Context;
 import android.database.Cursor;
-import android.database.DatabaseUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,16 +14,35 @@ import com.example.quizappnew.R;
 
 import com.example.quizappnew.database.HighscoreContract.HighscoreEntry;
 
+/**
+ * @author Kent Feldner
+ */
 public class HighscoreAdapter extends RecyclerView.Adapter<HighscoreAdapter.HighscoreViewHolder> {
+    /**
+     *
+     */
     private Context context;
+    /**
+     *
+     */
     private Cursor cursor;
 
-
+    /**
+     *
+     * @param _context
+     * @param _cursor
+     */
     public HighscoreAdapter(Context _context, Cursor _cursor) {
         this.context = _context;
         this.cursor = _cursor;
     }
 
+    /**
+     *
+     * @param parent
+     * @param viewType
+     * @return
+     */
     @NonNull
     @Override
     public HighscoreViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -34,16 +51,23 @@ public class HighscoreAdapter extends RecyclerView.Adapter<HighscoreAdapter.High
         return new HighscoreViewHolder(view);
     }
 
+    /**
+     *
+     * @param holder
+     * @param position
+     */
     @Override
     public void onBindViewHolder(@NonNull HighscoreViewHolder holder, int position) {
-        if (!this.cursor.moveToPosition(position)) {
-            return;
+        if (this.cursor.moveToPosition(position)) {
+            fillTextViews(holder);
         }
-
-        saveValuesInVariablesAndSetTextViews(holder);
     }
 
-    private void saveValuesInVariablesAndSetTextViews(@NonNull HighscoreViewHolder holder) {
+    /**
+     *
+     * @param holder
+     */
+    private void fillTextViews(@NonNull HighscoreViewHolder holder) {
 
         String name = this.cursor.getString(this.cursor.getColumnIndex(HighscoreEntry.COLUMN_NAME));
         int points = this.cursor.getInt(this.cursor.getColumnIndex(HighscoreEntry.COLUMN_POINTS));
@@ -56,14 +80,21 @@ public class HighscoreAdapter extends RecyclerView.Adapter<HighscoreAdapter.High
         holder.maxStreakText.setText(String.valueOf(maxStreak));
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public int getItemCount() {
         return this.cursor.getCount();
     }
 
+    /**
+     *
+     * @param newCursor
+     */
     public void swapCursor(Cursor newCursor) {
         if (this.cursor != null) {
-            Log.d("HighscoreAdapter: ", "swapCursor: Cursor contents: " + DatabaseUtils.dumpCursorToString(cursor));
             this.cursor.close();
         }
 
@@ -74,6 +105,9 @@ public class HighscoreAdapter extends RecyclerView.Adapter<HighscoreAdapter.High
         }
     }
 
+    /**
+     *
+     */
     class HighscoreViewHolder extends RecyclerView.ViewHolder {
 
         public TextView nameText;
@@ -81,7 +115,10 @@ public class HighscoreAdapter extends RecyclerView.Adapter<HighscoreAdapter.High
         public TextView maxDifficultyText;
         public TextView maxStreakText;
 
-
+        /**
+         *
+         * @param itemView
+         */
         public HighscoreViewHolder(@NonNull View itemView) {
             super(itemView);
 

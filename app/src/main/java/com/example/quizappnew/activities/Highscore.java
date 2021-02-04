@@ -1,10 +1,12 @@
 package com.example.quizappnew.activities;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.ContentValues;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.DatabaseUtils;
@@ -67,6 +69,7 @@ public class Highscore extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(Highscore.this,Menu.class);
                 startActivity(intent);
+                finish();
             }
         });
 
@@ -78,7 +81,9 @@ public class Highscore extends AppCompatActivity {
         buttonAddHighscore.setVisibility(View.INVISIBLE);
         buttonAddHighscore.setEnabled(false);
 
-        if( isAfterGame() && ( hasLessThan10Entries() || pointsAreHigherThanLowestHighscore() ) ){
+        boolean scoreIsANewHighscore = isAfterGame() && ( hasLessThan10Entries() || pointsAreHigherThanLowestHighscore() );
+
+        if( scoreIsANewHighscore ){
             etxtName.setVisibility(View.VISIBLE);
             etxtName.setEnabled(true);
 
@@ -90,10 +95,12 @@ public class Highscore extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 String name;
+                getIntent().putExtra("AFTER_GAME", false);
+
                 if( etxtName.getText().toString().length() > 0 ){
                     name = etxtName.getText().toString();
                 }else{
-                    name = "John Doe";
+                    name = "Max Mustermann";
                 }
 
                 if(!hasLessThan10Entries()){
@@ -158,8 +165,10 @@ public class Highscore extends AppCompatActivity {
     }
 
     private void removeLowestHighscore(){
-        Cursor data = db.rawQuery("SELECT * FROM " + HighscoreContract.HighscoreEntry.TABLE_NAME
-                + " ORDER BY " + HighscoreContract.HighscoreEntry.COLUMN_POINTS + " ASC LIMIT 1", null);
+        Cursor data = db.rawQuery(
+                "SELECT * FROM " + HighscoreContract.HighscoreEntry.TABLE_NAME
+                + " ORDER BY " + HighscoreContract.HighscoreEntry.COLUMN_POINTS + " ASC"
+                + " LIMIT 1", null);
 
         data.moveToPosition(0);
 
@@ -168,8 +177,44 @@ public class Highscore extends AppCompatActivity {
 
         long idOflowestHighscore = cv.getAsLong(HighscoreEntry._ID);
 
-        appDatabase.removeHighscore(db, idOflowestHighscore);
+        appDatabase.removeHighscoreByID(db, idOflowestHighscore);
     }
 
+    @Override
+    public void onBackPressed(){
+        boolean scoreIsANewHighscore = isAfterGame() && ( hasLessThan10Entries() || pointsAreHigherThanLowestHighscore() );
+
+        if(scoreIsANewHighscore){
+            createDropDialoGoBackToMainMenu();
+        }else{
+            Intent intent = new Intent(Highscore.this, Menu.class);
+            startActivity(intent);
+            finish();
+        }
+    }
+
+    private void createDropDialoGoBackToMainMenu(){
+        AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
+        alertDialog.setMessage("Willst du wirklich deinen Highscore nicht eintragen und zurück zum Hauptmenü?");
+        alertDialog.setCancelable(false);
+
+        alertDialog.setPositiveButton("Ja", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                Intent intent = new Intent(Highscore.this, Menu.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+
+        alertDialog.setNegativeButton("Nein", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                //Nothing
+            }
+        });
+
+        alertDialog.create().show();
+    }
 
 }

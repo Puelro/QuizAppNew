@@ -13,7 +13,7 @@ public class ProgressbarManager {
     private static final String TAG = "QuestionManager";
 
     ProgressBar progressBar;
-    final long[] basePointsPerLevel = new long[]{30000, 60000, 90000, 120000, 150000, 180000, 210000};
+    final long[] basePointsPerLevel = new long[]{30000, 60000, 90000, 120000, 150000};
     long startPoints;
     long currentPointsGoal;
 

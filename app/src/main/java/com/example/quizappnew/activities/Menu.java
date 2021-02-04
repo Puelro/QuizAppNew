@@ -10,7 +10,7 @@ import android.widget.Button;
 
 import com.example.quizappnew.R;
 import com.example.quizappnew.database.AppDatabase;
-import com.example.quizappnew.database.Databasefiller;
+import com.example.quizappnew.database.QuestionTableFiller;
 
 public class Menu extends AppCompatActivity {
 
@@ -26,8 +26,8 @@ public class Menu extends AppCompatActivity {
         AppDatabase appDatabase = AppDatabase.getInstance(this);
         SQLiteDatabase db = appDatabase.getWritableDatabase();
 
-        if(appDatabase.getQuestionListContents().getCount() == 0){
-            Databasefiller.dropAndFillDatabase(this, appDatabase, db);
+        if(appDatabase.getQuestions().getCount() == 0){
+            QuestionTableFiller.dropAndFillTableQuestions(this, appDatabase, db);
         }
 
         buttonPlay = findViewById(R.id.btnPlay);
@@ -36,6 +36,7 @@ public class Menu extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(Menu.this,Play.class);
                 startActivity(intent);
+                finish();
             }
         });
 
@@ -45,6 +46,7 @@ public class Menu extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(Menu.this, DatabaseEditor.class);
                 startActivity(intent);
+                finish();
             }
         });
 
@@ -54,8 +56,14 @@ public class Menu extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(Menu.this,Highscore.class);
                 startActivity(intent);
+                finish();
             }
         });
 
+    }
+
+    @Override
+    public void onBackPressed(){
+            finish();
     }
 }
