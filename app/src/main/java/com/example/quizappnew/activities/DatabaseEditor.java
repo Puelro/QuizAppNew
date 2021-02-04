@@ -196,6 +196,10 @@ public class DatabaseEditor extends AppCompatActivity {
         });
     }
 
+    /**
+     * registers if backButton was clicked after reaching a new Highscore
+     * backButton leads to MainMenu
+     */
     @Override
     public void onBackPressed(){
         Intent intent = new Intent(DatabaseEditor.this, Menu.class);

@@ -218,6 +218,10 @@ public class Highscore extends AppCompatActivity {
         appDatabase.removeHighscoreByID(db, idOflowestHighscore);
     }
 
+    /**
+     * registers if backButton was clicked after reaching a new Highscore
+     * backButton leads to MainMenu
+     */
     @Override
     public void onBackPressed(){
         boolean scoreIsANewHighscore = isAfterGame() && ( hasLessThan10Entries() || pointsAreHigherThanLowestHighscore() );
@@ -231,6 +235,9 @@ public class Highscore extends AppCompatActivity {
         }
     }
 
+    /**
+     * creates a Dialog to confirm to go back to mainMenu
+     */
     private void createDropDialoGoBackToMainMenu(){
         AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
         alertDialog.setMessage("Willst du wirklich deinen Highscore nicht eintragen und zurück zum Hauptmenü?");

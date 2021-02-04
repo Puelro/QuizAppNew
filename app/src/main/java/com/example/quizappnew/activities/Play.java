@@ -226,11 +226,17 @@ public class Play extends AppCompatActivity {
         },100);
     }
 
+    /**
+     * backButton leads to MainMenu
+     */
     @Override
     public void onBackPressed(){
         createDropDialoGoBackToMainMenu();
     }
 
+    /**
+     * creates a Dialog to confirm to go back to mainMenu
+     */
     private void createDropDialoGoBackToMainMenu(){
         AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
         alertDialog.setMessage("Willst du wirklich zurück zum Hauptmenü?");

@@ -64,11 +64,17 @@ public class Score extends Highscore {
     }
 
 
+    /**
+     * backButton leads to MainMenu
+     */
     @Override
     public void onBackPressed(){
         createDropDialoGoBackToMainMenu();
     }
 
+    /**
+     * creates a Dialog to confirm to go back to mainMenu
+     */
     private void createDropDialoGoBackToMainMenu(){
         AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
         alertDialog.setMessage("Willst du wirklich den Highscore-Bildschirm überspringen und zurück zum Hauptmenü?");

@@ -68,6 +68,10 @@ public class Menu extends AppCompatActivity {
 
     }
 
+    /**
+     * registers if backButton was clicked after reaching a new Highscore
+     * backButton leads to MainMenu
+     */
     @Override
     public void onBackPressed(){
             finish();
