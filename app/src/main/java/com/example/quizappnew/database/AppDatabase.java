@@ -10,19 +10,35 @@ import android.util.Log;
 
 import com.example.quizappnew.database.QuestionContract.QuestionEntry;
 
+/**
+ * A singleton class which creates the Database if it does not exist and provides various functionalities to operate on the Database
+ * @author Kent Feldner
+ */
 public class AppDatabase extends SQLiteOpenHelper {
+    /**
+     * The Tag used in Log messages
+     */
     private static final String TAG = "AppDatabase";
 
+    /**
+     * The name of the Database
+     */
     public static final String DATABASE_NAME = "QuizApp.db";
+
+    /**
+     * The hardcoded version number of the Database
+     */
     public static final int DATABASE_VERSION = 1;
 
-    // Implement AppDatabase as a Singleton
+    /**
+     * The reference to the only instance of the class
+     */
     private static AppDatabase instance = null;
 
     /**
      * AppDatabase-Constructor
      *
-     * @param context The context
+     * @param context The context from which the constructor is called
      */
     private AppDatabase(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -30,6 +46,10 @@ public class AppDatabase extends SQLiteOpenHelper {
         Log.d(TAG, "AppDatabase : constructor");
     }
 
+    /**
+     * Creates the tables of the Database if these don't exist
+     * @param db
+     */
     @Override
     public void onCreate(SQLiteDatabase db) {
         Log.d(TAG, "onCreate: starts");
@@ -38,16 +58,16 @@ public class AppDatabase extends SQLiteOpenHelper {
         Log.d(TAG, "onCreate: ends");
     }
 
+    /**
+     *
+     * @param db
+     * @param oldVersion
+     * @param newVersion
+     */
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         Log.d(TAG, "onUpgrade: starts");
-        switch (oldVersion) {
-            case 1:
-                //upgrade logic from version
-                break;
-            default:
-                throw new IllegalStateException("onUpgrade() with unknown newVersion" + newVersion);
-        }
+        // no logic was needed
         Log.d(TAG, "onUpgrade: ends");
     }
 
@@ -72,7 +92,7 @@ public class AppDatabase extends SQLiteOpenHelper {
      * @param db  The database
      * @param _id ID of the question
      */
-    public void removeQuestion(SQLiteDatabase db, long _id) {
+    public void removeQuestionByID(SQLiteDatabase db, long _id) {
         int result = db.delete(QuestionEntry.TABLE_NAME, QuestionEntry._ID + "=" + _id, null);
 
         if (result == 0) {
@@ -147,7 +167,7 @@ public class AppDatabase extends SQLiteOpenHelper {
      *
      * @return A cursor which holds all Questions-Items
      */
-    public Cursor getQuestionListContents() {
+    public Cursor getQuestions() {
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor data = db.rawQuery("SELECT * FROM " + QuestionContract.QuestionEntry.TABLE_NAME, null);
 
@@ -155,6 +175,10 @@ public class AppDatabase extends SQLiteOpenHelper {
         return data;
     }
 
+    /**
+     * 
+     * @return
+     */
     public Cursor getHighscoresInDescendingOrder(){
         SQLiteDatabase db = this.getWritableDatabase();
 
@@ -205,7 +229,10 @@ public class AppDatabase extends SQLiteOpenHelper {
         return data;
     }
 
-    //Helperclass
+    /**
+     *
+     * @param db
+     */
     private void createQuestionTable(SQLiteDatabase db) {
         String sSQL =
                 "CREATE TABLE IF NOT EXISTS "
@@ -229,7 +256,10 @@ public class AppDatabase extends SQLiteOpenHelper {
         }
     }
 
-    //Helperclass
+    /**
+     *
+     * @param db
+     */
     private void createHighscoreTable(SQLiteDatabase db) {
         String sSQL = "CREATE TABLE IF NOT EXISTS " + HighscoreContract.HighscoreEntry.TABLE_NAME + " ("
                 + HighscoreContract.HighscoreEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
@@ -247,7 +277,12 @@ public class AppDatabase extends SQLiteOpenHelper {
         }
     }
 
-    public void removeHighscore(SQLiteDatabase db, long _id) {
+    /**
+     *
+     * @param db
+     * @param _id
+     */
+    public void removeHighscoreByID(SQLiteDatabase db, long _id) {
         int result = db.delete(HighscoreContract.HighscoreEntry.TABLE_NAME, HighscoreContract.HighscoreEntry._ID + "=" + _id, null);
 
         if (result == 0) {

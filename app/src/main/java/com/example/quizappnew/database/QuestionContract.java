@@ -1,12 +1,20 @@
 package com.example.quizappnew.database;
-
 import android.provider.BaseColumns;
 
+/**
+ *
+ */
 public class QuestionContract {
 
+    /**
+     *
+     */
     private QuestionContract(){
     }
 
+    /**
+     *
+     */
     public static final class QuestionEntry implements BaseColumns {
         public static final String TABLE_NAME = "Question";
 

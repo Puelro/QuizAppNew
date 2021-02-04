@@ -5,19 +5,28 @@ import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
 import com.example.quizappnew.R;
-import com.example.quizappnew.database.AppDatabase;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 
-public class Databasefiller {
+/**
+ * Outsources the logic to fill the Question table from {@link AppDatabase}
+ * @author Kent Feldner
+ */
+public class QuestionTableFiller {
 
     private static final String TAG = "DatabaseFiller";
 
-    //@RequiresApi(api = Build.VERSION_CODES.O)
-    public static void dropAndFillDatabase(Context ctx, AppDatabase adb, SQLiteDatabase db){
+    /**
+     * Drops the current Question table, recreates it and  fills it with default set of questions.
+     * The default set has to be in a .txt file which is saved under the path: app/src/main/res/raw
+     * @param ctx
+     * @param adb
+     * @param db
+     */
+    public static void dropAndFillTableQuestions(Context ctx, AppDatabase adb, SQLiteDatabase db){
         InputStream inputStream = ctx.getResources().openRawResource(R.raw.questions);
 
         InputStreamReader inputreader = new InputStreamReader(inputStream);

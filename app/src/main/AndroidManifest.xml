@@ -9,14 +9,13 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.QuizAppNew">
-        <activity android:name=".activities.DatabaseEditor" android:windowSoftInputMode="adjustPan"></activity>
-        <activity android:name=".activities.Score"></activity>
-        <activity android:name=".activities.Highscore" />
-        <activity android:name=".activities.Play" />
-        <activity android:name=".activities.Menu">
+        <activity android:name=".activities.DatabaseEditor" android:windowSoftInputMode="adjustPan" android:screenOrientation="landscape"/>
+        <activity android:name=".activities.Score" android:screenOrientation="landscape"/>
+        <activity android:name=".activities.Highscore" android:screenOrientation="landscape"/>
+        <activity android:name=".activities.Play" android:screenOrientation="landscape"/>
+        <activity android:name=".activities.Menu" android:screenOrientation="landscape">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
