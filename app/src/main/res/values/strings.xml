@@ -1,12 +1,12 @@
 <resources>
     <string name="app_name">QuizAppNew</string>
 
-    //Headlines
-    <string name="hdlHighscoe">Highscore</string>
+    <!--Headlines-->
+    <string name="hdlHighscore">Highscore</string>
 
-    //RecyclerViews
+    <!--RecyclerViews-->
 
-    //Buttons
+    <!--Buttons-->
     <string name="btnPlay">Spielen</string>
     <string name="btnQuestionEditor">Fragenkatalog</string>
     <string name="btnHighscore">Bestenliste</string>
@@ -20,7 +20,7 @@
     <string name="btnJoker2">Streak</string>
     <string name="btnRegister">Eintragen</string>
 
-    //TextViews
+    <!--TextViews-->
     <string name="tvGameName">Spiel_Name</string>
     <string name="tvMenu">Hauptmenü</string>
     <string name="tvQuestion">erste Frage</string>
@@ -34,5 +34,6 @@
     <string name="tvResetTimes">Erreichte Stufe: 0</string>
     <string name="tvMultiplier">x1.0</string>
     <string name="tvWin">Glückwunsch! Du hast es in die Top 10 geschaft <Br/>Du kannst dich damit in die Bestenliste eintragen</string>
+    <string name="tvName">Name</string>
 
 </resources>

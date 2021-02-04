@@ -25,7 +25,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
-            android:text="@string/hdlHighscoe"
+            android:text="@string/hdlHighscore"
             android:textColor="#FFFFFF"
             android:textSize="30sp" />
 
@@ -42,7 +42,7 @@
                 android:layout_marginLeft="170dp"
                 android:layout_weight="1"
                 android:ems="10"
-                android:hint="Name"
+                android:hint="@string/tvName"
                 android:inputType="textPersonName"
                 android:textColor="#ffffff"
                 android:textColorHint="#FFFFFF" />
@@ -87,7 +87,7 @@
             android:layout_marginTop="105dp"
             android:layout_marginEnd="165dp"
             android:layout_marginRight="165dp"
-            android:text="Name"
+            android:text="@string/tvName"
             android:textColor="#ffffff" />
 
         <TextView
