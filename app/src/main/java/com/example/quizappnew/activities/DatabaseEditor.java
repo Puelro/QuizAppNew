@@ -34,8 +34,6 @@ public class DatabaseEditor extends AppCompatActivity {
     Button buttonDropQuestionTable;
     Button buttonMenu;
 
-    private TextView id;
-
     private EditText sqlCommand;
     private EditText questionID;
 
@@ -61,10 +59,8 @@ public class DatabaseEditor extends AppCompatActivity {
         RecyclerView recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        //
-        adapter = new QuestionAdapter(this, appDatabase.getQuestions());
         // initiate QuestionAdapter
-        adapter = new QuestionAdapter(this, appDatabase.getQuestionListContents());
+        adapter = new QuestionAdapter(this, appDatabase.getQuestions());
         recyclerView.setAdapter(adapter);
 
         setButtons();
