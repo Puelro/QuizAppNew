@@ -15,16 +15,29 @@ import com.example.quizappnew.R;
 
 import com.example.quizappnew.database.QuestionContract.QuestionEntry;
 
+/**
+ *
+ */
 public class QuestionAdapter extends RecyclerView.Adapter<QuestionAdapter.QuestionViewHolder>{
     private Context context;
     private Cursor cursor;
 
-
+    /**
+     *
+     * @param _context
+     * @param _cursor
+     */
     public QuestionAdapter(Context _context, Cursor _cursor){
         this.context = _context;
         this.cursor = _cursor;
     }
 
+    /**
+     *
+     * @param parent
+     * @param viewType
+     * @return
+     */
     @NonNull
     @Override
     public QuestionViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -33,6 +46,11 @@ public class QuestionAdapter extends RecyclerView.Adapter<QuestionAdapter.Questi
         return new QuestionViewHolder(view);
     }
 
+    /**
+     *
+     * @param holder
+     * @param position
+     */
     @Override
     public void onBindViewHolder(@NonNull QuestionViewHolder holder, int position) {
         if(!this.cursor.moveToPosition(position)){
@@ -42,6 +60,10 @@ public class QuestionAdapter extends RecyclerView.Adapter<QuestionAdapter.Questi
         saveValuesInVariablesAndSetTextViews(holder);
     }
 
+    /**
+     *
+     * @param holder
+     */
     private void saveValuesInVariablesAndSetTextViews(@NonNull QuestionViewHolder holder) {
         int id = this.cursor.getInt(this.cursor.getColumnIndex(QuestionEntry._ID));
         String category = this.cursor.getString(this.cursor.getColumnIndex(QuestionEntry.COLUMN_CATEGORY));
@@ -68,11 +90,19 @@ public class QuestionAdapter extends RecyclerView.Adapter<QuestionAdapter.Questi
         holder.correctAnswer.setText(String.valueOf(correctAnswer));
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public int getItemCount() {
         return this.cursor.getCount();
     }
 
+    /**
+     *
+     * @param newCursor
+     */
     public void swapCursor(Cursor newCursor){
         if(this.cursor != null){
             Log.d("QuestionAdapter: ", "swapCursor: Cursor contents: " + DatabaseUtils.dumpCursorToString(cursor));
@@ -86,6 +116,9 @@ public class QuestionAdapter extends RecyclerView.Adapter<QuestionAdapter.Questi
         }
     }
 
+    /**
+     *
+     */
     class QuestionViewHolder extends RecyclerView.ViewHolder{
 
         public TextView idText;
@@ -98,7 +131,10 @@ public class QuestionAdapter extends RecyclerView.Adapter<QuestionAdapter.Questi
         public TextView answertext4Text;
         public TextView correctAnswer;
 
-
+        /**
+         *
+         * @param itemView
+         */
         public QuestionViewHolder(@NonNull View itemView) {
             super(itemView);
 
