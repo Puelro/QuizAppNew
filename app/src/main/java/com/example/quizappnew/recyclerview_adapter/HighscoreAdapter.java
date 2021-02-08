@@ -1,4 +1,4 @@
-package com.example.quizappnew.database;
+package com.example.quizappnew.recyclerview_adapter;
 
 import android.content.Context;
 import android.database.Cursor;
@@ -11,26 +11,21 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.quizappnew.R;
-
 import com.example.quizappnew.database.HighscoreContract.HighscoreEntry;
 
 /**
  * @author Kent Feldner
  */
 public class HighscoreAdapter extends RecyclerView.Adapter<HighscoreAdapter.HighscoreViewHolder> {
-    /**
-     *
-     */
+    /** The context for the layout inflater */
     private Context context;
-    /**
-     *
-     */
+    /** The cursor which will hold the rows of the highscore table */
     private Cursor cursor;
 
     /**
-     *
-     * @param _context
-     * @param _cursor
+     * initiates values
+     * @param _context The given context
+     * @param _cursor The cursor which hold the highscore data
      */
     public HighscoreAdapter(Context _context, Cursor _cursor) {
         this.context = _context;
@@ -38,10 +33,10 @@ public class HighscoreAdapter extends RecyclerView.Adapter<HighscoreAdapter.High
     }
 
     /**
-     *
-     * @param parent
-     * @param viewType
-     * @return
+     * Returns a HighscoreViewHolder
+     * @param parent default
+     * @param viewType default
+     * @return the onCreate Viewholder
      */
     @NonNull
     @Override
@@ -52,9 +47,9 @@ public class HighscoreAdapter extends RecyclerView.Adapter<HighscoreAdapter.High
     }
 
     /**
-     *
-     * @param holder
-     * @param position
+     * Moves the cursor to the given position and fills the HighscoreViewHolder with the new data
+     * @param holder the HighscoreViewHolder to fill
+     * @param position the postion the cursor will point at
      */
     @Override
     public void onBindViewHolder(@NonNull HighscoreViewHolder holder, int position) {
@@ -64,8 +59,8 @@ public class HighscoreAdapter extends RecyclerView.Adapter<HighscoreAdapter.High
     }
 
     /**
-     *
-     * @param holder
+     * Fills the textview of the HighscoreViewHolder
+     * @param holder The HighscoreViewholder
      */
     private void fillTextViews(@NonNull HighscoreViewHolder holder) {
 
@@ -81,8 +76,8 @@ public class HighscoreAdapter extends RecyclerView.Adapter<HighscoreAdapter.High
     }
 
     /**
-     *
-     * @return
+     * Get the count of items
+     * @return The count of items
      */
     @Override
     public int getItemCount() {
@@ -90,8 +85,8 @@ public class HighscoreAdapter extends RecyclerView.Adapter<HighscoreAdapter.High
     }
 
     /**
-     *
-     * @param newCursor
+     * Swaps the cursor and notifies Observers about the change
+     * @param newCursor the new cursor which holds the new data
      */
     public void swapCursor(Cursor newCursor) {
         if (this.cursor != null) {
@@ -106,8 +101,8 @@ public class HighscoreAdapter extends RecyclerView.Adapter<HighscoreAdapter.High
     }
 
     /**
-     *
-     */
+     * Inner class which extends Viewholder
+     * */
     class HighscoreViewHolder extends RecyclerView.ViewHolder {
 
         public TextView nameText;
@@ -115,11 +110,7 @@ public class HighscoreAdapter extends RecyclerView.Adapter<HighscoreAdapter.High
         public TextView maxDifficultyText;
         public TextView maxStreakText;
 
-        /**
-         *
-         * @param itemView
-         */
-        public HighscoreViewHolder(@NonNull View itemView) {
+        HighscoreViewHolder(@NonNull View itemView) {
             super(itemView);
 
             nameText = itemView.findViewById(R.id.tvName_item);

@@ -20,30 +20,38 @@ public class QuestionTableFiller {
     private static final String TAG = "DatabaseFiller";
 
     /**
-     * Drops the current Question table, recreates it and  fills it with default set of questions.
-     * The default set has to be in a .txt file which is saved under the path: app/src/main/res/raw
-     * @param ctx
-     * @param adb
-     * @param db
+     * Drops the current Question table, recreates it and  fills it with a default set of questions.
+     * The default set has to be in a .txt file and needs to be placed in the directory under the path: app/src/main/res/raw
+     * @param ctx A Context
+     * @param adb The singleton instance of the AppDatabase class
+     * @param db The Database
      */
     public static void dropAndFillTableQuestions(Context ctx, AppDatabase adb, SQLiteDatabase db){
+        // Load the questions.txt file from the path %app/res/raw into an InputStream
         InputStream inputStream = ctx.getResources().openRawResource(R.raw.questions);
 
+        // Load the InputStream into an InputStreamReader and load this one into a BufferedReader
         InputStreamReader inputreader = new InputStreamReader(inputStream);
         BufferedReader buffreader = new BufferedReader(inputreader);
 
+        // Drop the Table Questions and recreate it
         adb.dropAndRecreateTableQuestion(db);
 
+        // try to access the questions.txt file
         try {
 
+            // read the first line
             String line = buffreader.readLine();
 
+            // as long as there are lines
             while (line != null) {
-
+                // add the read questions into the Questions table
                 adb.addQuestion(db, line);
+                // read the next line
                 line = buffreader.readLine();
             }
 
+            // close everything
             buffreader.close();
             inputreader.close();
             inputStream.close();

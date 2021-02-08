@@ -12,11 +12,17 @@ import com.example.quizappnew.R;
 import com.example.quizappnew.database.AppDatabase;
 import com.example.quizappnew.database.QuestionTableFiller;
 
+/**
+ * @author Robin Püllen
+ */
 public class Menu extends AppCompatActivity {
 
-    Button buttonPlay;
-    Button buttonHighscore;
-    Button buttonOption;
+    /** UI element */
+    private Button buttonPlay;
+    /** UI element */
+    private Button buttonHighscore;
+    /** UI element */
+    private Button buttonOption;
 
     /**
      * initiate values

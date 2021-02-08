@@ -19,21 +19,33 @@ import android.widget.EditText;
 
 import com.example.quizappnew.R;
 import com.example.quizappnew.database.AppDatabase;
-import com.example.quizappnew.database.HighscoreAdapter;
+import com.example.quizappnew.recyclerview_adapter.HighscoreAdapter;
 import com.example.quizappnew.database.HighscoreContract;
 import com.example.quizappnew.database.HighscoreContract.HighscoreEntry;
 
+/**
+ * @author Robin Püllen / Kent Feldner
+ */
 public class Highscore extends AppCompatActivity {
     private static final String TAG = "Highscore";
 
-    SQLiteDatabase db;
-    AppDatabase appDatabase;
+    /**  The SQLite database  */
+    private SQLiteDatabase db;
+    /** The instance of the appDatabase class which is the interface to the database*/
+    private AppDatabase appDatabase;
 
-    EditText etxtName;
-    HighscoreAdapter adapter;
-    Button buttonAddHighscore;
-    Button buttonDropTableHighscores;
-    Button buttonMenu;
+    /**  The adapter which connects the highscore data for one row to the layout of the recyclerView */
+    private HighscoreAdapter adapter;
+
+    /** UI element for the name of the player */
+    private EditText etxtName;
+
+    /** UI Element */
+    private Button buttonAddHighscore;
+    /** UI Element */
+    private Button buttonDropTableHighscores;
+    /** UI Element */
+    private Button buttonMenu;
 
     /**
      * initiate values
@@ -75,9 +87,13 @@ public class Highscore extends AppCompatActivity {
         buttonMenu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(Highscore.this,Menu.class);
-                startActivity(intent);
-                finish();
+                if(isAfterGame()){
+                    createDropDialoGoBackToMainMenu();
+                }else{
+                    Intent intent = new Intent(Highscore.this, Menu.class);
+                    startActivity(intent);
+                    finish();
+                }
             }
         });
 
@@ -91,7 +107,7 @@ public class Highscore extends AppCompatActivity {
 
         // option to enter new Highscore only after a game and
         // if less than ten Highscores exist or new Highscore is higher than lowest Highscore
-        boolean scoreIsANewHighscore = isAfterGame() && ( hasLessThan10Entries() || pointsAreHigherThanLowestHighscore() );
+        boolean scoreIsANewHighscore = isAfterGame() && ( hasLessThan10Entries(db) || pointsAreHigherThanLowestHighscore() );
 
         if( scoreIsANewHighscore ){
             etxtName.setVisibility(View.VISIBLE);
@@ -102,7 +118,7 @@ public class Highscore extends AppCompatActivity {
         }
 
         // option to enter a name for new Highscore
-        // if no name is entered, name is "John Doe"
+        // if no name is entered, name is "Max Mustermann"
         buttonAddHighscore.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -115,7 +131,7 @@ public class Highscore extends AppCompatActivity {
                     name = "Max Mustermann";
                 }
 
-                if(!hasLessThan10Entries()){
+                if(!hasLessThan10Entries(db)){
                     removeLowestHighscore();
                 }
 
@@ -158,8 +174,8 @@ public class Highscore extends AppCompatActivity {
      * @return true if it's less than 10
      * @return false if it's 10
      */
-    public boolean hasLessThan10Entries() {
-        Cursor data = db.rawQuery("SELECT * FROM " + HighscoreContract.HighscoreEntry.TABLE_NAME, null);
+    public static boolean hasLessThan10Entries(SQLiteDatabase _db) {
+        Cursor data = _db.rawQuery("SELECT * FROM " + HighscoreContract.HighscoreEntry.TABLE_NAME, null);
         return data.getCount() < 10;
     }
 
@@ -170,7 +186,7 @@ public class Highscore extends AppCompatActivity {
      * @return false if new Score is lower
      */
     public boolean pointsAreHigherThanLowestHighscore() {
-        return getLowestHighscore() < getIntent().getLongExtra("FINAL_SCORE", -1);
+        return getLowestHighscore(db) < getIntent().getLongExtra("FINAL_SCORE", -1);
     }
 
     /**
@@ -178,10 +194,10 @@ public class Highscore extends AppCompatActivity {
      *
      * @return lowest Highscore
      */
-    private long getLowestHighscore() {
+    public static long getLowestHighscore(SQLiteDatabase _db) {
         long lowestHighscore;
 
-        Cursor data = db.rawQuery("SELECT * FROM " + HighscoreContract.HighscoreEntry.TABLE_NAME
+        Cursor data = _db.rawQuery("SELECT * FROM " + HighscoreContract.HighscoreEntry.TABLE_NAME
                 + " ORDER BY " + HighscoreContract.HighscoreEntry.COLUMN_POINTS + " ASC LIMIT 1", null);
 
         if(data.getCount() > 0){
@@ -224,7 +240,7 @@ public class Highscore extends AppCompatActivity {
      */
     @Override
     public void onBackPressed(){
-        boolean scoreIsANewHighscore = isAfterGame() && ( hasLessThan10Entries() || pointsAreHigherThanLowestHighscore() );
+        boolean scoreIsANewHighscore = isAfterGame() && ( hasLessThan10Entries(db) || pointsAreHigherThanLowestHighscore() );
 
         if(scoreIsANewHighscore){
             createDropDialoGoBackToMainMenu();

@@ -15,24 +15,16 @@ import com.example.quizappnew.database.QuestionContract.QuestionEntry;
  * @author Kent Feldner
  */
 public class AppDatabase extends SQLiteOpenHelper {
-    /**
-     * The Tag used in Log messages
-     */
+    /** The Tag used in Log messages */
     private static final String TAG = "AppDatabase";
 
-    /**
-     * The name of the Database
-     */
+    /** The name of the Database */
     public static final String DATABASE_NAME = "QuizApp.db";
 
-    /**
-     * The hardcoded version number of the Database
-     */
+    /** The hardcoded version number of the Database */
     public static final int DATABASE_VERSION = 1;
 
-    /**
-     * The reference to the only instance of the class
-     */
+    /** The reference to the only instance of the class */
     private static AppDatabase instance = null;
 
     /**
@@ -59,10 +51,11 @@ public class AppDatabase extends SQLiteOpenHelper {
     }
 
     /**
-     *
-     * @param db
-     * @param oldVersion
-     * @param newVersion
+     * Normally logic to keep the structure of the database in order with the application-logic
+     * of the current Version. This method was not needed in this project
+     * @param db the Database
+     * @param oldVersion the previous Version
+     * @param newVersion the Version to upgrade to
      */
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
@@ -157,6 +150,11 @@ public class AppDatabase extends SQLiteOpenHelper {
         createQuestionTable(db);
     }
 
+    /**
+     * Drops the Highscore-table and creates it again
+     *
+     * @param db The database on which is worked on
+     */
     public void dropAndRecreateTableHighscore(SQLiteDatabase db){
         db.execSQL("DROP TABLE IF EXISTS " + HighscoreContract.HighscoreEntry.TABLE_NAME + ";");
         createHighscoreTable(db);
@@ -176,8 +174,8 @@ public class AppDatabase extends SQLiteOpenHelper {
     }
 
     /**
-     * 
-     * @return
+     * Returns all Highscore Entries in descending order, ordered by the points
+     * @return A Cursor with all
      */
     public Cursor getHighscoresInDescendingOrder(){
         SQLiteDatabase db = this.getWritableDatabase();
@@ -208,21 +206,28 @@ public class AppDatabase extends SQLiteOpenHelper {
     /**
      * Returns all Questions of the Questions-table
      *
-     * @param difficulty
-     * @param category
+     * @param _difficulty
+     * @param _category
      * @return A cursor which holds all Questions-Items
      */
-    public Cursor getFilteredQuestions(int difficulty, String category) {
+    public Cursor getFilteredQuestions(int _difficulty, String _category) {
         SQLiteDatabase db = this.getWritableDatabase();
         String categoryWhereClause = "";
 
-        if (category != null && !category.trim().equals("")) {
-            categoryWhereClause = " AND " + QuestionEntry.COLUMN_CATEGORY + "=" + category;
+        // if the String category is not null or empty
+        if (_category != null && !_category.trim().equals("")) {
+            // Create a WHERE-clause with the passed _category
+            categoryWhereClause = " AND " + QuestionEntry.COLUMN_CATEGORY + "=" + _category;
         }
 
+        /*
+        * Initialize and fill a cursor with all Questions which
+        * match the passed difficulty and category
+        * if the category is empty or null, the WHERE-clause is an empty String.
+        */
         Cursor data = db.rawQuery("SELECT * FROM " +
                 QuestionContract.QuestionEntry.TABLE_NAME +
-                " WHERE " + QuestionEntry.COLUMN_DIFFICULTY + "=" + difficulty +
+                " WHERE " + QuestionEntry.COLUMN_DIFFICULTY + "=" + _difficulty +
                 categoryWhereClause, null);
 
         Log.d(TAG, "getFilteredQuestions: FilteredCursorcontent: " + DatabaseUtils.dumpCursorToString(data));
@@ -230,8 +235,8 @@ public class AppDatabase extends SQLiteOpenHelper {
     }
 
     /**
-     *
-     * @param db
+     * Creates the Questiontable according to the {@link QuestionContract}
+     * @param db The Database which will hold the table
      */
     private void createQuestionTable(SQLiteDatabase db) {
         String sSQL =
@@ -257,8 +262,8 @@ public class AppDatabase extends SQLiteOpenHelper {
     }
 
     /**
-     *
-     * @param db
+     *      Creates the Highscoretable according to the {@link HighscoreContract}
+     *      @param db The Database which will hold the table
      */
     private void createHighscoreTable(SQLiteDatabase db) {
         String sSQL = "CREATE TABLE IF NOT EXISTS " + HighscoreContract.HighscoreEntry.TABLE_NAME + " ("
@@ -278,9 +283,10 @@ public class AppDatabase extends SQLiteOpenHelper {
     }
 
     /**
+     * Removes the Highscore with the passed ID
      *
-     * @param db
-     * @param _id
+     * @param db  The database
+     * @param _id ID of the Highscore
      */
     public void removeHighscoreByID(SQLiteDatabase db, long _id) {
         int result = db.delete(HighscoreContract.HighscoreEntry.TABLE_NAME, HighscoreContract.HighscoreEntry._ID + "=" + _id, null);

@@ -2,18 +2,19 @@ package com.example.quizappnew.database;
 import android.provider.BaseColumns;
 
 /**
- *
+ * The naming contract for the Question table in the Database
  */
 public class QuestionContract {
 
     /**
-     *
+     *  Overrides the default constructor with a private version so QuestionContract can't be instantiated
      */
     private QuestionContract(){
     }
 
     /**
-     *
+     * The information holder of the QuestionContract
+     * Centralises the naming of the table/columns and makes it easy to maintain
      */
     public static final class QuestionEntry implements BaseColumns {
         public static final String TABLE_NAME = "Question";

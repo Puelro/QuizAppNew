@@ -1,4 +1,4 @@
-package com.example.quizappnew.database;
+package com.example.quizappnew.recyclerview_adapter;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.DatabaseUtils;
@@ -16,16 +16,18 @@ import com.example.quizappnew.R;
 import com.example.quizappnew.database.QuestionContract.QuestionEntry;
 
 /**
- *
+ * @author Kent Feldner
  */
 public class QuestionAdapter extends RecyclerView.Adapter<QuestionAdapter.QuestionViewHolder>{
+    /** The context for the layout inflater */
     private Context context;
+    /** The cursor which will hold the rows of the question table */
     private Cursor cursor;
 
     /**
-     *
-     * @param _context
-     * @param _cursor
+     * initiates values
+     * @param _context The given context
+     * @param _cursor The cursor which hold the question data
      */
     public QuestionAdapter(Context _context, Cursor _cursor){
         this.context = _context;
@@ -33,10 +35,10 @@ public class QuestionAdapter extends RecyclerView.Adapter<QuestionAdapter.Questi
     }
 
     /**
-     *
-     * @param parent
-     * @param viewType
-     * @return
+     * Returns a QuestionViewHolder
+     * @param parent default
+     * @param viewType default
+     * @return the onCreate QuestionViewholder
      */
     @NonNull
     @Override
@@ -47,9 +49,9 @@ public class QuestionAdapter extends RecyclerView.Adapter<QuestionAdapter.Questi
     }
 
     /**
-     *
-     * @param holder
-     * @param position
+     * Moves the cursor to the given position and fills the QuestionViewHolder with the new data
+     * @param holder the QuestionViewHolder to fill
+     * @param position the postion the cursor will point at
      */
     @Override
     public void onBindViewHolder(@NonNull QuestionViewHolder holder, int position) {
@@ -61,8 +63,8 @@ public class QuestionAdapter extends RecyclerView.Adapter<QuestionAdapter.Questi
     }
 
     /**
-     *
-     * @param holder
+     * Fills the textview of the QuestionViewHolder
+     * @param holder The QuestonViewHolder
      */
     private void saveValuesInVariablesAndSetTextViews(@NonNull QuestionViewHolder holder) {
         int id = this.cursor.getInt(this.cursor.getColumnIndex(QuestionEntry._ID));
@@ -91,8 +93,8 @@ public class QuestionAdapter extends RecyclerView.Adapter<QuestionAdapter.Questi
     }
 
     /**
-     *
-     * @return
+     * Get the count of items
+     * @return The count of items
      */
     @Override
     public int getItemCount() {
@@ -100,8 +102,8 @@ public class QuestionAdapter extends RecyclerView.Adapter<QuestionAdapter.Questi
     }
 
     /**
-     *
-     * @param newCursor
+     * Swaps the cursor and notifies Observers about the change
+     * @param newCursor the new cursor which holds the new data
      */
     public void swapCursor(Cursor newCursor){
         if(this.cursor != null){
@@ -117,7 +119,7 @@ public class QuestionAdapter extends RecyclerView.Adapter<QuestionAdapter.Questi
     }
 
     /**
-     *
+     * Inner class which extends Viewholder
      */
     class QuestionViewHolder extends RecyclerView.ViewHolder{
 
@@ -131,10 +133,6 @@ public class QuestionAdapter extends RecyclerView.Adapter<QuestionAdapter.Questi
         public TextView answertext4Text;
         public TextView correctAnswer;
 
-        /**
-         *
-         * @param itemView
-         */
         public QuestionViewHolder(@NonNull View itemView) {
             super(itemView);
 

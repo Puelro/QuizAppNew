@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.ContentValues;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
@@ -14,27 +15,39 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 
 import com.example.quizappnew.R;
 import com.example.quizappnew.database.AppDatabase;
-import com.example.quizappnew.database.QuestionAdapter;
+import com.example.quizappnew.database.QuestionTableFiller;
+import com.example.quizappnew.recyclerview_adapter.QuestionAdapter;
 import com.example.quizappnew.database.QuestionContract;
 
+/**
+ * @author Robin Püllen / Kent Feldner
+ */
 public class DatabaseEditor extends AppCompatActivity {
     private static final String TAG = "DatabaseEditor";
 
+    /**  The SQLite database  */
     private SQLiteDatabase db;
+    /** The instance of the appDatabase class which is the interface to the database*/
     private AppDatabase appDatabase;
 
+    /**  The adapter which connects the question data for one row to the layout of the recyclerView */
     private QuestionAdapter adapter;
 
-    Button buttonAddQuestion;
-    Button buttonDeleteQuestion;
-    Button buttonDropQuestionTable;
-    Button buttonMenu;
+    /**  UI element  */
+    private Button buttonAddQuestion;
+    /**  UI element  */
+    private Button buttonDeleteQuestion;
+    /**  UI element  */
+    private Button buttonDropQuestionTable;
+    /**  UI element  */
+    private Button buttonMenu;
 
+    /**  UI element  */
     private EditText sqlCommand;
+    /**  UI element  */
     private EditText questionID;
 
 
@@ -66,66 +79,6 @@ public class DatabaseEditor extends AppCompatActivity {
         setButtons();
     } // end onCreate()
 
-
-
-    /**
-     * Remove all Questions from Database
-     */
-    private void createDropDialogDropQuestionTable(){
-        AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
-        alertDialog.setMessage("Willst du wirklich die Datentabelle ''Question'' löschen?");
-        alertDialog.setCancelable(false);
-
-        //confirm choice to remove questions
-        alertDialog.setPositiveButton("Ja", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                appDatabase.dropAndRecreateTableQuestion(db);
-                adapter.swapCursor(appDatabase.getQuestions());
-            }
-        });
-
-        //don't remove questions
-        alertDialog.setNegativeButton("Nein", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                //Nothing
-            }
-        });
-
-        alertDialog.create().show();
-    }
-
-
-    /**
-     * Remove a Question from Database by id
-     *
-     * @param _id id of the question that should be removed
-     */
-    private void createDropDialogDropRow(int _id){
-        AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
-        alertDialog.setMessage("Willst du wirklich die Frage mit der ID : " + _id  + "löschen?");
-        alertDialog.setCancelable(false);
-
-        //confirm choice to remove question
-        alertDialog.setPositiveButton("Ja", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                appDatabase.removeQuestionByID(db, (long) _id);
-                adapter.swapCursor(appDatabase.getQuestions());
-            }
-        });
-
-        //don't remove question
-        alertDialog.setNegativeButton("Nein", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                //Nothing
-            }
-        });
-
-        alertDialog.create().show();
-    }
 
     /**
      * initiate buttons
@@ -194,6 +147,66 @@ public class DatabaseEditor extends AppCompatActivity {
             startActivity(intent);
             finish();
         });
+    }
+
+    /**
+     * Remove all Questions from Database
+     */
+    private void createDropDialogDropQuestionTable(){
+        AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
+        alertDialog.setMessage("Willst du wirklich die Datentabelle ''Question'' zurück setzen?");
+        alertDialog.setCancelable(false);
+
+
+        Context context = this;
+        //confirm choice to remove questions
+        alertDialog.setPositiveButton("Ja", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                QuestionTableFiller.dropAndFillTableQuestions(context, appDatabase, db);
+                adapter.swapCursor(appDatabase.getQuestions());
+            }
+        });
+
+        //don't remove questions
+        alertDialog.setNegativeButton("Nein", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                //Nothing
+            }
+        });
+
+        alertDialog.create().show();
+    }
+
+    /**
+     * Remove a Question from Database by id
+     *
+     * @param _id id of the question that should be removed
+     */
+    private void createDropDialogDropRow(int _id){
+        AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
+        alertDialog.setMessage("Willst du wirklich die Frage mit der ID : " + _id  + " löschen?");
+        alertDialog.setCancelable(false);
+
+        //confirm choice to remove question
+        alertDialog.setPositiveButton("Ja", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                appDatabase.removeQuestionByID(db, (long) _id);
+                adapter.swapCursor(appDatabase.getQuestions());
+            }
+        });
+
+        //don't remove question
+        alertDialog.setNegativeButton("Nein", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                //Nothing
+            }
+        });
+
+        alertDialog.create().show();
     }
 
     /**
