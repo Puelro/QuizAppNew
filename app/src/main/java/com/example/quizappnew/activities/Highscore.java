@@ -37,13 +37,13 @@ public class Highscore extends AppCompatActivity {
     /**  The adapter which connects the highscore data for one row to the layout of the recyclerView */
     private HighscoreAdapter adapter;
 
+
     /** UI element for the name of the player */
     private EditText etxtName;
 
     /** UI Element */
     private Button buttonAddHighscore;
-    /** UI Element */
-    private Button buttonDropTableHighscores;
+
     /** UI Element */
     private Button buttonMenu;
 
@@ -73,15 +73,6 @@ public class Highscore extends AppCompatActivity {
      * initiates buttons
      */
     private void setButtons(){
-
-        buttonDropTableHighscores = findViewById(R.id.btnDropHighscores);
-        buttonDropTableHighscores.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                appDatabase.dropAndRecreateTableHighscore(db);
-                adapter.swapCursor(appDatabase.getHighscoresInDescendingOrder());
-            }
-        });
 
         buttonMenu = findViewById(R.id.btnMenuHighscore);
         buttonMenu.setOnClickListener(new View.OnClickListener() {

@@ -23,10 +23,10 @@
         android:id="@+id/btnDropQuestionTable"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="400dp"
-        android:layout_marginLeft="400dp"
+        android:layout_marginStart="365dp"
+        android:layout_marginLeft="365dp"
         android:layout_marginBottom="16dp"
-        android:text="Setzte Fragen zurück"
+        android:text="Tabelle Zurücksetzen"
         app:backgroundTint="#F29111"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
