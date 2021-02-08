@@ -150,21 +150,11 @@
         android:orientation="horizontal">
 
         <Button
-            android:id="@+id/btnDropHighscores"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="400dp"
-            android:layout_marginLeft="400dp"
-            android:layout_marginTop="470dp"
-            android:text="Tabelle löschen"
-            app:backgroundTint="#F29111" />
-
-        <Button
             android:id="@+id/btnMenuHighscore"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="240dp"
-            android:layout_marginLeft="240dp"
+            android:layout_marginStart="800dp"
+            android:layout_marginLeft="800dp"
             android:layout_marginTop="470dp"
             android:text="@string/btnMenu"
             app:backgroundTint="#F29111" />

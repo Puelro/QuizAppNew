@@ -32,7 +32,6 @@ public class Highscore extends AppCompatActivity {
     EditText etxtName;
     HighscoreAdapter adapter;
     Button buttonAddHighscore;
-    Button buttonDropTableHighscores;
     Button buttonMenu;
 
     /**
@@ -61,15 +60,6 @@ public class Highscore extends AppCompatActivity {
      * initiates buttons
      */
     private void setButtons(){
-
-        buttonDropTableHighscores = findViewById(R.id.btnDropHighscores);
-        buttonDropTableHighscores.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                appDatabase.dropAndRecreateTableHighscore(db);
-                adapter.swapCursor(appDatabase.getHighscoresInDescendingOrder());
-            }
-        });
 
         buttonMenu = findViewById(R.id.btnMenuHighscore);
         buttonMenu.setOnClickListener(new View.OnClickListener() {
