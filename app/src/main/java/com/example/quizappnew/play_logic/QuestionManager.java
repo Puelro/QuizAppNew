@@ -3,7 +3,6 @@ package com.example.quizappnew.play_logic;
 import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.DatabaseUtils;
-import android.util.Log;
 
 import com.example.quizappnew.activities.Play;
 import com.example.quizappnew.database.AppDatabase;

@@ -3,18 +3,15 @@ package com.example.quizappnew.activities;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.ContentValues;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
 import android.os.CountDownTimer;
-import android.widget.Toast;
 
 import com.example.quizappnew.R;
 import com.example.quizappnew.database.QuestionContract;
@@ -37,7 +34,7 @@ public class Play extends AppCompatActivity {
      * The time one level lasts
      * If the needed points are reached the levelTimer should be reset to this value
      */
-    int levelTimeSeconds = 30;
+    int levelTimeSeconds = 60;
 
     /** The instance of the {@link TextViewManager} */
     TextViewManager textViewManager;
@@ -207,7 +204,7 @@ public class Play extends AppCompatActivity {
                     }, 0, 100); // end inner timer.shedule
                 }  // end outer else
             } // end outer if
-        }, 5000); // end handler.postDelayed
+        }, 10000); // end handler.postDelayed
     } // end joker50_50
 
     /**
